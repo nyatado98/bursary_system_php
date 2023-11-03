@@ -399,7 +399,7 @@ unset($_SESSION['m']);
 												
 												<td class="text-center">	
 												 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a>  -->
-												<a href=""class="btn btn-success" data-toggle="modal" data-target="#Approve<?php echo $val['reference_number'];?>">Approve</a>
+												<a href=""class="btn btn-success" data-toggle="modal" data-target="#Approve<?php echo $val['reference_number'];?>">Reconcile</a>
 											 <!-- approve record  -->
 											<div id="Approve<?php echo $val['reference_number'];?>" class="modal fade" role="dialog">
 												<div class="modal-dialog">

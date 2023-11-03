@@ -2,10 +2,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 <title>BMS</title>
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- Favicon -->
-<link rel="shortcut icon" href="./images/logo.png">
+<link rel="shortcut icon" href="./images/nandi.png">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
 
@@ -25,5 +25,5 @@
 <link rel="stylesheet" href="./css/style.css">
 <!-- Main CSS -->
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu8tAPbW80jEzW0Yuh86M83xqSD3eqKJk"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu8tAPbW80jEzW0Yuh86M83xqSD3eqKJk"></script> -->
     </head>

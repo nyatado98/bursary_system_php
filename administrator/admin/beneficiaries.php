@@ -9,8 +9,8 @@ $email = $_SESSION['email'];
 $sql = "SELECT * FROM beneficiary_upload";
 $result = mysqli_query($conn, $sql);
 
-$document_name = $document= "";
-$document_err = $document_name_err = "";
+$document_name = $document= $ward = $location = $sub_location = "";
+$document_err = $document_name_err = $ward_err = $location_err = $sub_location_err = "";
 $errors = $message ="";
 if(isset($_POST['upload'])){
 	if(empty(trim($_POST['document_name']))){
@@ -64,13 +64,13 @@ if(isset($_GET['download'])){
     // flush();
     // readfile($download);
 // 	// Get the path to the file.
-$filePath = 'beneficiary_uploads/"'.$download.'"';
+$filePath = 'beneficiary_uploads/"'.basename($download).'"';
 
 // Set the Content-Type header.
 header('Content-Type: application/octet-stream');
 
 // Set the Content-Disposition header.
-header('Content-Disposition: attachment; filename="'.$download.'"');
+header('Content-Disposition: attachment; filename="'.basename($download).'"');
 
 // Read the file from the server and output it to the browser.
 readfile($filePath);
@@ -197,8 +197,41 @@ readfile($filePath);
                                     
                                            <label class="font-weight-bold">select Document :</label>
                                             <input type="file" name="document" class="form-control" id="" placeholder="choose a document" required >
+											<span class="text-danger"><?php echo $document_err;?></span><br>
+                                            <label class="font-weight-bold">select Ward :</label>
+                                            <select name="ward" class="form-control" id="">
+											<option>--select ward--</option>
+											<option>Ziwa</option>
+                                                            <option>Soy</option>
+                                                            <option>Kipsomba</option>
+                                                            <option>Kaptagat</option>
+                                                            <option>Kapsoya</option>
+                                                            <option>Moiben</option>
+											</select>
+                                            <span class="text-danger"><?php echo $ward_err;?></span><br>
+                                            <label class="font-weight-bold">select Location :</label>
+                                            <select name="location" class="form-control" id="" placeholder="-select location-">
+											<option>--select location--</option>
+																		<option>Jerusalem</option>
+																		<option>Munyaka</option>
+																		<option>Ziwa</option>
+																		<option>Ilula</option>
+																		<option>Block10</option>
+																		<option>Subaru</option>
+																		<option>Vet</option>
+											</select>
+                                            <span class="text-danger"><?php echo $location_err;?></span><br>
+                                            <label class="font-weight-bold">select Sub-location :</label>
+                                            <select name="sub_location" class="form-control" id="">
+											<option>--select sub-location--</option>
+											<option>Subaru</option>
+                                                            <option>Bondeni</option>
+                                                            <option>Kamkunji</option>
+                                                            <option>Airstrip</option>
+											</select>
+                                            <span class="text-danger"><?php echo $sub_location_err;?></span><br>
                                             
-                                            <span class="text-danger"><?php echo $document_err;?></span><br>
+                                            
                                            
                                             <input type="submit" value="U P L O A D" name="upload" class="btn btn-success form-control mt-2">
                                            </form>

@@ -52,7 +52,7 @@ if(isset($_POST["approve"])){
 	while($row = $mysql->fetch_assoc()){
 		if($row["status"] == "Approved"){
 
-			$message = "Application Already Approved for reference number <strong>".$ref_no."</strong>. You cannot approve again.";
+			$message = "Application Already Reconciled for reference number <strong>".$ref_no."</strong>. You cannot reconcile again.";
 			$_SESSION['message'] = $message;
 			header("location:dashboard?message=");
 	}else{
@@ -99,7 +99,7 @@ if(isset($_POST["approve"])){
 		   $mail ->AddAddress($mailto);
 		
 		   $mail->Send();
-			$mssg = "Application for reference number ".$ref_no." approved successfully and mail has been sent to applicant.";
+			$mssg = "Application for reference number ".$ref_no." reconciled successfully and mail has been sent to applicant.";
 			$_SESSION['mssg'] = $mssg;
 			header("location:dashboard?mssg=");
 		   }else{
@@ -131,7 +131,7 @@ if(isset($_POST["approve"])){
 		   $mail ->AddAddress($mailto);
 		
 		   $mail->Send();
-		   $mssg = "Application for reference number ".$ref_no." approved successfully and mail has been sent to applicant.";
+		   $mssg = "Application for reference number ".$ref_no." reconciled successfully and mail has been sent to applicant.";
 		   $_SESSION['mssg'] = $mssg;
 			header("location:dashboard?mssg=");
 			
@@ -437,7 +437,7 @@ if(isset($_POST["approve"])){
 												</td>
 												<td class="text-center">
 												 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-												<a href="" data-toggle="modal" data-target="#Approve<?php echo $val['id'];?>" class="btn btn-success">Approve</a>
+												<a href="" data-toggle="modal" data-target="#Approve<?php echo $val['id'];?>" class="btn btn-success">Reconcile</a>
 											 <!-- approve record  -->
 											<div id="Approve<?php echo $val['id'];?>" class="modal fade" role="dialog">
 												<div class="modal-dialog">
@@ -449,7 +449,7 @@ if(isset($_POST["approve"])){
 									
 															<div class="modal-header" style="background: #398AD7; color: #fff;">
 																<button type="button" class="close" data-dismiss="modal">&times;</button>
-																<h4 class="modal-title">Approve</h4>
+																<h4 class="modal-title">Reconcile</h4>
 															</div>
 									
 															<div class="modal-body">
