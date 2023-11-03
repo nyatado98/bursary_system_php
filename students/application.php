@@ -22,7 +22,7 @@ $app_ref ='BUR' .rand(1000,9999);
 $firstname = $lastname = $fullname = $gender = $age = $reg_no = $parent_guardian_name = $phone = $occupation = $family_status = $email = $id_no = $county = $ward = $location = $sub_location = $school_level = $school_name = $bank_name = $account_no = $school_doc = $fee_structure = "";
 
 $firstname_err = $lastname_err = $fullname_err = $gender_err = $age_err = $reg_no_err = $parent_guardian_name_err = $phone_err = $occupation_err = $family_status_err = $email_err = $id_no_err = $county_err = $ward_err = $location_err = $sub_location_err = $school_level_err = $school_name_err = $bank_name_err = $account_no_err = $school_doc_err = $fee_structure_err = "";
-
+$errors = "";
 if(isset($_POST['apply'])){
     if(empty($_POST['firstname'])){
         $firstname_err = "Please enter student firstname";
@@ -120,10 +120,31 @@ if(isset($_POST['apply'])){
     // }else{
     //     $bank_name = trim($_POST['bank_name']);
     // }
-    if(empty($_POST['school_doc'])){
+    $name = $_FILES['school_doc']['name'];
+    if(empty($name)){
         $school_doc_err = "Please choose a document";
     }else{
-        $school_doc = trim($_POST['school_doc']);
+        
+             //insert uploads/school doc
+             
+
+             $target = "students_upload/";
+             $target_file =$target . basename($_FILES["school_doc"]["name"]);
+             $fileName = basename($_FILES["school_doc"]["name"]);
+             $file_size = $_FILES["school_doc"]["size"];
+             $file_type = $_FILES["school_doc"]["type"];
+             $tmp_name = $_FILES['school_doc']['tmp_name'];
+            
+             $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+         
+             $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
+             if (!in_array($file_ext, $extensions)) {
+                 $school_doc_err = "The file type is not allowed...Please choose another file";
+             }
+             elseif ($file_size > 5000) {
+                 $school_doc_er = "The file size is too large....choose another file which is 5MB or less";
+             }
+        
         // $tmp_name_doc = $_FILES['school_doc']['tmp_name'];
     }
     if(empty($_POST['fee_structure'])){
@@ -165,27 +186,7 @@ if(isset($_POST['apply'])){
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
-            //insert uploads/school doc
-            $name = $_FILES['school_doc']['name'];
-
-	$target = "students_upload/";
-    $target_file =$target . basename($_FILES["school_doc"]["name"]);
-    $fileName = basename($_FILES["school_doc"]["name"]);
-    $file_size = $_FILES["school_doc"]["size"];
-    $file_type = $_FILES["school_doc"]["type"];
-    $tmp_name = $_FILES['school_doc']['tmp_name'];
-   
-
-    //
-    $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-    $extensions = array("jpeg","jpg","png","gif","mp3","mp4","pdf","txt","doc","jfif","docx","zip");
-    if (!in_array($file_ext, $extensions)) {
-    	$errors = "The file type is not allowed...Please choose another file";
-    }
-    if ($file_size < 0) {
-    	$errors = "The file size is invalid...choose another file";
-    }
+       
 
     $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
     $query = mysqli_query($conn,$sql);
@@ -733,9 +734,9 @@ if(isset($_POST['apply'])){
 
                                                     <div class="col-md-6">
                                                         <label class="font-weight-bold">School ID/School adm. letter Upload : (LIMIT 5Mbs)</label>
-                                                        <input type="file" name="school_doc" class="form-control <?php echo $school_doc_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="" value="<?php echo $school_doc;?>">
-                                                        
-                                                    <span class="text-danger"><?php echo $school_doc_err;?></span>
+                                                        <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="" value="<?php echo $name;?>">
+                                                        <span class="text-danger"><?php print_r($errors);?></span>
+                                                    <span class="text-danger"><?php echo $school_doc_err;?></span><br>
                                                     </div>
                                                 </div>
                                                 <input type="submit" name="apply" class="btn mt-5 font-weight-bold mb-4" style="float: right;color:white;background-color:#166651" value="SUBMIT APPLICATION">
