@@ -6,6 +6,13 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 	exit;
 }
 
+ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
+
+include('php.ini');
+
+// Get the value of the upload_max_filesize directive.
+// $uploadMaxFilesize = ini_get('upload_max_filesize');
+
 //load composer autoloader
 require 'vendor/autoload.php';
  require 'vendor/phpmailer/phpmailer/src/Exception.php';
@@ -141,16 +148,32 @@ if(isset($_POST['apply'])){
              if (!in_array($file_ext, $extensions)) {
                  $school_doc_err = "The file type is not allowed...Please choose another file";
              }
-             elseif ($file_size > 5000) {
-                 $school_doc_er = "The file size is too large....choose another file which is 5MB or less";
+             elseif ($file_size > 5242880 || $file_size <= 0) {
+                 $school_doc_err = "The file size is too large....choose another file which is 5MB or less";
              }
-        
-        // $tmp_name_doc = $_FILES['school_doc']['tmp_name'];
     }
-    if(empty($_POST['fee_structure'])){
+    $fee_name = $_FILES['fee_structure']['name'];
+
+    if(empty($fee_name)){
         $fee_structure_err = "Please select fee structure document";
     }else{
-        $fee_structure = trim($_POST['fee_structure']);
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
     }
     // if(empty($_POST['account_no'])){
     //     $account_no_err = "Please enter account number";
@@ -158,7 +181,7 @@ if(isset($_POST['apply'])){
     //     $account_no = trim($_POST['account_no']);
     // }
     if(empty($fullname_err) && empty($age_err)&& empty($gender_err)&& empty($parent_guardian_name_err)&& empty($phone_err) && empty($email_err) && empty($id_no_err)&& empty($county_err)&& empty($ward_err)&& empty($location_err)&& empty($sub_location_err)
-    && empty($adm_upi_reg_no_err) && empty($school_level_err)&& empty($school_name_err)){
+    && empty($adm_upi_reg_no_err) && empty($school_level_err)&& empty($school_name_err)&& empty($school_doc_err)&& empty($fee_structure_err)){
         $fullname = $firstname.' '.$lastname;
     $sql = "SELECT * FROM applications WHERE student_fullname ='$fullname' AND year = '$year'";
     $result = mysqli_query($conn,$sql);
@@ -188,26 +211,26 @@ if(isset($_POST['apply'])){
 
        
 
-    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','$fee_fileName','$current_date','$current_date')";
     $query = mysqli_query($conn,$sql);
     if($query){
         move_uploaded_file($tmp_name,$target.$name);
-
+        move_uploaded_file($tmp_name,$target.$fee_name);
          //insert uploads/fee_structure
-        $name = $_FILES['fee_structure']['name'];
+        // $name = $_FILES['fee_structure']['name'];
 
-        $target = "students_upload/";
-        $target_file =$target . basename($_FILES['fee_structure']['name']);
-        $file = basename($_FILES['fee_structure']['name']);
-        $file_size = $_FILES['fee_structure']['size'];
-        $file_type = $_FILES['fee_structure']['type'];
-        $tmp_name = $_FILES['fee_structure']['tmp_name'];
+        // $target = "students_upload/";
+        // $target_file =$target . basename($_FILES['fee_structure']['name']);
+        // $file = basename($_FILES['fee_structure']['name']);
+        // $file_size = $_FILES['fee_structure']['size'];
+        // $file_type = $_FILES['fee_structure']['type'];
+        // $tmp_name = $_FILES['fee_structure']['tmp_name'];
 
-        $sql = "UPDATE students_uploads SET fee_structure = '$file' WHERE reference_number = '$app_ref'";
-        $r = mysqli_query($conn,$sql);
-        if($r){
-        move_uploaded_file($tmp_name,$target.$name);
-        }
+        // $sql = "UPDATE students_uploads SET fee_structure = '$file' WHERE reference_number = '$app_ref'";
+        // $r = mysqli_query($conn,$sql);
+        // if($r){
+        // move_uploaded_file($tmp_name,$target.$name);
+        // }
         
     }
 
