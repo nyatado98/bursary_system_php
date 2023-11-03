@@ -8,7 +8,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 
 ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
 
-include('php.ini');
+// include('php.ini');
 
 // Get the value of the upload_max_filesize directive.
 // $uploadMaxFilesize = ini_get('upload_max_filesize');
@@ -240,8 +240,7 @@ if(isset($_POST['apply'])){
             //send mail
             $mailto = $email;
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
-			Thank You.\n";
+			$mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
 		
 			$mail ->IsSmtp();
 		   $mail ->SMTPDebug = 0;
@@ -272,8 +271,9 @@ if(isset($_POST['apply'])){
             //send mail
             $mailto = $email;
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
-			Thank You.\n";
+			// $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
+			// Thank You.\n";
+            $mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
 		
 			$mail ->IsSmtp();
 		   $mail ->SMTPDebug = 0;
