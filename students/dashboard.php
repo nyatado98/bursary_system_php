@@ -59,10 +59,10 @@ if(isset($_POST['edit'])){
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="./images/log_1.png" alt="Logo">
+						<img src="./images/nandi.png" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<img src="./images/log_1.png" alt="Logo" width="30" height="30">
+						<img src="./images/nandi.png" alt="Logo" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->

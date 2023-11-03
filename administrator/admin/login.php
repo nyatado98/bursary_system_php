@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon"href="images/log_1.png">
+    <link rel="shortcut icon"href="images/nandi.png">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>
     <title>Login page:</title>
@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <div class="row" style="border: .1px light black">
         <div class="col-md-6">
             
-            <div class="card-header jalign-item-center" style="background-image: url('images/log_1.png');background-position:center;background-repeat:no-repeat;height:50vh">
+            <div class="card-header jalign-item-center" style="background-image: url('images/nandi.png');background-position:center;background-repeat:no-repeat;height:50vh">
                 
                 <h4 class="text-center font-weight-bold">LOGIN HERE</h4>
             </div>
