@@ -289,6 +289,9 @@ if(isset($_POST['apply'])){
     margin-top:-8px;
 
 }
+.select-option input{
+    cursor:pointer;
+}
 .search{
     padding:20px;
 }
@@ -303,23 +306,27 @@ if(isset($_POST['apply'])){
     border:1px solid #b3b3b3;
 }
 .options{
+    border:1px solid #333;
     padding:0;
     margin-top:10px;
     overflow-y: auto;
-    max-height: 250px;
+    max-height: 200px;
 }
 .options li{
     padding :10px 15px;
-    border-radius: 5px;
-    font-size:21px;
+    /* border-radius: 5px; */
+    font-size:15px;
     cursor:pointer;
     border-bottom: 1px solid gray;
 }
 .options li:hover{
     background-color: #b2b2b2;
 }
-.select-box.active .content{
+.select-box.active .contents{
     display:block;
+}
+.select-box.active .select-option:after{
+    transform: rotate(-180deg);
 }
 </style>
     <body>
@@ -662,24 +669,25 @@ if(isset($_POST['apply'])){
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label class="font-weight-bold">School name :</label>
-                                                    <div classs="select-box">
+                                                    <div class="select-box">
                                                     <div class="select-option">
-                                                    <input type="text" name="" class="form-control" id="soValue" placeholder="select" readonly>
+                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school name-" readonly>
                                                     </div>
-                                                    <div class="contents">
+                                                    <div class="contents" id="contents">
                                                         <div class="search">
                                                             <input type="text" name="" placeholder="SEARCH.." class="form-control" id="optionSearch">
                                                         </div>
                                                         <ul class="options">
-                                                    <li>php</li>
-                                                    <li>laravel</li>
-                                                    <li>react</li>
-                                                    <li>vue</li>
-                                                    <li>python</li>
+                                                            <!-- <li></li> -->
+                                                    <li>Umoja High</li>
+                                                    <li>Kimumu Secondary School</li>
+                                                    <li>UG High School</li>
+                                                    <li>64 Secondary School</li>
+                                                    <li>Central Secondary School</li>
                                                     </ul>
                                                     </div>
                                                     </div>
-                                                    
+<!--                                                     
                                                     <select name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" id="">
                                                     <option value = ""></option>
                                                         <option selected value="<?php echo $school_name ? $school_name : '';?>"><?php echo $school_name ? $school_name : '';?></option>
@@ -688,7 +696,7 @@ if(isset($_POST['apply'])){
                                                         <option>UG High School</option>
                                                         <option>64 Secondary School</option>
                                                         <option>Central Secondary School</option>
-                                                    </select>
+                                                    </select> -->
                                                    
                                                     <span class="text-danger"><?php echo $school_name_err;?></span>
                                                    
@@ -751,12 +759,12 @@ if(isset($_POST['apply'])){
 		<?php include('config/scripts.php');?>
     </body>
 	
-    <!--  <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>  -->
+     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script> 
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
-    <script>
+    <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
     } );
@@ -766,10 +774,33 @@ if(isset($_POST['apply'])){
     const soValue = document.querySelector('#soValue');
     const optionSearch = document.querySelector('#optionSearch');
     const options = document.querySelector('.options');
-    const optionsList = document.querySelector('.options li');
+    const optionsList = document.querySelectorAll('.options li');
    
-    selectOption.addEventListener('click',function(){
+    selectOption.addEventListener('click', () =>{
         selectBox.classList.toggle('active');
+    });
+
+    optionsList.forEach(function(optionsListSingle){
+        optionsListSingle.addEventListener('click',function(){
+            text = this.textContent;
+            soValue.value = text;
+        selectBox.classList.remove('active');
+
+        })
+    });
+    optionSearch.addEventListener('keyup', function(){
+        var filter,li, i , textValue;
+        filter = optionSearch.value.toUpperCase();
+        li = options.getElementsByTagName('li');
+        for(i =0;i<li.length; i++){
+            liCount = li[i];
+            textValue  = liCount.textContent ||liCount.innerText;
+            if(textValue.toUpperCase().indexOf(filter) > -1){
+                li[i].style.display = '';
+            }else{
+                li[i].style.display = 'none';
+            }
+        }
     })
 
     </script>
