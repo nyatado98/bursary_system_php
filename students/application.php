@@ -352,6 +352,13 @@ if(isset($_POST['apply'])){
 .select-box.active .select-option:after{
     transform: rotate(-180deg);
 }
+/* #head {
+    border: 0.1px solid #6bc7fc;
+    border-radius: 5px;
+} */
+.color {
+    color: #6bc7fc;
+}
 </style>
     <body>
 	
@@ -490,21 +497,21 @@ if(isset($_POST['apply'])){
                                                      </button>
                                                      </div>
                                             @endif -->
-                                            <h4 class="text-center font-weight-bold ">Fill Your Details here</h4>
+                                            <h4 class="text-center font-weight-bold color ">Personal Details </h4>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body mt-2">
                                             
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold">Enter Student First-Name :</label>
-                                                        <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter student firstname" value="<?php echo $firstname;?>">
+                                                        <label class="font-weight-bold">Student First-Name :</label>
+                                                        <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold"  value="<?php echo $firstname;?>">
                                                         
                                                         <span class="text-danger"><?php echo $firstname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold">Enter Student Last-Name :</label>
-                                                        <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter student lastname" value="<?php echo $lastname;?>">
+                                                        <label class="font-weight-bold">Student Last-Name :</label>
+                                                        <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" value="<?php echo $lastname;?>">
                                                         
                                                         <span class="text-danger"><?php echo $lastname_err;?></span>
                                                        
@@ -539,16 +546,16 @@ if(isset($_POST['apply'])){
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                                                        <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" readonly class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
+                                                        <label class="font-weight-bold">Parent/Guardian Name :</label>
+                                                        <input type="text" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" readonly class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>">
                                 
                                                         <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold">Enter Phone No :</label>
-                                                        <input type="number" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="Enter phone number" value="<?php echo $phone;?>">
-                                                        <span>Start with 07***</span><br>
+                                                        <label class="font-weight-bold">Phone No :</label>
+                                                        <input type="number" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
+                                                        <br>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         
                                                     </div>
@@ -585,14 +592,14 @@ if(isset($_POST['apply'])){
                                                     </div> -->
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Email :</label>
-                                                        <input type="email" readonly name="email" placeholder="Enter the parent email address" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" id="" value="<?php echo $_SESSION['user_email'];?>">
+                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" id="" value="<?php echo $_SESSION['user_email'];?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold">Id No :</label>
-                                                        <input type="number" name="id_no" placeholder="Enter the parent id number" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" id="" value="<?php echo $id_no;?>">
+                                                        <label class="font-weight-bold">Parent Id No :</label>
+                                                        <input type="number" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
                                                         
@@ -667,9 +674,9 @@ if(isset($_POST['apply'])){
                                     </div>
                                     <hr>
 									<div class="card-header" id="head" >
-                                        <h4 class="text-center font-weight-bold ">Fill School Details here</h4>
+                                        <h4 class="text-center font-weight-bold color">School Details</h4>
                                     </div>
-                                    <div class="card-body" >
+                                    <div class="card-body mt-4" >
                                             <div class="row">              
                                                 <div class="col-md-4">
                                                     <label class="font-weight-bold">Institution :</label>
@@ -685,8 +692,8 @@ if(isset($_POST['apply'])){
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="font-weight-bold">Enter UPI No/Adm No/Reg No :</label>
-                                                    <input type="text" name="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" placeholder="Enter your upi/adm/reg no." value="<?php echo $reg_no;?>">
+                                                    <label class="font-weight-bold">UPI/ Adm/ Reg No :</label>
+                                                    <input type="text" name="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
                                                     
                                                     <span class="text-danger"><?php echo $reg_no_err;?></span>
                                                    
@@ -695,11 +702,11 @@ if(isset($_POST['apply'])){
                                                     <label class="font-weight-bold">School name :</label>
                                                     <div class="select-box">
                                                     <div class="select-option">
-                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school name-" readonly>
+                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
                                                     </div>
                                                     <div class="contents" id="contents">
                                                         <div class="search">
-                                                            <input type="text" name="" placeholder="SEARCH.." class="form-control" id="optionSearch">
+                                                            <input type="text" name="" placeholder="Search.." class="form-control" id="optionSearch">
                                                         </div>
                                                         <ul class="options">
                                                             <!-- <li></li> -->
@@ -726,6 +733,10 @@ if(isset($_POST['apply'])){
                                                    
                                                 </div>
                                             </div>
+                                            <hr>
+                                            <div class="card-header" id="head" >
+                                                <h4 class="text-center font-weight-bold color">Upload Section</h4>
+                                            </div>
                                                 <div class="row mt-4">
                                                     <!-- <div class="col-md-3">
                                                         <label class="font-weight-bold">Bank Name :</label>
@@ -749,14 +760,14 @@ if(isset($_POST['apply'])){
                                                    
                                                     </div> -->
                                                     <div class="col-md-6">
-                                                        <label class="font-weight-bold">School Fees Structure Upload : (LIMIT 5Mbs)</label>
+                                                        <label class="font-weight-bold">School Fees Structure : (LIMIT 5Mbs)</label>
                                                         <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="" value="<?php echo $fee_structure;?>">
                                                         
                                                     <span class="text-danger"><?php echo $fee_structure_err;?></span>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="font-weight-bold">School ID/School adm. letter Upload : (LIMIT 5Mbs)</label>
+                                                        <label class="font-weight-bold">School ID/School adm. letter : (LIMIT 5Mbs)</label>
                                                         <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="" value="<?php echo $name;?>">
                                                         <span class="text-danger"><?php print_r($errors);?></span>
                                                     <span class="text-danger"><?php echo $school_doc_err;?></span><br>
