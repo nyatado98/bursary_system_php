@@ -504,14 +504,14 @@ if(isset($_POST['apply'])){
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Student First-Name :</label>
-                                                        <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold"  value="<?php echo $firstname;?>">
+                                                        <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student firstname"  value="<?php echo $firstname;?>">
                                                         
                                                         <span class="text-danger"><?php echo $firstname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Student Last-Name :</label>
-                                                        <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" value="<?php echo $lastname;?>">
+                                                        <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student lastname" value="<?php echo $lastname;?>">
                                                         
                                                         <span class="text-danger"><?php echo $lastname_err;?></span>
                                                        
@@ -547,7 +547,7 @@ if(isset($_POST['apply'])){
                                                     </div>
                                                 <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent/Guardian Name :</label>
-                                                        <input type="text" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" readonly class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>">
+                                                        <input type="text" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" placeholder="Enter parent name" readonly class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>">
                                 
                                                         <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
                         
@@ -592,14 +592,14 @@ if(isset($_POST['apply'])){
                                                     </div> -->
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Email :</label>
-                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" id="" value="<?php echo $_SESSION['user_email'];?>">
+                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Id No :</label>
-                                                        <input type="number" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" id="" value="<?php echo $id_no;?>">
+                                                        <input type="number" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
                                                         

@@ -2,10 +2,10 @@
 
 session_start();
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
- header("location: login.php");
-   exit;
-}
+// if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
+// 	header("location:login");
+// 	exit;
+// }
 
 
 $conn = mysqli_connect('localhost','root','','bursary');

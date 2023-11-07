@@ -8,7 +8,7 @@ session_start();
 //}
 
 
-$conn = mysqli_connect('localhost','root','1234','bursary');
+$conn = mysqli_connect('localhost','root','','bursary');
 
 
 ?>

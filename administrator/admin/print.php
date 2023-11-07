@@ -864,4 +864,598 @@ $pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
     $pdf->Output();
       
 }
+if(isset($_GET['location_by']) && isset($_GET['ward_by']) && isset($_GET['sub_location_by'])){
+    // $year = $_GET['by_year'];
+    $location = $_GET['location_by'];
+    $ward = $_GET['ward_by'];
+    $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
+if(isset($_GET['ward_by'])){
+    // $year = $_GET['by_year'];
+    // $location = $_GET['location_by'];
+    $ward = $_GET['ward_by'];
+    // $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE ward='$ward'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE ward='$ward'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
+if(isset($_GET['year_by'])){
+    // $year = $_GET['by_year'];
+    // $location = $_GET['location_by'];
+    $year = $_GET['year_by'];
+    // $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE year='$year'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE year='$year'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
+if(isset($_GET['school'])){
+    // $year = $_GET['by_year'];
+    // $location = $_GET['location_by'];
+    $school = $_GET['school'];
+    // $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE school_name='$school'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE school_name='$school'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
+if(isset($_GET['location_by'])){
+    // $year = $_GET['by_year'];
+    $location = $_GET['location_by'];
+    // $ward = $_GET['ward_by'];
+    // $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE location='$location'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE location='$location'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
+if(isset($_GET['sub_location_by'])){
+    // $year = $_GET['by_year'];
+    // $location = $_GET['location_by'];
+    // $ward = $_GET['ward_by'];
+    $sub_location = $_GET['sub_location_by'];
+
+
+$sql = "SELECT * FROM students WHERE sub_location='$sub_location'";
+$results = mysqli_query($conn, $sql);
+
+// $sql = "SELECT Amount_awarded FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
+
+// // Execute the query and get the results.
+// $result = $conn->query($sql);
+
+// // Sum the values of the price column.
+// $total = 0;
+// while ($row = $result->fetch_assoc()) {
+//   $total += $row['Amount_awarded'];
+// }
+// $number = $total;
+// $output = number_format($number, 0, ',', ',');
+
+// if(isset($_POST['print'])){
+    $sql = "SELECT * FROM students WHERE sub_location='$sub_location'";
+    $res = mysqli_query($conn,$sql);
+
+
+    $counter = 0; 
+    $pdf = new FPDF('P','mm',array(150,250));
+    $pdf->AddPage();
+
+    // Set font and text color
+    $imagePath = ('images/nandi.png'); // Replace with the actual image path
+    $pdf->Image($imagePath, 60,1,-450); 
+    // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+
+$pdf->setFont('Arial','B',9);
+
+$pdf->cell(50, 3,"", 0,1, '');
+
+$pdf->cell(35, 6,"Constituency: Emgwen", 0,0, 'C');
+
+$pdf->cell(60, 6,"Ward : All", 0,0, 'C');
+
+$pdf->cell(30, 6,"Year: ".date('Y'), 0,1, 'C');
+
+$pdf->cell(50, 1,"", 0,1, '');
+
+$pdf->setFont('Arial','B',8);
+$pdf->cell(1, 4,"", 0,0, '');
+$pdf->cell(6, 6,"S/N", 1,0, '');
+$pdf->cell(25, 6,"Student Name", 1,0, '');
+$pdf->cell(35, 6,"School Name", 1,0, '');
+$pdf->cell(32, 6,"School Level", 1,0, '');
+$pdf->cell(30, 6,"Parent Name", 1,1, '');
+// $pdf->cell(40, 6,"Month Updated", 1,1, '');
+$pdf->setFont('Arial','',11);
+
+
+$pdf->setFont('Arial','',8);
+while($val = $res->fetch_assoc()){ 
+    
+    // Add content to the PDF
+    $counter++;
+    $pdf->cell(1, 4,"", 0,0, '');
+    $pdf->cell(6, 6,$counter, 1,0, '');
+    $pdf->cell(25, 6,$val['student_fullname'], 1,0, '');
+    $pdf->Cell(35, 6,$val['school_name'], 1,0, '');
+    $pdf->Cell(32, 6,$val['school_level'], 1,0, '');
+    $pdf->cell(30, 6,$val['parent_guardian_name'], 1,1, ''); //Output each record, 0 indicates no border, 1 indicates new line
+                // Check if we have printed 10 rows, then start a new page
+    
+}
+if ($pdf->GetY() >= 200) {
+$pdf->AddPage();
+ // Set font and text color
+ $imagePath = ('images/nandi.png'); // Replace with the actual image path
+ $pdf->Image($imagePath, 60,1,-450); 
+ // $pdf->Image("{{asset('images/logo.png')}}",65,10,-300);
+
+$pdf->cell(50, 20,"", 0,1, '');
+$pdf->setFont('Arial','B',12);
+$pdf->cell(120, 6,"COUNTY GOVERNMENT OF NANDI", 0,1, 'C');
+$pdf->setFont('Arial','B',10);
+$pdf->cell(120, 6, "P.O BOX 40-30100", 0, 1, 'C');
+$pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
+}
+    // Output the PDF (you can choose to save it to a file or send it as a response)
+    $pdf->Output();
+      
+}
 ?>
