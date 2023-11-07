@@ -204,8 +204,8 @@ if(isset($_POST['apply'])){
             $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent_guardian_name','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
             $re = mysqli_query($conn,$sql1);
 
-            $sql2 = "INSERT INTO applications (reference_number,parent_email,student_fullname,adm_upi_reg_no,school_type,school_name,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$fullname','$reg_no','$school_level','$school_name','$location','Pending...',
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -263,8 +263,8 @@ if(isset($_POST['apply'])){
            $message = "Application made successfully and mail has been sent to applicant.";
 			header("location:application?message=");
         }else{
-            $sql = "INSERT INTO applications (reference_number,parent_email,student_fullname,adm_upi_reg_no,school_type,school_name,bank_name,account_no,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$fullname','$adm_upi_reg_no','$school_level','$school_name','$bank_name','$account_no','$location','Pending...',
+            $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
 
@@ -616,12 +616,11 @@ if(isset($_POST['apply'])){
                                                         <select name="ward" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $ward ? $ward : '';?>" selected><?php echo $ward ? $ward : '';?></option>
-                                                            <option>Ziwa</option>
-                                                            <option>Soy</option>
-                                                            <option>Kipsomba</option>
-                                                            <option>Kaptagat</option>
-                                                            <option>Kapsoya</option>
-                                                            <option>Moiben</option>
+                                                            <option>Kapsabet</option>
+                                                            <option>Chepkumia</option>
+                                                            <option>Kiibwoni</option>
+                                                            <option>Kapkangani</option>
+                                                            
                                                         </select>
                                                       
                                                         <span class="text-danger"><?php echo $ward_err;?></span>

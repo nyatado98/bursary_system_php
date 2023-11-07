@@ -5,11 +5,48 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
 }
-$year =  "";
+$year =  $ward = $location = $sub_location = "";
 $year_err = $message = "";
-if(isset($_POST['print'])){
+if(isset($_POST['filter_year'])){
 	$year = $_POST['year'];
-	$sql = "SELECT * FROM students WHERE year='".$year."'";
+	$sql = "SELECT * FROM applications WHERE year='".$year."'";
+	$qu = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($qu) <=0){
+		$message = "The selected year -".$_POST['year']."- is not avalable in the records";
+	}else{
+	}
+}
+if(isset($_POST['filter_wards'])){
+	$ward = $_POST['ward'];
+	$sql = "SELECT * FROM applications WHERE ward='".$ward."'";
+	$qu = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($qu) <=0){
+		$message = "The selected ward -".$_POST['ward']."- is not avalable in the records";
+	}else{
+	}
+}
+if(isset($_POST['filter_location'])){
+	$location = $_POST['location'];
+	$sql = "SELECT * FROM applications WHERE location='".$location."'";
+	$quu = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($quu) <=0){
+		$message = "The selected location -".$_POST['location']."- is not avalable in the records";
+	}else{
+	}
+}
+if(isset($_POST['filter_sub_location'])){
+	$sub_location = $_POST['sub_location'];
+	$sql = "SELECT * FROM applications WHERE sub_location='".$sub_location."'";
+	$qus = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($qus) <=0){
+		$message = "The selected sub_location -".$_POST['sub_location']."- is not avalable in the records";
+	}else{
+	}
+}
+
+if(isset($_POST['pri'])){
+	$year = $_POST['year'];
+	$sql = "SELECT * FROM applications WHERE year='".$year."'";
 	$q = mysqli_query($conn, $sql);
 	if(mysqli_num_rows($q) <=0){
 		$message = "The selected year -".$_POST['year']."- is not avalable in the records";
@@ -19,7 +56,7 @@ if(isset($_POST['print'])){
 	// $result = mysqli_query($conn,$sql);
 	// $count = mysqli_num_rows($result);
 	// if($count > 0){
-		$sql = "SELECT * FROM students WHERE year = '".$year."'";
+		$sql = "SELECT * FROM applications WHERE year = '".$year."'";
 		$re = mysqli_query($conn,$sql);
         $counter = 0; 
     
@@ -137,13 +174,13 @@ while($data = $re->fetch_assoc()){
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
+							<!-- <li class="submenu">
 								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="location_report">Location Report</a></li>
 									<li><a href="sub_location_report">Sub-location Report</a></li>
 								</ul>
-							</li>
+							</li> -->
 				
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
@@ -170,21 +207,441 @@ while($data = $re->fetch_assoc()){
 							<div class="col-sm-12">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item active font-weight-bold" style="text-transform: uppercase;">Reports</li>
+									<li class="breadcrumb-item active font-weight-bold" style="text-transform: uppercase;">Filter Applications Reports Here</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					
 					<div class="row">
-						<div class="container col-md-8">
+						<!--  -->
+						<span class="text-danger font-weight-bold"><?php echo $message;?></span><br>
 						
+						<div class="col-md-12">
+						<div class="row">
+                                    <div class="col-md-6">
+                                    <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY :</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY : Year, Ward, Location & Sub-location</h4>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="card">
+                                <div class="row p-2">
+                                    
+                                <div class="col-md-6" id="opt" onchange="showHideSelectOptions()">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Select Here :</label>
+                                        <select name="ward"class="form-control" id="opts">
+                                        <option value="">-select Here-</option>
+										    <option value="Year">Year</option>
+                                            <option value="Ward">Ward</option>
+                                            <option value="Location">Location</option>
+                                            <option value="Sub-Location">Sub-location</option>
+                                        </select>
+                                        <!-- <input type="submit" name="filter_here"class="btn btn-warning mt-3 mb-2"value="Filter"> -->
+                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+								<!--  -->
+								<div class="col-md-6" id="year" style="display:none">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Year :</label>
+                                        <select name="year" class="form-control" id="">
+											<option value="">-Select Year-</option>
+											<option value=""></option>
+											<?php 
+											
+											$years = range(2020, strftime("%Y",time()));
+											foreach ($years as $key) :
+							
+												?>
+												
+												<option><?php echo $key;?></option>
+											<?php endforeach ?>
+										</select>
+                                        <input type="submit" name="filter_year"class="btn btn-warning mt-3 mb-2"value="Filter-by-Year">
+                                        <!-- <input type="submit" name="reset_year"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+								<div class="col-md-6" id="ward" style="display:none">
+                                    <div class="column">
+                                        <form method="post" action="" onsubmit="return show()">
+                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
+                                        <select name="ward"class="form-control" id="op">
+                                        <option >-select ward-</option>
+                                        <option value=""></option>
+                                            <option value="Kimumu">Kimumu</option>
+                                            <option value="Soy">Soy</option>
+                                            <option>Kesses</option>
+                                            <option>Kipkaren</option>
+                                            <option>Langas</option>
+                                            <option>Moiben</option>
+                                        </select>
+                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Ward" >
+                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="location" style="display:none">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
+                                        <select name="location"class="form-control">
+                                        <option value="">-select location-</option>
+                                        <option value=""></option>
+                                        <option>Jerusalem</option>
+                                            <option>Munyaka</option>
+                                            <option>Silas</option>
+                                            <option>Kiplombe</option>
+                                            <option>Rock 2</option>
+                                            <option>Block 10</option>
+                                        </select>
+                                        <input type="submit" name="filter_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Location" onclick="show()">
+                                        <!-- <input type="submit" name="reset_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="sub-location" style="display:none">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
+                                        <select name="sub_location"class="form-control">
+                                        <option value="">-select sub-location-</option>
+                                        <option value=""></option>
+                                        <option>Subaru</option>
+                                            <option>Block 8</option>
+                                            <option>Berlin</option>
+                                            <option>Junior rate</option>
+                                            <option>Kapsoya</option>
+                                            <option>Langas</option>
+                                        </select>
+                                        <input type="submit" name="filter_sub_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Sub-Location">
+                                        <!-- <input type="submit" name="reset_su_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php
+                            $ward = "";
+                            if(isset($_POST['filter_here'])){
+                                $ward = $_POST['ward'];
+                                if($ward == 'Ward'){
+                                ?>
+                                <div class="col-md-6">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
+                                        <select name="ward"class="form-control">
+                                        <option value="">-select ward-</option>
+                                        <option value=""></option>
+                                            <option>Kimumu</option>
+                                            <option>Soy</option>
+                                            <option>Kesses</option>
+                                            <option>Kipkaren</option>
+                                            <option>Langas</option>
+                                            <option>Moiben</option>
+                                        </select>
+                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Ward">
+                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php }elseif($ward == 'Year'){
+                                            ?>
+											<div class="col-md-6">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Year :</label>
+                                        <select name="year" class="form-control" id="">
+											<option value="">-Select Year-</option>
+											<option value=""></option>
+											<?php 
+											
+											$years = range(2020, strftime("%Y",time()));
+											foreach ($years as $key) :
+							
+												?>
+												
+												<option><?php echo $key;?></option>
+											<?php endforeach ?>
+										</select>
+                                        <input type="submit" name="filter_year"class="btn btn-warning mt-3 mb-2"value="Filter-by-Year">
+                                        <!-- <input type="submit" name="reset_year"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+											<?php }elseif($ward == 'Location'){
+                                            ?>
+                                            <div class="col-md-6" id="options">
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
+                                        <select name="location"class="form-control">
+                                        <option value="">-select location-</option>
+                                        <option value=""></option>
+                                        <option>Jerusalem</option>
+                                            <option>Munyaka</option>
+                                            <option>Silas</option>
+                                            <option>Kiplombe</option>
+                                            <option>Rock 2</option>
+                                            <option>Block 10</option>
+                                        </select>
+                                        <input type="submit" name="filter_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Location" onclick="show()">
+                                        <!-- <input type="submit" name="reset_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                                
+                                                <?php
+                                            }elseif($ward == 'Sub-location'){
+                                                ?>
+                                                       <div class="col-md-6" >
+                                    <div class="column">
+                                        <form method="post" action="">
+                                        <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
+                                        <select name="sub_location"class="form-control">
+                                        <option value="">-select sub-location-</option>
+                                        <option value=""></option>
+                                        <option>Subaru</option>
+                                            <option>Block 8</option>
+                                            <option>Berlin</option>
+                                            <option>Junior rate</option>
+                                            <option>Kapsoya</option>
+                                            <option>Langas</option>
+                                        </select>
+                                        <input type="submit" name="filter_sub_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Sub-Location">
+                                        <!-- <input type="submit" name="reset_su_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php
+                                            }
+                                        }
+                            ?>
+                            <?php
+                            if(isset($_POST['filter_wards'])){
+                                ?>
+                                <script>
+									document.getElementById("ward").style.display = "block";
+									</script>
+                                <?php }elseif(isset($_POST['filter_year'])){
+                                ?>
+                               <script>
+									document.getElementById("year").style.display = "block";
+									</script>
+								<?php }elseif(isset($_POST['filter_location'])){
+                                ?>
+                                <script>
+									document.getElementById("location").style.display = "block";
+									</script>
+                                <?php }elseif(isset($_POST['filter_sub_location'])){
+                                ?>
+                                <script>
+									document.getElementById("sub-location").style.display = "block";
+									</script>
+                                <?php }?>
+                                </div>
+                                </div>
+                                </div>
+                                <!--  -->
+                                <div class="col-md-6">
+									<div class="card">
+                                <form method="post" action="">
+                                    <div class="column">
+                                        <div class="row p-2">
+										<div class="col-md-2">
+                                    <div class="column">
+                                        <label class="font-weight-bold" style="font-size:20px">Year :</label>
+										<select name="year" class="form-control" id="">
+											<option value="">-Select Year-</option>
+											<option value=""></option>
+											<?php 
+											
+											$years = range(2020, strftime("%Y",time()));
+											foreach ($years as $key) :
+							
+												?>
+												
+												<option><?php echo $key;?></option>
+											<?php endforeach ?>
+										</select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="column">
+                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
+                                        <select name="ward"class="form-control">
+                                        <option value="">-select ward-</option>
+                                        <option value=""></option>
+                                            <option>Kimumu</option>
+                                            <option>Soy</option>
+                                            <option>Kesses</option>
+                                            <option>Kipkaren</option>
+                                            <option>Langas</option>
+                                            <option>Moiben</option>
+                                            <option>kapsabet</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="column">
+                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
+                                        <select name="location"class="form-control">
+                                        <option value="">-select location-</option>
+                                        <option value=""></option>
+                                            <option>Jerusalem</option>
+                                            <option>Munyaka</option>
+                                            <option>Silas</option>
+                                            <option>Kiplombe</option>
+                                            <option>Rock 2</option>
+                                            <option>Block 10</option>
+											<option>Ilula</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="column">
+                                        <label class="font-weight-bold" style="font-size:20px">Sub-location :</label>
+                                        <select name="sub_location"class="form-control">
+                                            <option value="">-select sub-location-</option>
+                                        <option value=""></option>
+                                            <option>Subaru</option>
+                                            <option>Block 8</option>
+                                            <option>Berlin</option>
+                                            <option>Junior rate</option>
+                                            <option>Kapsoya</option>
+                                            <option>Kamkunji</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                        </div>
+                                        <div class="row p-2">
+                                <div class="col-md-5">
+                                    <div class="column">
+                                        <input type="submit" class="form-control btn btn-warning mt-3"value="Filter" name="filter_all" style="font-size:20px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="column">
+                                        <input type="submit" class="form-control btn btn-danger mt-3"value="Reset" name="reset" style="font-size:20px;">
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                                </form>
+									</div>
+                            </div>
+                            </div>
+							<?php
+                            if(isset($_POST['filter_year'])){
+                                        // $location = $_POST['location'];
+                                        $year = $_POST['year'];
+                                        // $sub_location = $_POST['sub_location'];
+                                        $sql = "SELECT * FROM applications WHERE year ='$year'";
+
+                                        // Execute the query and get the results.
+                                        $res = $conn->query($sql);
+                                        $count = mysqli_num_rows($res);
+                                        if($count == 0){
+                                            ?>
+
+                                            <?php }else{?>
+                                                <a href="print?year=<?php echo $year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T by Year</a>
+                                                <?php
+                                            }
+                                        }
+                            ?>
+                            <?php
+                            $ward = "";
+                            if(isset($_POST['filter_wards'])){
+                                        // $location = $_POST['location'];
+                                        $ward = $_POST['ward'];
+                                        // $sub_location = $_POST['sub_location'];
+                                        $sql = "SELECT * FROM applications WHERE ward='$ward'";
+
+                                        // Execute the query and get the results.
+                                        $ress = $conn->query($sql);
+                                        $counts = mysqli_num_rows($ress);
+                                        if($counts > 0){
+                                            ?>
+                                            <a href="print?byward=<?php echo $_POST['ward'];?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T by Ward</a>
+                                            <?php }else{?>
+                                                
+                                                <?php
+                                            }
+                                        }
+                            ?>
+                            <?php
+                            $location = "";
+                            if(isset($_POST['filter_location'])){
+                                        $location = $_POST['location'];
+                                       
+                                        $sql = "SELECT * FROM applications WHERE location='$location'";
+
+                                        // Execute the query and get the results.
+                                        $ress = $conn->query($sql);
+                                        $counts = mysqli_num_rows($ress);
+                                        if($counts > 0){
+                                            ?>
+                                            <a href="print?bylocation=<?php echo $_POST['location'];?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T by Location</a>
+                                            <?php }else{?>
+                                                
+                                                <?php
+                                            }
+                                        }
+                            ?>
+                            <?php
+                            $sub_location = "";
+                            if(isset($_POST['filter_sub_location'])){
+                                        
+                                        $sub_location = $_POST['sub_location'];
+                                        $sql = "SELECT * FROM applications WHERE sub_location='$sub_location'";
+
+                                        // Execute the query and get the results.
+                                        $ress = $conn->query($sql);
+                                        $counts = mysqli_num_rows($ress);
+                                        if($counts > 0){
+                                            ?>
+                                            <a href="print?bysub_location=<?php echo $_POST['sub_location'];?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T by Sub-location</a>
+                                            <?php }else{?>
+                                                
+                                                <?php
+                                            }
+                                        }
+                            ?>
+							<?php
+                            $year = $ward = $location = $sub_location = "";
+                            if(isset($_POST['filter_all'])){
+                                        $location = $_POST['location'];
+                                        $ward = $_POST['ward'];
+                                        $year = $_POST['year'];
+                                        $sub_location = $_POST['sub_location'];
+                                        $sql = "SELECT * FROM applications WHERE location='$location' AND  ward='$ward' AND year ='$year' AND sub_location='$sub_location'";
+
+                                        // Execute the query and get the results.
+                                        $ress = $conn->query($sql);
+                                        $counts = mysqli_num_rows($ress);
+                                        if($counts > 0){
+                                            ?>
+                                            <a href="print?by_year=<?php echo $_POST['year'];?>&&by_location=<?php echo $location;?>&&by_ward=<?php echo $ward;?>&&by_sub_location=<?php echo $sub_location;?>" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                            <?php }else{?>
+                                                
+                                                <?php
+                                            }
+                                        }
+                            ?>
 							<!-- Revenue Chart -->
 							<div class="card card-chart">
 								
 								<div class="card-body">
 									<div id="line_graph">
-										<span class="text-danger font-weight-bold"><?php echo $message;?></span><br>
+										<!-- <span class="text-danger font-weight-bold"><?php echo $message;?></span><br> -->
 										<!-- @if(session()->has('message'))
                                         <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                             <span class="font-weight-bold">{{session()->get('message')}}</span>
@@ -194,19 +651,115 @@ while($data = $re->fetch_assoc()){
                                                  </div>
                                         @endif -->
 									</div>
-									<form action="" method="post">
-                                    
-                                        <label>Select Year :</label>
-                                        <select name="year" id="" class="form-control">
-											<option>-select year-</option>
-                                            <option>2020</option>
-                                            <option>2021</option>
-                                            <option>2022</option>
-                                            <option>2023</option>
-                                            <option>2024</option>
-                                        </select>
-                                        <input type="submit" value="PRINT" name="print" class="btn btn-warning mt-2">
-                                    </form>
+									<div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="sample">
+                                        <thead>
+                                            <tr>
+                                                <td class="font-weight-bold text-center">#</td>
+                                                <td class="font-weight-bold text-center">Year</td>
+                                                <td class="font-weight-bold text-center">Student Name</td>
+                                                <td class="font-weight-bold text-center">School Name</td>
+                                                <td class="font-weight-bold text-center">School Level</td>
+                                                <td class="font-weight-bold text-center">Ward</td>
+                                                <td class="font-weight-bold text-center">Location</td>
+                                                <td class="font-weight-bold text-center">Sub-location</td>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                          <?php
+                                          if(isset($_POST["filter_year"])){
+                                            $year = $_POST["year"];
+                                            // $sub_location = $_POST["sub_location"];
+                                            // $location = $_POST["location"];
+                                           
+
+                                            $sql = "SELECT * FROM applications WHERE year='$year'";
+                                            $results = mysqli_query($conn, $sql);
+                                          while($val = $results->fetch_assoc()){
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $val['id'];?></td>
+                                                <td><?php echo $val['year'];?></td>
+                                                <td><?php echo $val['student_fullname'];?></td>
+                                                <td><?php echo $val['school_name'];?></td>
+                                                <td><?php echo $val['school_type'];?></td>
+                                                <td><?php echo $val['ward'];?></td>
+                                                <td><?php echo $val['location'];?></td>
+                                                <td><?php echo $val['sub_location'];?></td>
+                                            </tr>
+                                            <?php }}elseif(isset($_POST["filter_wards"])){
+                                            $ward = $_POST["ward"];
+                                            $sql = "SELECT * FROM applications WHERE ward ='$ward'";
+                                            $resul = mysqli_query($conn, $sql);
+                                          while($item = $resul->fetch_assoc()){
+                                            ?>
+                                             <tr>
+                                                <td><?php echo $item['id'];?></td>
+                                                <td><?php echo $item['year'];?></td>
+                                                <td><?php echo $item['student_fullname'];?></td>
+                                                <td><?php echo $item['school_name'];?></td>
+                                                <td><?php echo $item['school_type'];?></td>
+                                                <td><?php echo $item['ward'];?></td>
+                                                <td><?php echo $item['location'];?></td>
+                                                <td><?php echo $item['sub_location'];?></td>
+                                            </tr>
+                                            <?php }}elseif(isset($_POST["filter_location"])){
+                                            $location = $_POST["location"];
+                                            $sql = "SELECT * FROM applications WHERE location ='$location'";
+                                            $resul = mysqli_query($conn, $sql);
+                                          while($item = $resul->fetch_assoc()){
+                                            ?>
+                                             <tr>
+                                                <td><?php echo $item['id'];?></td>
+                                                <td><?php echo $item['year'];?></td>
+                                                <td><?php echo $item['student_fullname'];?></td>
+                                                <td><?php echo $item['school_name'];?></td>
+                                                <td><?php echo $item['school_type'];?></td>
+                                                <td><?php echo $item['ward'];?></td>
+                                                <td><?php echo $item['location'];?></td>
+                                                <td><?php echo $item['sub_location'];?></td>
+                                            </tr>
+                                            <?php }}elseif(isset($_POST["filter_sub_location"])){
+                                            $sub_location = $_POST["sub_location"];
+                                            $sql = "SELECT * FROM applications WHERE sub_location ='$sub_location'";
+                                            $resul = mysqli_query($conn, $sql);
+                                          while($item = $resul->fetch_assoc()){
+                                            ?>
+                                             <tr>
+                                                <td><?php echo $item['id'];?></td>
+                                                <td><?php echo $item['year'];?></td>
+                                                <td><?php echo $item['student_fullname'];?></td>
+                                                <td><?php echo $item['school_name'];?></td>
+                                                <td><?php echo $item['school_type'];?></td>
+                                                <td><?php echo $item['ward'];?></td>
+                                                <td><?php echo $item['location'];?></td>
+                                                <td><?php echo $item['sub_location'];?></td>
+                                            </tr>
+                                            <?php }}elseif(isset($_POST["filter_all"])){
+												$location = $_POST['location'];
+												$ward = $_POST['ward'];
+												$year = $_POST['year'];
+                                            $sub_location = $_POST['sub_location'];
+                                            $sql = "SELECT * FROM applications WHERE ward='$ward' AND year ='$year' AND location='$location' AND sub_location='$sub_location'";
+                                            $resul = mysqli_query($conn, $sql);
+                                          while($item = $resul->fetch_assoc()){
+                                            ?>
+                                             <tr>
+                                                <td><?php echo $item['id'];?></td>
+                                                <td><?php echo $item['year'];?></td>
+                                                <td><?php echo $item['student_fullname'];?></td>
+                                                <td><?php echo $item['school_name'];?></td>
+                                                <td><?php echo $item['school_type'];?></td>
+                                                <td><?php echo $item['ward'];?></td>
+                                                <td><?php echo $item['location'];?></td>
+                                                <td><?php echo $item['sub_location'];?></td>
+                                            </tr>
+                                            <?php }}?>
+                                        </tbody>
+                                        
+                                        </table>
+                                    </div>
 								</div>
 							</div>
 							<!-- /Revenue Chart -->
@@ -229,10 +782,51 @@ while($data = $re->fetch_assoc()){
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script type="text/javascript" src="{{asset('DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
     <script>
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
     } );
+
+	function showHideSelectOptions() {
+  // Get the value of the parent select option.
+  var parentSelectValue = document.getElementById("opts").value;
+
+  // Show the child select option if the parent select option is set to "Option 2".
+  if (parentSelectValue === "Ward") {
+    document.getElementById("ward").style.display = "block";
+    document.getElementById("year").style.display = "none";
+    document.getElementById("location").style.display = "none";
+    document.getElementById("sub-location").style.display = "none";
+
+  } else if(parentSelectValue === "Location"){
+    
+    document.getElementById("location").style.display = "block";
+    document.getElementById("ward").style.display = "none";
+    document.getElementById("year").style.display = "none";
+    document.getElementById("sub-location").style.display = "none";
+    }else if(parentSelectValue === "Sub-Location") {
+		document.getElementById("year").style.display = "none";
+    document.getElementById("sub-location").style.display = "block";
+    document.getElementById("location").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+  }else if(parentSelectValue === "Year") {
+		document.getElementById("year").style.display = "block";
+    document.getElementById("sub-location").style.display = "none";
+    document.getElementById("location").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+  }
+  
+  else{
+    document.getElementById("year").style.display = "none";
+    document.getElementById("sub-location").style.display = "none";
+    document.getElementById("location").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+  
+  }
+
+  // Hide the parent select option.
+//   document.getElementById("opt").style.display = "none";
+}
     </script>
 </html>

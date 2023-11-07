@@ -60,7 +60,7 @@ if(isset($_POST["approve"])){
 	$mysql = mysqli_query($conn,$sql);
 	while($row = $mysql->fetch_assoc()){
 		if($row["status"] == "Approved"){
-			$message = "Application Already Approved for reference number <strong>".$ref_no."</strong>. You cannot approve again.";
+			$message = "Application Already Reconciled for reference number <strong>".$ref_no."</strong>. You cannot reconcile again.";
 			$_SESSION['message'] = $message;
 			header("location:applications?message=");
 	}else{
@@ -71,6 +71,12 @@ if(isset($_POST["approve"])){
 						$sql = "SELECT * FROM parents WHERE student_fullname = '".$row['student_fullname']."'";
 				        $querys = mysqli_query($conn,$sql);
 				        while($qs = $querys->fetch_assoc()){
+							$sql = "SELECT * FROM students WHERE student_fullname = '".$row['student_fullname']."'";
+							$qu = mysqli_query($conn,$sql);
+							while($q = $qu->fetch_assoc()){
+								$ward = $q['ward'];
+								$sub_location = $q['sub_location'];
+							
 							$sql = "SELECT * FROM applications WHERE reference_number ='$ref_no' AND status = 'Approved'";
 		            		$res = mysqli_query($conn,$sql);
 		            		while($r = $res->fetch_assoc()){
@@ -82,14 +88,14 @@ if(isset($_POST["approve"])){
 
 					$total = 5000;
 					$rad ='REP'. rand(100,999);
-					$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,location,Amount_awarded)VALUES(
-					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','".$r['location']."','$total')";
+					$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded,created_at,updated_at)VALUES(
+					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."'.'$sub_location','$total','$current_date','$current_date')";
 					mysqli_query($conn,$sql);
 
 					$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgen CDF Bursary 2024.\n We will let you know when the cheque is ready.
-			Thank You.\n";
+			$mailMsg = "Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.
+			Thank You.";
 		
 			$mail ->IsSmtp();
 		   $mail ->SMTPDebug = 0;
@@ -107,21 +113,21 @@ if(isset($_POST["approve"])){
 		   $mail ->AddAddress($mailto);
 		
 		   $mail->Send();
-		   $mssg = "Application for reference number ".$ref_no." approved successfully and mail has been sent to applicant.";
+		   $mssg = "Application for reference number ".$ref_no." reconciled successfully and mail has been sent to applicant.";
 		   $_SESSION['mssg'] = $mssg;
 		   header("location:applications?mssg=");
 		   }else{
 				
 				$total = 10000;
 				$rad ='REP'. rand(100,999);
-				$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,location,Amount_awarded)VALUES(
-				'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','".$r['location']."','$total')";
+				$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded,created_at,updated_at)VALUES(
+				'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total','$current_date','$current_date')";
 				mysqli_query($conn,$sql);
 
 			$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgen CDF Bursary 2024.\n We will let you know when the cheque is ready.
-			Thank You.\n";
+			$mailMsg = "Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.
+			Thank You.";
 		
 			$mail ->IsSmtp();
 		   $mail ->SMTPDebug = 0;
@@ -143,6 +149,7 @@ if(isset($_POST["approve"])){
 		   $_SESSION['mssg'] = $mssg;
 		   header("location:applications?mssg=");
 			}
+		}
 		}
 		}
 		}

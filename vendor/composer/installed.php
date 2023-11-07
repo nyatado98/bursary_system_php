@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '31183cad593f38aee9c708f7a3f30db8c27b5070',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '31183cad593f38aee9c708f7a3f30db8c27b5070',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -25,6 +25,15 @@
             'reference' => '22c771200d67e347905324eb24b1c624adfc1401',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ctrlaltdylan/courier',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpoffice/phpexcel' => array(
+            'pretty_version' => '1.7.9',
+            'version' => '1.7.9.0',
+            'reference' => '7a7634fba664249a04fc771df677a9b9f755d7ec',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpoffice/phpexcel',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

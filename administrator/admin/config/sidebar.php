@@ -27,6 +27,9 @@
 								<a href="students_uploads"><i class="fa fa-file-image"></i> <span>Student Documents</span></a>
 							</li>
 							<li> 
+								<a href="all_reports"><i class="fa fa-list"></i> <span>All Reports</span></a>
+							</li>
+							<li> 
 								<a href="amount_reports"><i class="fa fa-money-bill"></i> <span>Amount Reports</span></a>
 							</li>
 							<li> 

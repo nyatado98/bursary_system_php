@@ -64,7 +64,7 @@ if(isset($_GET['download'])){
     // flush();
     // readfile($download);
 // 	// Get the path to the file.
-$filePath = 'beneficiary_uploads/"'.basename($download).'"';
+$filePath = 'beneficiary_uploads/"'.$download.'"';
 
 // Set the Content-Type header.
 header('Content-Type: application/octet-stream');

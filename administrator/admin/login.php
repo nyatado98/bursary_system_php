@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <div class="row" style="border: .1px light black">
         <div class="col-md-6">
             
-            <div class="card-header jalign-item-center" style="background-image: url('images/nandi.png');background-position:center;background-repeat:no-repeat;height:50vh">
+            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:50vh">
                 
                 <h4 class="text-center font-weight-bold">LOGIN HERE</h4>
             </div>
