@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 {
     "require": {
         "ctrlaltdylan/courier": "^1.1",
         "phpoffice/phpexcel": "1.7.9"
     }
 }
+=======
+{
+    "require": {
+        "ctrlaltdylan/courier": "^1.1",
+        "phpoffice/phpexcel": "1.7.9"
+    }
+}
+>>>>>>> 2019fb6bd2dd2ea15b95e71ca458d606c33ff2c1

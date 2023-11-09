@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # bursary_system_php
 Online bursary application and management system made in php.
 
@@ -27,3 +28,7 @@ Start XAMPP by starting both apache and mysql,
 Open your web browser.
 Navigate to http://localhost/bursary-ms/.
 You should now be able to access the bursary application and management system.
+=======
+# Emgwen-Bursary
+Emgwen Bursary Application and Management System 
+>>>>>>> 2019fb6bd2dd2ea15b95e71ca458d606c33ff2c1
