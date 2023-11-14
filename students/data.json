@@ -1,0 +1,216 @@
+[{
+        "id": "1",
+        "name": "Kapsabet",
+        "parent_id": "0"
+    },
+    {
+        "id": "2",
+        "name": "Kilibwoni",
+        "parent_id": "0"
+    },
+    {
+        "id": "3",
+        "name": "Kapkangani",
+        "parent_id": "0"
+    },
+    {
+        "id": "4",
+        "name": "Chepkumia",
+        "parent_id": "0"
+    },
+    {
+        "id": "5",
+        "name": "Kamobo",
+        "parent_id": "1"
+    },
+    {
+        "id": "6",
+        "name": "Township",
+        "parent_id": "1"
+    },
+    {
+        "id": "7",
+        "name": "Kiminda",
+        "parent_id": "1"
+    },
+    {
+        "id": "8",
+        "name": "Kilibwoni",
+        "parent_id": "2"
+    },
+    {
+        "id": "9",
+        "name": "Lolminingai",
+        "parent_id": "2"
+    }, {
+        "id": "10",
+        "name": "Kipsigak",
+        "parent_id": "2"
+    }, {
+        "id": "11",
+        "name": "Kipture",
+        "parent_id": "2"
+    }, {
+        "id": "12",
+        "name": "Kabirirsang",
+        "parent_id": "2"
+    }, {
+        "id": "13",
+        "name": "Arwos",
+        "parent_id": "2"
+    }, {
+        "id": "14",
+        "name": "Kaplamai",
+        "parent_id": "2"
+    }, {
+        "id": "15",
+        "name": "Tulon",
+        "parent_id": "2"
+    }, {
+        "id": "16",
+        "name": "Terige",
+        "parent_id": "2"
+    },
+    {
+        "id": "17",
+        "name": "Kapkangani",
+        "parent_id": "3"
+    },
+    {
+        "id": "18",
+        "name": "Chepkumia",
+        "parent_id": "4"
+    },
+    {
+        "id": "19",
+        "name": "Kamobo",
+        "parent_id": "5"
+    },
+    {
+        "id": "20",
+        "name": "Township",
+        "parent_id": "6"
+    },
+    {
+        "id": "21",
+        "name": "Kiminda",
+        "parent_id": "7"
+    },
+    {
+        "id": "22",
+        "name": "Meswo",
+        "parent_id": "7"
+    },
+    {
+        "id": "23",
+        "name": "Chepkumia",
+        "parent_id": "18"
+    }, {
+        "id": "24",
+        "name": "Cheboite",
+        "parent_id": "18"
+    },
+    {
+        "id": "25",
+        "name": "Chepsonoi",
+        "parent_id": "17"
+    }, {
+        "id": "26",
+        "name": "Tindinyo",
+        "parent_id": "17"
+    }, {
+        "id": "27",
+        "name": "Kiborgok",
+        "parent_id": "17"
+    },
+    {
+        "id": "28",
+        "name": "Kilibwoni",
+        "parent_id": "8"
+    }, {
+        "id": "29",
+        "name": "Kapnyerebai",
+        "parent_id": "8"
+    },
+    {
+        "id": "30",
+        "name": "Kaplonyo",
+        "parent_id": "8"
+    },
+    {
+        "id": "31",
+        "name": "Kabore",
+        "parent_id": "9"
+    }, {
+        "id": "31",
+        "name": "Ndubeneti",
+        "parent_id": "9"
+    }, {
+        "id": "32",
+        "name": "Kiplolok",
+        "parent_id": "9"
+    }, {
+        "id": "33",
+        "name": "Kabore",
+        "parent_id": "9"
+    },
+    {
+        "id": "34",
+        "name": "Kipsotoi",
+        "parent_id": "10"
+    }, {
+        "id": "35",
+        "name": "Kipsigak",
+        "parent_id": "10"
+    }, {
+        "id": "36",
+        "name": "Kapkeruge",
+        "parent_id": "10"
+    },
+    {
+        "id": "37",
+        "name": "Kipture",
+        "parent_id": "11"
+    }, {
+        "id": "38",
+        "name": "Kimaam",
+        "parent_id": "11"
+    }, {
+        "id": "39",
+        "name": "Irimis",
+        "parent_id": "11"
+    },
+    {
+        "id": "40",
+        "name": "Kabirirsang",
+        "parent_id": "12"
+    }, {
+        "id": "41",
+        "name": "Underit",
+        "parent_id": "12"
+    }, {
+        "id": "42",
+        "name": "Chesuwe",
+        "parent_id": "12"
+    },
+    {
+        "id": "43",
+        "name": "Tiryo",
+        "parent_id": "13"
+    },
+    {
+        "id": "44",
+        "name": "Kaptagunyo",
+        "parent_id": "14"
+    },
+    {
+        "id": "45",
+        "name": "Kapchumba",
+        "parent_id": "15"
+    },
+    {
+        "id": "46",
+        "name": "song'oliet",
+        "parent_id": "16"
+    }
+]
