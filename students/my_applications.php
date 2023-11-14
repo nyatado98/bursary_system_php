@@ -68,7 +68,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 							</li>
 					
 							<li> 
-								<a href="logout"><i class="fa fa-cog"></i> <span>Logout</span></a>
+								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
 							</li>
 						</ul>
 					</div>

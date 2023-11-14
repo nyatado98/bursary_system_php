@@ -6,7 +6,7 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
 }
-$ward = $location = $sub_location = "";
+$ward = $location = $sub_location = $Year ="";
 
 if(isset($_POST['reset'])){
     unset($_POST['filter']);
@@ -175,7 +175,32 @@ $pdf->AddPage();
     $pdf->Output();
 
 }
-    
+   if(isset($_POST['filter'])) {
+    $Year = $_POST['Year'];
+    $ward = $_POST['ward'];
+    $sub_location = $_POST['sub_location'];
+if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+    $location_err = "Please select location";
+}else{
+
+$kapsabet_location = $_POST['kapsabet_location'];
+$kapkangani_location = $_POST['kapkangani_location'];
+$chepkumia_location = $_POST['chepkumia_location'];
+$kilibwoni_location = $_POST['kilibwoni_location'];
+if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+     $location = '';
+ }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+     $location = $kapsabet_location;
+}elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+     $location = $chepkumia_location;
+}elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+     $location = $kapkangani_location;
+}else{
+     $location = $kilibwoni_location;
+ }
+}
+
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -270,305 +295,246 @@ $pdf->AddPage();
                                     <div class="col-md-6">
                                     <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY :</h4>
                                     </div>
-                                    <div class="col-md-6">
-                                    <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY : Ward, Location & Sub-location</h4>
-                                    </div>
+                                    
                                 </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                <div class="card">
-                                <div class="row p-3">
-                                    
-                                <div class="col-md-6" id="opt" onchange="showHideSelectOptions()">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Select Here :</label>
-                                        <select name="ward"class="form-control" id="opts">
-                                        <option value="">-select Here-</option>
-                                            <option value="Ward">Ward</option>
-                                            <option value="Location">Location</option>
-                                            <option value="Sub-Location">Sub-Location</option>
-                                        </select>
-                                        <!-- <input type="submit" name="filter_ward"class="btn btn-warning mt-3 mb-2"value="Filter" onClick="hideDiv()"> -->
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="ward" style="display:none">
-                                    <div class="column">
-                                        <form method="post" action="" onsubmit="return show()">
-                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control" id="op">
-                                        <option >-select ward-</option>
-                                        <option value=""></option>
-                                            <option value="Kimumu">Kimumu</option>
-                                            <option value="Soy">Soy</option>
-                                            <option>Kesses</option>
-                                            <option>Kipkaren</option>
-                                            <option>Langas</option>
-                                            <option>Moiben</option>
-                                        </select>
-                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Ward" >
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="location" style="display:none">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select name="location"class="form-control">
-                                        <option value="">-select location-</option>
-                                        <option value=""></option>
-                                        <option>Jerusalem</option>
-                                            <option>Munyaka</option>
-                                            <option>Silas</option>
-                                            <option>Kiplombe</option>
-                                            <option>Rock 2</option>
-                                            <option>Block 10</option>
-                                        </select>
-                                        <input type="submit" name="filter_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Location" onclick="show()">
-                                        <!-- <input type="submit" name="reset_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="sub-location" style="display:none">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
-                                        <select name="sub_location"class="form-control">
-                                        <option value="">-select sub-location-</option>
-                                        <option value=""></option>
-                                        <option>Subaru</option>
-                                            <option>Block 8</option>
-                                            <option>Berlin</option>
-                                            <option>Junior rate</option>
-                                            <option>Kapsoya</option>
-                                            <option>Langas</option>
-                                        </select>
-                                        <input type="submit" name="filter_sub_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Sub-Location">
-                                        <!-- <input type="submit" name="reset_su_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <?php
-                            $ward = "";
-                            if(isset($_POST['filter_ward'])){
-                                $ward = $_POST['ward'];
-                                if($ward == 'Ward'){
-                                ?>
-                                <div class="col-md-6">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control">
-                                        <option value="">-select ward-</option>
-                                        <option value=""></option>
-                                            <option>Kimumu</option>
-                                            <option>Soy</option>
-                                            <option>Kesses</option>
-                                            <option>Kipkaren</option>
-                                            <option>Langas</option>
-                                            <option>Moiben</option>
-                                        </select>
-                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Ward" onclick="show()">
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <?php }elseif($ward == 'Location'){
-                                            ?>
-                                            <div class="col-md-6" id="options">
-                                    <div class="column">
-                                        <form method="post" action="" onsubmit="show()">
-                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select name="location"class="form-control">
-                                        <option value="">-select location-</option>
-                                        <option value=""></option>
-                                        <option>Jerusalem</option>
-                                            <option>Munyaka</option>
-                                            <option>Silas</option>
-                                            <option>Kiplombe</option>
-                                            <option>Rock 2</option>
-                                            <option>Block 10</option>
-                                        </select>
-                                        <input type="submit" name="filter_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Location" >
-                                        <!-- <input type="submit" name="reset_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                                
-                                                <?php
-                                            }elseif($ward == 'Sub-location'){
-                                                ?>
-                                                       <div class="col-md-6" >
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
-                                        <select name="sub_location"class="form-control">
-                                        <option value="">-select sub-location-</option>
-                                        <option value=""></option>
-                                        <option>Subaru</option>
-                                            <option>Block 8</option>
-                                            <option>Berlin</option>
-                                            <option>Junior rate</option>
-                                            <option>Kapsoya</option>
-                                            <option>Langas</option>
-                                        </select>
-                                        <input type="submit" name="filter_sub_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Sub-Location">
-                                        <!-- <input type="submit" name="reset_su_location"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        </form>
-                                    </div>
-                                </div>
-                                <?php
-                                            }
-                                        }
-                            ?>
-                            <?php
-                            if(isset($_POST['filter_wards'])){
-                                ?>
-                                <script>
-                                    document.getElementById('ward').style.display = "block";
-                                    </script>
-                                <!-- <div class="col-md-6">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control">
-                                        <option value="">-select ward-</option>
-                                        <option value=""></option>
-                                            <option>Kimumu</option>
-                                            <option>Soy</option>
-                                            <option>Kesses</option>
-                                            <option>Kipkaren</option>
-                                            <option>Langas</option>
-                                            <option>Moiben</option>
-                                        </select>
-                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Ward"> -->
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        <!-- </form>
-                                    </div>
-                                </div> -->
-                                <?php }elseif(isset($_POST['filter_location'])){
-                                ?>
-                                <script>
-                                    document.getElementById('location').style.display = "block";
-                                    </script>
-                                <!-- <div class="col-md-6">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select name="location"class="form-control">
-                                        <option value="">-select location-</option>
-                                        <option value=""></option>
-                                        <option>Jerusalem</option>
-                                            <option>Munyaka</option>
-                                            <option>Silas</option>
-                                            <option>Kiplombe</option>
-                                            <option>Rock 2</option>
-                                            <option>Block 10</option>
-                                        </select>
-                                        <input type="submit" name="filter_wards"class="btn btn-warning mt-3 mb-2"value="Filter-by-Location"> -->
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        <!-- </form>
-                                    </div>
-                                </div> -->
-                                <?php }elseif(isset($_POST['filter_sub_location'])){
-                                ?>
-                                <script>
-                                    document.getElementById('sub-location').style.display = "block";
-                                    </script>
-                                <!-- <div class="col-md-6">
-                                    <div class="column">
-                                        <form method="post" action="">
-                                        <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
-                                        <select name="sub_location"class="form-control">
-                                        <option value="">-select sub-location-</option>
-                                        <option value=""></option>
-                                        <option>Subaru</option>
-                                            <option>Block 8</option>
-                                            <option>Berlin</option>
-                                            <option>Junior rate</option>
-                                            <option>Kapsoya</option>
-                                            <option>Langas</option>
-                                        </select>
-                                        <input type="submit" name="filter_sub_location"class="btn btn-warning mt-3 mb-2"value="Filter-by-Sub-Location"> -->
-                                        <!-- <input type="submit" name="reset_ward"class="btn btn-danger mt-3 mb-2"value="Reset"> -->
-                                        <!-- </form>
-                                    </div>
-                                </div> -->
-                                <?php }?>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="card">
                                 <form method="post" action="">
-                                    <div class="column">
+                                    <!-- <div class="column"> -->
                                         <div class="row p-2">
-                                <div class="col-md-3">
+                                        <!-- <div class="col-md-3" id="year">
+                                    <div class="column">
+                                        
+                                        <label class="font-weight-bold" style="font-size:20px">Year :</label>
+										<select name="Year" class="form-control" id="" >
+											<option value="<?php 
+                                        echo $Year;?>" selected><?php
+                                        if(isset($_POST['filter']))
+                                        $Year = $_POST['Year'];
+                                    // $_SESSION['Year'] = $Year;
+                                        echo $Year;
+                                        
+                                        ?></option>
+											<option value=""></option>
+											<?php 
+											
+											$years = range(2020, strftime("%Y",time()));
+											foreach ($years as $key) :
+							
+												?>
+												
+												<option><?php echo $key;?></option>
+											<?php endforeach ?>
+										</select>
+                                       
+                                    </div>
+                                </div> -->
+                                <div class="col-md-3" onchange="showHideSelectOptions()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control">
-                                        <option value="">-select ward-</option>
-                                        <option value=""></option>
-                                            <option>Kimumu</option>
-                                            <option>Soy</option>
-                                            <option>Kesses</option>
-                                            <option>Kipkaren</option>
-                                            <option>Langas</option>
-                                            <option>Moiben</option>
+                                        <select name="ward"class="form-control" id="opts">
+                                        <option value="">Null</option>
+                                        <option value="<?php  if(isset($_POST['filter']))
+                                        $ward = $_POST['ward'];
+                                    // $_SESSION['ward'] = $ward;
+                                        echo $ward;?>" selected><?php
+                                        if(isset($_POST['filter']))
+                                        $ward = $_POST['ward'];
+                                        echo $ward;
+                                        
+                                        ?></option>
+                                            <option value="Kapsabet">Kapsabet</option>
+                                            <option value="Chepkumia">Chepkumia</option>
+                                            <option value="Kapkangani">Kapkangani</option>
+                                            <option value="Kilibwoni">Kilibwoni</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select name="location"class="form-control">
-                                        <option value="">-select location-</option>
-                                        <option value=""></option>
-                                            <option>Jerusalem</option>
-                                            <option>Munyaka</option>
-                                            <option>Silas</option>
-                                            <option>Kiplombe</option>
-                                            <option>Rock 2</option>
-                                            <option>Block 10</option>
+                                        <select class="form-control" id="default">
+                                            <option value=""></option>
+                                        </select>
+                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showOpt()">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapsabet_location ="";
+                                        if(isset($_POST['filter']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                    // $_SESSION['kapsabet_location'] = $kapsabet_location;
+                                        echo $kapsabet_location;?>" selected><?php
+                                        if(isset($_POST['kapsabet_location']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kamobo">Kamobo</option>
+                                            <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option>
+                                        </select>
+                                        <div  onchange="showOptions()">
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapkangani_location = "";
+                                        if(isset($_POST['filter']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
+                                        echo $kapkangani_location;?>" selected><?php
+                                        if(isset($_POST['filter']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                        echo $kapkangani_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kapkangani">Kapkangani</option>
+                                        </select>
+                                        </div>
+                                        <div onchange="Options()">
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" >
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $chepkumia_location = "";
+                                        
+                                        if(isset($_POST['filter']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
+                                        echo $chepkumia_location;?>" selected><?php
+                                        if(isset($_POST['filter']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                        echo $chepkumia_location;
+                                        
+                                        ?></option>
+                                            <option value ="Chepkumia">Chepkumia</option>
+                                        </select>
+                                        </div>
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="show()">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $kilibwoni_location = "";
+                                        if(isset($_POST['filter']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
+                                        echo $kilibwoni_location;?>" selected><?php
+                                        if(isset($_POST['filter']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                        echo $kilibwoni_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kilibwoni">Kilibwoni</option>
+                                            <option value ="Lolminingai">Lolminingai</option>
+                                            <option value ="Kipsigak">Kipsigak</option>
+                                            <option value ="Kipture">Kipture</option>
+                                            <option value ="Kabirirsang">Kabirirsang</option>
+                                            <option value ="Arwos">Arwos</option>
+                                            <option value ="Kaplamai">Kaplamai</option>
+                                            <option value ="Tulon">Tulon</option>
+                                            <option value ="Terige">Terige</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-location :</label>
-                                        <select name="sub_location"class="form-control">
-                                            <option value="">-select sub-location-</option>
-                                        <option value=""></option>
-                                            <option>Subaru</option>
-                                            <option>Block 8</option>
-                                            <option>Berlin</option>
-                                            <option>Junior rate</option>
-                                            <option>Kapsoya</option>
-                                            <option>Langas</option>
+                                        <select class="form-control" id="" name="sub_location">
+                                            <option>-select sub-location-</option>
+                                            <option value="<?php echo $sub_location;?>" selected><?php echo $sub_location;?></option>
+                                                            <option>Kilibwoni</option>
+                                                            <option>Kapnyerebai</option>
+                                                            <option>Kaplonyo</option>
+                                                            <option>Kabore</option>
+                                                            <option>Ndubeneti</option>
+                                                            <option>Kaplolok</option>
+                                                            <option>Kipsotoi</option>
+                                                            <option>Kisigak</option>
+                                                            <option>Kakeruge</option>
+                                                            <option>Kipture</option>
+                                                            <option>Kimaam</option>
+                                                            <option>Irimis</option>
+                                                            <option>Kibirirsang</option>
+                                                            <option>Underit</option>
+                                                            <option>Chesuwe</option>
+                                                            <option>Tiryo</option>
+                                                            <option>Kaptagunyo</option>
+                                                            <option>Kapchumba</option>
+                                                            <option>Song'oliet</option>
+                                                            <option>Meswo</option>
+                                                            <option>Chepsonoi</option>
+                                                            <option>Tindinyo</option>
+                                                            <option>Koborgok</option>
+                                                            <option>Cheptumia</option>
+                                                            <option>Cheboite</option>
                                         </select>
                                     </div>
                                 </div>
                                         </div>
-                                        <div class="row p-2">
-                                <div class="col-md-5">
-                                    <div class="column">
-                                        <input type="submit" class="form-control btn btn-warning mt-1"value="Filter" name="filter" style="font-size:20px;">
-                                    </div>
+                                        <div class="row p-2 ">
+                                <div class="col-md-6">
+                                    
+                                        <input type="submit" class="btn btn-warning mt-1"value="Filter" name="filter" style="font-size:20px;">
+                                    
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="column">
-                                        <input type="submit" class="form-control btn btn-danger mt-1"value="Reset" name="reset" style="font-size:20px;">
-                                    </div>
+                                <div class="col-md-6">
+                                   
+                                        <input type="submit" class="btn btn-danger mt-1"value="Reset" name="reset" style="font-size:20px;">
+                                    
                                 </div>
                             </div>
-                                </div>
+                                <!-- </div> -->
                                 </form>
                                     </div>
                             </div>
                             </div>
+                            <?php if(isset($_POST['filter'])){
+                                                            if($_POST['ward'] == 'Kapkangani'){
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapkangani').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kapsabet'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapsabet').style.display = 'block';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kilibwoni'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kilibwoni').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Chepkumia'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('chepkumia').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }
+                                                    }
+                                                        ?>
+                                
                             <!-- </form> -->
 						<form method="post" action="" class="mb-3">
                           
@@ -576,80 +542,120 @@ $pdf->AddPage();
 							<!-- Revenue Chart -->
                             <?php
                             if(isset($_POST['filter'])){
-                                        $location = $_POST['location'];
-                                        $ward = $_POST['ward'];
-                                        $sub_location = $_POST['sub_location'];
-                                        $sql = "SELECT * FROM reports WHERE location ='$location' AND ward='$ward' AND sub_location='$sub_location'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        $count = mysqli_num_rows($res);
-                                        if($count == 0){
+                                // $Year = $_POST['Year'];
+                                $ward = $_POST['ward'];
+                                $sub_location = $_POST['sub_location'];
+                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                $location_err = "Please select location";
+                            }else{
+                            
+                            $kapsabet_location = $_POST['kapsabet_location'];
+                            $kapkangani_location = $_POST['kapkangani_location'];
+                            $chepkumia_location = $_POST['chepkumia_location'];
+                            $kilibwoni_location = $_POST['kilibwoni_location'];
+                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = '';
+                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $kapsabet_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $chepkumia_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                 $location = $kapkangani_location;
+                            }else{
+                                 $location = $kilibwoni_location;
+                             }
+                            }
+                            if($ward != '' && $location != '' && $sub_location != ''){
+                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' AND sub_location='$sub_location'";
+                                                $q = mysqli_query($conn,$sql);
+                                                $c = mysqli_num_rows($q);
+                                                if($c > 0){
                                             ?>
-
-                                            <?php }else{?>
-                                                <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
-                                                <?php
-                                            }
-                                        }
-                            ?>
-                            <?php
-                            $ward = "";
-                            if(isset($_POST['filter_wards'])){
-                                        $ward = $_POST['ward'];
-                                       
-                                        $sql = "SELECT * FROM reports WHERE ward='$ward'";
-
-                                        // Execute the query and get the results.
-                                        $ress = $conn->query($sql);
-                                        $counts = mysqli_num_rows($ress);
-                                        if($counts > 0){
-                                            ?>
-                                            <a href="print?ward=<?php echo $_POST['ward'];?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T by Ward</a>
-                                            <?php }else{?>
+                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                            <?php }else{
+                                                ?>
                                                 
                                                 <?php
-                                            }
-                                        }
-                            ?>
-                             <?php
-                            $location = "";
-                            if(isset($_POST['filter_location'])){
-                                        $location = $_POST['location'];
-                                       
-                                        $sql = "SELECT * FROM reports WHERE location='$location'";
+                                            }}}?>
 
-                                        // Execute the query and get the results.
-                                        $ress = $conn->query($sql);
-                                        $counts = mysqli_num_rows($ress);
-                                        if($counts > 0){
+<?php
+                            if(isset($_POST['filter'])){
+                                // $Year = $_POST['Year'];
+                                $ward = $_POST['ward'];
+                                $sub_location = $_POST['sub_location'];
+                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                $location_err = "Please select location";
+                            }else{
+                            
+                            $kapsabet_location = $_POST['kapsabet_location'];
+                            $kapkangani_location = $_POST['kapkangani_location'];
+                            $chepkumia_location = $_POST['chepkumia_location'];
+                            $kilibwoni_location = $_POST['kilibwoni_location'];
+                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = '';
+                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $kapsabet_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $chepkumia_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                 $location = $kapkangani_location;
+                            }else{
+                                 $location = $kilibwoni_location;
+                             }
+                            }
+                            if($ward != '' && $location == '' && $sub_location == ''){
+                                $sql = "SELECT * FROM reports WHERE ward='$ward'";
+                                                $q = mysqli_query($conn,$sql);
+                                                $c = mysqli_num_rows($q);
+                                                if($c > 0){
                                             ?>
-                                            <a href="print?location=<?php echo $_POST['location'];?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T by Location</a>
-                                            <?php }else{?>
+                                        <a href="print?ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                            <?php }else{
+                                                ?>
                                                 
                                                 <?php
-                                            }
-                                        }
-                            ?>
+                                            }}}?>
                             <?php
-                            $sub_location = "";
-                            if(isset($_POST['filter_sub_location'])){
+                            if(isset($_POST['filter'])){
+                                // $Year = $_POST['Year'];
+                                $ward = $_POST['ward'];
+                                $sub_location = $_POST['sub_location'];
+                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                $location_err = "Please select location";
+                            }else{
+                            
+                            $kapsabet_location = $_POST['kapsabet_location'];
+                            $kapkangani_location = $_POST['kapkangani_location'];
+                            $chepkumia_location = $_POST['chepkumia_location'];
+                            $kilibwoni_location = $_POST['kilibwoni_location'];
+                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = '';
+                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $kapsabet_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                 $location = $chepkumia_location;
+                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                 $location = $kapkangani_location;
+                            }else{
+                                 $location = $kilibwoni_location;
+                             }
+                            }
+                            if($ward != '' && $location != '' && $sub_location == ''){
+                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' ";
+                                                $q = mysqli_query($conn,$sql);
+                                                $c = mysqli_num_rows($q);
+                                                if($c > 0){
+                                            ?>
+                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                            <?php }else{
+                                                ?>
+                                                
+                                                <?php
+                                            }}}?>
+
                                         
-                                        $sub_location = $_POST['sub_location'];
-                                        $sql = "SELECT * FROM reports WHERE sub_location='$sub_location'";
-
-                                        // Execute the query and get the results.
-                                        $ress = $conn->query($sql);
-                                        $counts = mysqli_num_rows($ress);
-                                        if($counts > 0){
-                                            ?>
-                                            <a href="print?sub_location=<?php echo $_POST['sub_location'];?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T by Sub-location</a>
-                                            <?php }else{?>
-                                                
-                                                <?php
-                                            }
-                                        }
-                            ?>
+                          
+                            
                             <form method="post" action="">
                                 <!-- <a href="print" name="print" target="_blank">Print</a> -->
                             <!-- <input type="submit" name="print" target="_blank" value="Print All" class="btn btn-primary mb-3">
@@ -700,10 +706,31 @@ $pdf->AddPage();
                                     <h4 class="font-weight-bold">TOTAL BURSEMENT AMOUNT : <?php 
                                     $totals = $outputs = 0;
                                     if(isset($_POST['filter'])){
-                                        $location = $_POST['location'];
+                                        // $Year = $_POST['Year'];
                                         $ward = $_POST['ward'];
                                         $sub_location = $_POST['sub_location'];
-                                     $sql = "SELECT Amount_awarded FROM reports WHERE location ='$location' AND ward='$ward' AND sub_location='$sub_location'";
+                                    if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                        $location_err = "Please select location";
+                                    }else{
+                                    
+                                    $kapsabet_location = $_POST['kapsabet_location'];
+                                    $kapkangani_location = $_POST['kapkangani_location'];
+                                    $chepkumia_location = $_POST['chepkumia_location'];
+                                    $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = '';
+                                     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = $kapsabet_location;
+                                    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = $chepkumia_location;
+                                    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                         $location = $kapkangani_location;
+                                    }else{
+                                         $location = $kilibwoni_location;
+                                     }
+                                    }
+                                    if($ward =='' && $location == '' && $sub_location ==''){
+                                     $sql = "SELECT Amount_awarded FROM reports WHERE  location ='$location' AND ward='$ward' AND sub_location='$sub_location'";
 
                                      // Execute the query and get the results.
                                      $res = $conn->query($sql);
@@ -717,8 +744,33 @@ $pdf->AddPage();
                                      $outputs = number_format($numbers, 0, ',', ',');
                                     
                                     echo $outputs;
-                                    }elseif(isset($_POST['filter_wards'])){
+                                    }
+                                }
+                                    if(isset($_POST['filter'])){
+                                        // $Year = $_POST['Year'];
                                         $ward = $_POST['ward'];
+                                        $sub_location = $_POST['sub_location'];
+                                    // if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                    //     $location_err = "Please select location";
+                                    // }else{
+                                    
+                                    $kapsabet_location = $_POST['kapsabet_location'];
+                                    $kapkangani_location = $_POST['kapkangani_location'];
+                                    $chepkumia_location = $_POST['chepkumia_location'];
+                                    $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = '';
+                                     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = $kapsabet_location;
+                                    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                         $location = $chepkumia_location;
+                                    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                         $location = $kapkangani_location;
+                                    }else{
+                                         $location = $kilibwoni_location;
+                                     }
+                                    // }
+                                    if($ward !='' && $location == '' && $sub_location ==''){
                                         $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward'";
 
                                         // Execute the query and get the results.
@@ -733,9 +785,35 @@ $pdf->AddPage();
                                         $outputs = number_format($numbers, 0, ',', ',');
                                        
                                        echo $outputs;
-                                    }elseif(isset($_POST['filter_location'])){
-                                        $location = $_POST['location'];
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE location='$location'";
+                                    }
+                                }
+                                if(isset($_POST['filter'])){
+                                    // $Year = $_POST['Year'];
+                                    $ward = $_POST['ward'];
+                                    $sub_location = $_POST['sub_location'];
+                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                    $location_err = "Please select location";
+                                }else{
+                                
+                                $kapsabet_location = $_POST['kapsabet_location'];
+                                $kapkangani_location = $_POST['kapkangani_location'];
+                                $chepkumia_location = $_POST['chepkumia_location'];
+                                $kilibwoni_location = $_POST['kilibwoni_location'];
+                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = '';
+                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = $kapsabet_location;
+                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = $chepkumia_location;
+                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                     $location = $kapkangani_location;
+                                }else{
+                                     $location = $kilibwoni_location;
+                                 }
+                                }
+                                if($ward !='' && $location != '' && $sub_location ==''){
+                                    
+                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward' AND location='$location'";
 
                                         // Execute the query and get the results.
                                         $res = $conn->query($sql);
@@ -749,9 +827,34 @@ $pdf->AddPage();
                                         $outputs = number_format($numbers, 0, ',', ',');
                                        
                                        echo $outputs;
-                                    }elseif(isset($_POST['filter_sub_location'])){
-                                        $sub_location = $_POST['sub_location'];
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE sub_location='$sub_location'";
+                                    }}
+                                    if(isset($_POST['filter'])){
+                                    // $Year = $_POST['Year'];
+                                    $ward = $_POST['ward'];
+                                    $sub_location = $_POST['sub_location'];
+                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                    $location_err = "Please select location";
+                                }else{
+                                
+                                $kapsabet_location = $_POST['kapsabet_location'];
+                                $kapkangani_location = $_POST['kapkangani_location'];
+                                $chepkumia_location = $_POST['chepkumia_location'];
+                                $kilibwoni_location = $_POST['kilibwoni_location'];
+                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = '';
+                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = $kapsabet_location;
+                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                     $location = $chepkumia_location;
+                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                     $location = $kapkangani_location;
+                                }else{
+                                     $location = $kilibwoni_location;
+                                 }
+                                }
+                                if($ward !='' && $location != '' && $sub_location !=''){
+                                    
+                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward' AND location='$location'AND sub_location='$sub_location'";
 
                                         // Execute the query and get the results.
                                         $res = $conn->query($sql);
@@ -766,24 +869,10 @@ $pdf->AddPage();
                                        
                                        echo $outputs;
                                     }
+                                }
                                     ?></h4>
 									<div id="line_graph">
-                                        <!-- @if(session()->has('message'))
-                                        <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('message')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif
-										@if(session()->has('success'))
-                                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('success')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif -->
+                                       
                                     </div>
 									<div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="sample">
@@ -803,11 +892,31 @@ $pdf->AddPage();
                                         <tbody>
                                           <?php
                                           if(isset($_POST["filter"])){
-                                            $ward = $_POST["ward"];
-                                            $sub_location = $_POST["sub_location"];
-                                            $location = $_POST["location"];
-                                           
+                                        
+                                            $ward = $_POST['ward'];
+                                            $sub_location = $_POST['sub_location'];
+                                        if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+                                            $location_err = "Please select location";
+                                        }else{
+                                        
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                        if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                             $location = '';
+                                         }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                             $location = $kapsabet_location;
+                                        }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+                                             $location = $chepkumia_location;
+                                        }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+                                             $location = $kapkangani_location;
+                                        }else{
+                                             $location = $kilibwoni_location;
+                                         }
+                                        }
 
+                                        if($ward !='' && $location != '' && $sub_location !=''){
                                             $sql = "SELECT * FROM reports WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
                                             $results = mysqli_query($conn, $sql);
                                           while($val = $results->fetch_assoc()){
@@ -822,8 +931,8 @@ $pdf->AddPage();
                                                 <td><?php echo $val['location'];?></td>
                                                 <td><?php echo $val['Amount_awarded'];?></td>
                                             </tr>
-                                            <?php }}elseif(isset($_POST["filter_wards"])){
-                                            $ward = $_POST["ward"];
+                                            <?php }}elseif($ward !='' && $location == '' && $sub_location ==''){
+                                            
                                             $sql = "SELECT * FROM reports WHERE ward ='$ward'";
                                             $resul = mysqli_query($conn, $sql);
                                           while($item = $resul->fetch_assoc()){
@@ -838,9 +947,9 @@ $pdf->AddPage();
                                                 <td><?php echo $item['location'];?></td>
                                                 <td><?php echo $item['Amount_awarded'];?></td>
                                             </tr>
-                                            <?php }}elseif(isset($_POST["filter_location"])){
-                                            $location = $_POST["location"];
-                                            $sql = "SELECT * FROM reports WHERE location ='$location'";
+                                            <?php }}elseif($ward !='' && $location != '' && $sub_location ==''){
+                                            
+                                            $sql = "SELECT * FROM reports WHERE ward='$ward' AND location ='$location'";
                                             $resul = mysqli_query($conn, $sql);
                                           while($item = $resul->fetch_assoc()){
                                             ?>
@@ -854,9 +963,9 @@ $pdf->AddPage();
                                                 <td><?php echo $item['location'];?></td>
                                                 <td><?php echo $item['Amount_awarded'];?></td>
                                             </tr>
-                                            <?php }}elseif(isset($_POST["filter_sub_location"])){
-                                            $sub_location = $_POST["sub_location"];
-                                            $sql = "SELECT * FROM reports WHERE sub_location ='$sub_location'";
+                                            <?php }}elseif($ward =='' && $location == '' && $sub_location ==''){
+                                            
+                                            $sql = "SELECT * FROM reports WHERE ward='$ward' AND location ='$location' AND sub_location ='$sub_location'";
                                             $resul = mysqli_query($conn, $sql);
                                           while($item = $resul->fetch_assoc()){
                                             ?>
@@ -870,7 +979,10 @@ $pdf->AddPage();
                                                 <td><?php echo $item['location'];?></td>
                                                 <td><?php echo $item['Amount_awarded'];?></td>
                                             </tr>
-                                            <?php }}?>
+                                            <?php }}}?>
+                                            
+                                            
+                                            
                                         </tbody>
                                         
                                         </table>
@@ -917,30 +1029,127 @@ $pdf->AddPage();
   var parentSelectValue = document.getElementById("opts").value;
 
   // Show the child select option if the parent select option is set to "Option 2".
-  if (parentSelectValue === "Ward") {
-    document.getElementById("ward").style.display = "block";
-    document.getElementById("location").style.display = "none";
-    document.getElementById("sub-location").style.display = "none";
+  if (parentSelectValue === "Kapsabet") {
+    document.getElementById("kapsabet").style.display = "block";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById('kilibwoni_sub').style.display = 'none';
+    document.getElementById('sub').style.display = 'block';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
 
-  } else if(parentSelectValue === "Location"){
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+    document.getElementById("kapkangani").style.display = "none";
+  } else if(parentSelectValue === "Chepkumia"){
     
-    document.getElementById("location").style.display = "block";
-    document.getElementById("ward").style.display = "none";
-    document.getElementById("sub-location").style.display = "none";
-    }else if(parentSelectValue === "Sub-Location") {
+    document.getElementById("chepkumia").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById('kilibwoni_sub').style.display = 'none';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+        document.getElementById('sub').style.display = 'block';
+    }else if(parentSelectValue === "Kilibwoni") {
+		document.getElementById("kilibwoni").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById('sub').style.display = 'block';
+    document.getElementById('chepkumia_sub').style.display = 'none';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+        document.getElementById('kilibwoni_sub').style.display = 'none';
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+
+
+  }else if(parentSelectValue === "Kapkangani") {
+		document.getElementById("kapkangani").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("default").style.display = "none";
+
+        document.getElementById('kilibwoni_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+       
+    document.getElementById('kapkangani_sub').style.display = 'none';
+
+        document.getElementById('lolminingai_sub').style.display = 'none';
+       
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
     
-    document.getElementById("sub-location").style.display = "block";
-    document.getElementById("location").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-  }else{
-    document.getElementById("sub-location").style.display = "none";
-    document.getElementById("location").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-  
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        
+        document.getElementById('sub').style.display = 'block';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+
   }
+  else if(parentSelectValue === "School") {
+		document.getElementById("year").style.display = "none";
+    document.getElementById("sub-location").style.display = "none";
+    document.getElementById("school").style.display = "block";
+    document.getElementById("location").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+  }
+  else if(parentSelectValue === "Null"){
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+    document.getElementById("default").style.display = "block";
 
-  // Hide the parent select option.
-//   document.getElementById("opt").style.display = "none";
+  
+  }else{
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("ward").style.display = "none";
+    document.getElementById("default").style.display = "block";
+  }
 }
 
     </script>

@@ -1,13 +1,13 @@
 <?php
 include 'database/connect.php';
 if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset($_SESSION['user'])){
-	header("location:login");
+	header("location:students/login");
 	exit;
 }
 // $_SESSION['mssg'] = "";
 //edit
 
-$ref = $upi_reg = $name = $school_type = $school_name = $location = $bank = $account = "";
+$ref = $upi_reg = $name = $school_type = $school_name = $location = $ward = $sub_location = "";
 date_default_timezone_set('Africa/Nairobi');
 $current_date=strtotime("current");
 $current_date = date('Y/m/d  H:i:sa');
@@ -19,10 +19,10 @@ if(isset($_POST['edit'])){
 	$school_type = $_POST['school_type'];
 	$school_name = $_POST['school_name'];
 	$location = $_POST['location'];
-	$bank = $_POST['bank'];
-	$account = $_POST['account'];
+	$ward = $_POST['ward'];
+	$sub_location = $_POST['sub_location'];
 
-	$sql = "UPDATE applications SET student_fullname ='$name',adm_upi_reg_no = '$upi_reg',school_type ='$school_type',school_name = '$school_name',location='$location',bank_name='$bank',account_no='$account',updated_at ='$current_date' WHERE reference_number = '$ref'";
+	$sql = "UPDATE applications SET student_fullname ='$name',adm_upi_reg_no = '$upi_reg',school_type ='$school_type',school_name = '$school_name',location='$location',ward='$ward',sub_location='$sub_location',updated_at ='$current_date' WHERE reference_number = '$ref'";
 	$query = mysqli_query($conn,$sql);
 	
 	if($query){
@@ -234,11 +234,25 @@ if(isset($_POST['edit'])){
 												<option>Vet</option>
 												<option class="">Langas</option>
                                              </select>
-											 <label class="font-weight-bold">Bank name :</label> 
-                                            <input type="text" name="bank" class="form-control" id="" value="<?php echo $item['bank_name'];?>">
-											<label class="font-weight-bold">School Account no :</label> 
-                                            <input type="text" name="account" class="form-control" id="" required value="<?php echo $item['account_no'];?>">
-											
+											 <label class="font-weight-bold">Ward :</label> 
+											 <select name="ward" class="form-control  font-weight-bold">
+                                                        <option value = ""></option>
+                                                            <option value="<?php echo $item['ward'];?>" selected><?php echo $item['ward'];?></option>
+                                                            <option>Kapsabet</option>
+                                                            <option>Chepkumia</option>
+                                                            <option>Kiibwoni</option>
+                                                            <option>Kapkangani</option>
+                                                            
+                                                        </select>
+											<label class="font-weight-bold">Sub-location :</label> 
+                                            <select name="sub_location" class="form-control font-weight-bold">
+                                                        <option value = ""></option>
+                                                            <option value="<?php echo $item['sub_location'];?>" selected><?php echo $item['sub_location'];?></option>
+                                                            <option>Subaru</option>
+                                                            <option>Bondeni</option>
+                                                            <option>Kamkunji</option>
+                                                            <option>Airstrip</option>
+                                                        </select>
 											<!-- <label class="font-weight-bold">Fee Structure:</label> 
                                             <input type="file" name="fee_structure" class="form-control" id="" required value="<?php echo $rows['fee_structure'];?>">
 											<label class="font-weight-bold">School ID/ ADM letter:</label> 

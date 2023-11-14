@@ -35,17 +35,17 @@ if(empty($_POST['password'])){
 }
 if(empty($_POST['re_password'])){
     $re_pass_err = 'Please confirm password';
-}elseif($_POST['re_password'] == $_POST['password']){
-    $re_password = $_POST['re_password'];
+}elseif($_POST['re_password'] != $_POST['password']){
+    $re_pass_err = 'The passwords doesnt match';
 }else{
-     $re_pass_err = 'The passwords doesnt match';
+     $re_password = $_POST['re_password'];
 }
 date_default_timezone_set('Africa/Nairobi');
 $current_date=strtotime("current");
 $today = date('Y/m/d  H:i:sa');
 $year = date('Y');
 
-if(empty($email_err)&&empty($re_password_err)&&empty($password_err)){
+if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
     $fullname = $_POST['firstname'].' '.$_POST['lastname'];
     $sql = "INSERT INTO users (fullname,email,password,created_at,updated_at)VALUES('$fullname','$email','$password','$today','$today')";
     $query = mysqli_query($conn,$sql);
@@ -71,27 +71,23 @@ if(empty($email_err)&&empty($re_password_err)&&empty($password_err)){
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src='bootstrap/jquery/jquery-3.5.1.min.js'></script>
     <title>Register page-students:</title>
+    <style>
+      
+        </style>
 </head>
 <body>
-    <div class="container col-md-8" style="margin-top: 20vh">
+    <div class="container col-md-8" id="main" style="margin-top: 20vh">
         <div class="row" style="border: .1px light black">
         <div class="col-md-6">
             
-            <div class="card-header jalign-item-center" style="background-image: url('images/nandi.png');background-position:center;background-repeat:no-repeat;height:50vh">
+            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:70vh">
                 
-                <h4 class="text-center font-weight-bold">REGISTER HERE</h4>
+                
             </div>
             </div>
             <div class="col-md-6" style="margin-top: 0vh">
+            <h4 class="text-center font-weight-bold">Register Here</h4>
             <div class="card-body">
-                <!-- @if(session()->has('message'))
-                <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                    <span class="font-weight-bold">{{session()->get('message')}}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                         </button>
-                         </div>
-                @endif -->
                 <form method="POST" action="">
                 <label class="font-weight-bold">Enter Parent Firstname:</label>
                 <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?>" id="" placeholder="john" value="<?php echo $firstname;?>">
@@ -106,12 +102,12 @@ if(empty($email_err)&&empty($re_password_err)&&empty($password_err)){
                 <span class="text-danger"><?php echo $email_err;?></span><br>
                 
                 <label class="font-weight-bold">Enter Password :</label>
-                <input type="password" name="password" class="form-control <?php echo $password_err ? 'border border-danger' : '';?>" id="" placeholder="********">
+                <input type="password" name="password" class="form-control <?php echo $password_err ? 'border border-danger' : '';?>" id="" placeholder="********" value="<?php echo $password;?>">
                 
                 <span class="text-danger"><?php echo $password_err;?></span><br>
                 
                 <label class="font-weight-bold">Re-Enter Password :</label>
-                <input type="password" name="re_password" class="form-control <?php echo $re_pass_err ? 'border border-danger' : '';?>" id="" placeholder="********">
+                <input type="password" name="re_password" class="form-control <?php echo $re_pass_err ? 'border border-danger' : '';?>" id="" placeholder="********" value="<?php echo $re_password;?>">
                 
                 <span class="text-danger"><?php echo $re_pass_err;?></span><br>
                 
@@ -122,6 +118,7 @@ if(empty($email_err)&&empty($re_password_err)&&empty($password_err)){
             </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 <script src='bootstrap/js/bootstrap.min.js'></script>

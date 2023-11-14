@@ -29,8 +29,64 @@ $app_ref ='BUR' .rand(1000,9999);
 $firstname = $lastname = $fullname = $gender = $age = $reg_no = $parent_guardian_name = $phone = $occupation = $family_status = $email = $id_no = $county = $ward = $location = $sub_location = $school_level = $school_name = $bank_name = $account_no = $school_doc = $fee_structure = "";
 
 $firstname_err = $lastname_err = $fullname_err = $gender_err = $age_err = $reg_no_err = $parent_guardian_name_err = $phone_err = $occupation_err = $family_status_err = $email_err = $id_no_err = $county_err = $ward_err = $location_err = $sub_location_err = $school_level_err = $school_name_err = $bank_name_err = $account_no_err = $school_doc_err = $fee_structure_err = "";
-$errors = "";
+$errors = $dob = "";
+$kapsabet_location = $kapkangani_location ='';
+
+$kilibwoni_sub_location = $lolminingai_sub_location = $kipsigak_sub_location = $kipture_sub_location = $kabirirsang_sub_location =
+$arwos_sub_location = $kaplamai_sub_location =$tulon_sub_location =$terige_sub_location =$kamobo_sub_location = $township_sub_location
+=$kiminda_sub_location = $kapkangani_sub_location =$chepkumia_sub_location ="";
 if(isset($_POST['apply'])){
+
+    if(empty($_POST['dob'])){
+        $age_err = "Please enter date of birth";
+    }else{
+    // Get the user's date of birth from the input field.
+$dob = $_POST['dob'];
+
+// Convert the user's date of birth to a PHP DateTime object.
+$dateOfBirthObject = new DateTime($dob);
+
+// Get the current date and time using the date() function.
+$currentDateAndTime = date('Y-m-d H:i:s');
+
+// Convert the current date and time to a PHP DateTime object.
+$currentDateAndTimeObject = new DateTime($currentDateAndTime);
+
+// Subtract the user's date of birth from the current date and time to get the user's age.
+$age = $currentDateAndTimeObject->diff($dateOfBirthObject);
+
+// Print the user's age to the console.
+// echo $age->y;
+
+    }
+      if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+        $location_err = "Please select location";
+    }else{
+    
+    $kapsabet_location = $_POST['kapsabet_location'];
+    $kapkangani_location = $_POST['kapkangani_location'];
+    $chepkumia_location = $_POST['chepkumia_location'];
+    $kilibwoni_location = $_POST['kilibwoni_location'];
+    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = '';
+     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = $kapsabet_location;
+    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = $chepkumia_location;
+    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+         $location = $kapkangani_location;
+    }else{
+         $location = $kilibwoni_location;
+     }
+    
+    
+}
+if(empty($_POST['sub_location'])){
+    $sub_location_err = "Please select sub-location";
+}else{
+$sub_location = trim($_POST['sub_location']);
+
+}
     if(empty($_POST['firstname'])){
         $firstname_err = "Please enter student firstname";
     }else{
@@ -46,11 +102,11 @@ if(isset($_POST['apply'])){
     }else{
         $gender = trim($_POST['gender']);
     }
-    if(empty($_POST['age'])){
-        $age_err = "Please select age";
-    }else{
-        $age = trim($_POST['age']);
-    }
+    // if(empty($_POST['age'])){
+    //     $age_err = "Please select age";
+    // }else{
+    //     $age = trim($_POST['age']);
+    // }
 
     if(empty($_POST['reg_no'])){
         $reg_no_err = "Please enter reg_no";
@@ -102,16 +158,8 @@ if(isset($_POST['apply'])){
     }else{
         $ward = trim($_POST['ward']);
     }
-    if(empty($_POST['location'])){
-        $location_err = "Please select location";
-    }else{
-        $location = trim($_POST['location']);
-    }
-    if(empty($_POST['sub_location'])){
-        $sub_location_err = "Please select sub-location";
-    }else{
-        $sub_location = trim($_POST['sub_location']);
-    }
+  
+   
     if(empty($_POST['school_level'])){
         $school_level_err = "Please select level";
     }else{
@@ -197,7 +245,7 @@ if(isset($_POST['apply'])){
         if($count <= 0){
             
             $sql = "INSERT INTO students (student_fullname,age,gender,parent_guardian_name,phone,parent_email,
-            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$age','$gender','$parent_guardian_name','$phone','$email',
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','".$age->y."','$gender','$parent_guardian_name','$phone','$email',
             '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
             $res = mysqli_query($conn,$sql);
 
@@ -299,6 +347,27 @@ if(isset($_POST['apply'])){
     }
 }
 }
+// 
+
+// $file = $_FILES['file-upload-field'];
+
+// // Check if the file is oversize
+// if ($file['size'] > 1024 * 1024) {
+//   // Display an error message
+//   echo 'The file is too large.';
+//   exit;
+// }
+
+// // Check if the file type is allowed
+// if (!in_array($file['type'], ['image/jpeg', 'image/png', 'application/pdf'])) {
+//   // Display an error message
+//   echo 'The file type is not allowed.';
+//   exit;
+// }
+
+// // Move the uploaded file to its destination
+// move_uploaded_file($file['tmp_name'], '/path/to/destination/directory/' . $file['name']);
+
 
 ?>
 <!DOCTYPE html>
@@ -359,7 +428,61 @@ if(isset($_POST['apply'])){
 .color {
     color: #6bc7fc;
 }
+.progress {
+  width: 0%;
+  height: 100%;
+  color: green;
+  background-color: #008000;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-bar {
+    position: fixed;
+  top: 10;
+  /* z-index: 99; */
+  width: 100%;
+  margin-top: 70px;
+  height: 20px;
+  background-color: #ccc;
+  border: 1px solid #ddd;
+  
+}
+.percentage{
+    position: absolute;
+    left: 50%;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color:#000;
+}
+.green {
+  background-color: #008000;
+}
+.preview-card {
+  width: 250px;
+  height: 250px;
+  border: 1px solid black;
+  /* padding: 10px;
+  margin: 10px; */
+}
+
+#preview-image {
+
+  width: 250px;
+  height: 250px;
+}
+#preview {
+    width: 250px;
+  height: 250px;
+}
+body{
+    overflow: auto;
+}
 </style>
+<script>
+
+
+    </script>
     <body>
 	
 		<!-- Main Wrapper -->
@@ -413,7 +536,7 @@ if(isset($_POST['apply'])){
 							</li>
 					
 							<li> 
-								<a href="logout"><i class="fa fa-cog"></i> <span>Logout</span></a>
+								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
 							</li>
 						</ul>
 					</div>
@@ -481,44 +604,35 @@ if(isset($_POST['apply'])){
 													 <?php }else{ ?>
 														
 														<?php } ?>
-                                            <!-- @if(session()->has('message'))
-                                            <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                                <span class="font-weight-bold">{{session()->get('message')}}</span>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                     <span aria-hidden="true">&times;</span>
-                                                     </button>
-                                                     </div>
-                                            @endif
-                                            @if(session()->has('success'))
-                                            <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                                <span class="font-weight-bold">{{session()->get('success')}}</span>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                     <span aria-hidden="true">&times;</span>
-                                                     </button>
-                                                     </div>
-                                            @endif -->
+                                           
                                             <h4 class="text-center font-weight-bold color ">Personal Details </h4>
+                                            
                                         </div>
+             
+<div class="progress-bar sticky-top">
+    <div class="progress"></div>
+    <span class="percentage">0%</span>
+</div>
                                         <div class="card-body mt-2">
                                             
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Student First-Name :</label>
-                                                        <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student firstname"  value="<?php echo $firstname;?>">
+                                                        <input type="text" name="firstname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student firstname"  value="<?php echo $firstname;?>" >
                                                         
                                                         <span class="text-danger"><?php echo $firstname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Student Last-Name :</label>
-                                                        <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student lastname" value="<?php echo $lastname;?>">
+                                                        <input type="text" name="lastname" id="last" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student lastname" value="<?php echo $lastname;?>" >
                                                         
                                                         <span class="text-danger"><?php echo $lastname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Gender :</label>
-                                                        <select name="gender" class="form-control <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="gender" id="gender" class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <!-- <option value = ""></option> -->
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
                                                             <option> Male</option> 
@@ -532,84 +646,55 @@ if(isset($_POST['apply'])){
                                                 </div>
                                                 <div class="row mt-4">
                                                 <div class="col-md-4">
-                                                        <label class="font-weight-bold">Age :</label>
-                                                        <select name="age" class="form-control <?php echo $age_err ? 'border border-danger' : '';?> font-weight-bold">
-                                                            <option value="<?php echo $age ? $age : '';?>" selected><?php echo $age ? $age : '';?></option>
-                                                            <?php
-                                        for ($i = 13; $i <= 27; $i++) {
-                                            echo "<option value=\"$i\">$i</option>";
-                                        }
-                                        ?>
-                                                        </select>
-                                                       
+                                                        <label class="font-weight-bold">D-O-B:</label>
+                                                        <input type="date" id="date" class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob">
+                                                    
+                                                      
                                                         <span class="text-danger"><?php echo $age_err;?></span>
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                                                        <label class="font-weight-bold">Parent/Guardian Name :</label>
-                                                        <input type="text" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" placeholder="Enter parent name" readonly class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>">
+                                                <?php if($_SESSION['user'] == ""){
+                                                    ?>
+                                                     <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $parent_guardian_name;?>" class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
                                 
                                                         <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
-                        
+                                                        <?php }else{
+                                                            ?>
+                                                        <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
+                                                        <?php }?>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
-                                                        <input type="number" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
+                                                        <input type="number" id="phone" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
                                                         <br>
+                                                        <span class="font-italic">Start with 0712345678</span><br>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         
                                                     </div>
-                                                    <!-- <div class="col-md-4">
-                                                        <label class="font-weight-bold">Occupation :</label>
-                                                        <select name="occupation" class="form-control <?php echo $occupation_err ? 'border border-danger' : '';?> font-weight-bold">
-                                                        <option value = ""></option>
-                                                            <option value="<?php echo $occupation ? $occupation : '';?>" selected><?php echo $occupation ? $occupation : '';?></option>
-                                                            <option>Employed</option>
-                                                            <option>Self-employed</option>
-                                                            <option>Contract</option>
-                                                            <option>Unemployed</option>
-                                                            <option>Others</option>
-                                                        </select>
-                                                        
-                                                        <span class="text-danger"><?php echo $occupation_err;?></span>
-                                                        
-                                                    </div> -->
-                                                </div>
-                                                <div class="row mt-4">
-                                                    <!-- <div class="col-md-4">
-                                                        <label class="font-weight-bold">Family Status :</label>
-                                                        <select name="family_status" class="form-control <?php echo $family_status_err ? 'border border-danger' : '';?> font-weight-bold">
-                                                        <option value = ""></option>
-                                                            <option value="<?php echo $family_status ? $family_status : '';?>" selected><?php echo $family_status ? $family_status : '';?></option>
-                                                            <option>Rich</option>
-                                                            <option>Average</option>
-                                                            <option>Poor</option>
-                                                            <option>Other</option>
-                                                        </select>
-                                                        
-                                                        <span class="text-danger"><?php echo $family_status_err;?></span>
-                                                       
-                                                    </div> -->
+                                                   
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Email :</label>
-                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
+                                                        <input type="email" id="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Id No :</label>
-                                                        <input type="number" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
+                                                        <input type="number" id="id" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">County :</label>
-                                                        <select name="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="county" id="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = "Nandi County" selected>Nandi County</option>
                                                             <!-- <option value="<?php echo $county ? $county : '';?>" selected><?php echo $county ? $county : '';?></option> -->
-                                                            <!-- <option>Uasin Gishu</option> -->
+                                                           
                                                         </select>
                                                         
                                                         <span class="text-danger"><?php echo $county_err;?></span>
@@ -618,16 +703,15 @@ if(isset($_POST['apply'])){
                                                 </div>
                                                 <div class="row mt-4">
                                                    
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4" onchange="showHideSelectOptions()">
                                                         <label class="font-weight-bold">Ward :</label>
-                                                        <select name="ward" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
-                                                        <option value = ""></option>
+                                                        <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = "">Null</option>
                                                             <option value="<?php echo $ward ? $ward : '';?>" selected><?php echo $ward ? $ward : '';?></option>
-                                                            <option>Kapsabet</option>
-                                                            <option>Chepkumia</option>
-                                                            <option>Kiibwoni</option>
-                                                            <option>Kapkangani</option>
-                                                            
+                                                            <option value="Kapsabet">Kapsabet</option>
+                                                            <option value="Chepkumia">Chepkumia</option>
+                                                            <option value="Kapkangani">Kapkangani</option>
+                                                            <option value="Kilibwoni">Kilibwoni</option>
                                                         </select>
                                                       
                                                         <span class="text-danger"><?php echo $ward_err;?></span>
@@ -635,29 +719,353 @@ if(isset($_POST['apply'])){
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Location :</label>
-                                                        <select name="location" class="form-control <?php echo $location_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="location" id="default" class="form-control <?php echo $location_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $location ? $location : '';?>" selected><?php echo $location ? $location : '';?></option>
-                                                            <option>Munyaka</option>
-                                                            <option>Silas</option>
-                                                            <option>Ilula</option>
-                                                            <option>Block 10</option>
-                                                            <option>Marura</option>
+                                                           
                                                         </select>
-                                                       
+                                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showOpt()">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapsabet_location ="";
+                                        if(isset($_POST['apply']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                    // $_SESSION['kapsabet_location'] = $kapsabet_location;
+                                        echo $kapsabet_location;?>" selected><?php
+                                        if(isset($_POST['kapsabet_location']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kamobo">Kamobo</option>
+                                            <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option>
+                                        </select>
+                                        
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showOptions()">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapkangani_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
+                                        echo $kapkangani_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                        echo $kapkangani_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kapkangani">Kapkangani</option>
+                                        </select>
+                                        
+                                        
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="Options()">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $chepkumia_location = "";
+                                        
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
+                                        echo $chepkumia_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                        echo $chepkumia_location;
+                                        
+                                        ?></option>
+                                            <option value ="Chepkumia">Chepkumia</option>
+                                        </select>
+                                        
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="show()">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $kilibwoni_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
+                                        echo $kilibwoni_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                        echo $kilibwoni_location;
+                                        
+                                        ?></option>
+                                            <option value ="Kilibwoni">Kilibwoni</option>
+                                            <option value ="Lolminingai">Lolminingai</option>
+                                            <option value ="Kipsigak">Kipsigak</option>
+                                            <option value ="Kipture">Kipture</option>
+                                            <option value ="Kabirirsang">Kabirirsang</option>
+                                            <option value ="Arwos">Arwos</option>
+                                            <option value ="Kaplamai">Kaplamai</option>
+                                            <option value ="Tulon">Tulon</option>
+                                            <option value ="Terige">Terige</option>
+                                        </select>
+                                             
                                                         <span class="text-danger"><?php echo $location_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Sub-Location :</label>
-                                                        <select name="sub_location" class="form-control <?php echo $sub_location_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="sub_location" id="subs"  class="form-control <?php echo $sub_location_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $sub_location;?>" selected><?php echo $sub_location;?></option>
-                                                            <option>Subaru</option>
-                                                            <option>Bondeni</option>
-                                                            <option>Kamkunji</option>
-                                                            <option>Airstrip</option>
+                                                            <option>Kilibwoni</option>
+                                                            <option>Kapnyerebai</option>
+                                                            <option>Kaplonyo</option>
+                                                            <option>Kabore</option>
+                                                            <option>Ndubeneti</option>
+                                                            <option>Kaplolok</option>
+                                                            <option>Kipsotoi</option>
+                                                            <option>Kisigak</option>
+                                                            <option>Kakeruge</option>
+                                                            <option>Kipture</option>
+                                                            <option>Kimaam</option>
+                                                            <option>Irimis</option>
+                                                            <option>Kibirirsang</option>
+                                                            <option>Underit</option>
+                                                            <option>Chesuwe</option>
+                                                            <option>Tiryo</option>
+                                                            <option>Kaptagunyo</option>
+                                                            <option>Kapchumba</option>
+                                                            <option>Song'oliet</option>
+                                                            <option>Meswo</option>
+                                                            <option>Chepsonoi</option>
+                                                            <option>Tindinyo</option>
+                                                            <option>Koborgok</option>
+                                                            <option>Cheptumia</option>
+                                                            <option>Cheboite</option>
                                                         </select>
+                                                        <select name="kamobo_sub_location"class="form-control" id="kamobo_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php
+                                        // $sub_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kamobo_sub_location = $_POST['kamobo_sub_location'];
+                                    $sub_location = $kamobo_sub_location;
+                                        echo $sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kamobo_sub_location = $_POST['kamobo_sub_location'];
+                                        $sub_location = $kamobo_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kamobo</option>
+                                        </select>
+                                        <select name="kiminda_sub_location"class="form-control" id="kiminda_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kiminda_sub_location = $_POST['kiminda_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kiminda_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kiminda_sub_location = $_POST['kiminda_sub_location'];
+                                        $sub_location = $kiminda_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kiminda</option>
+                                            <option>Meswo</option>
+
+                                        </select>
+                                        <select name="township_sub_location"class="form-control" id="township_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $township_sub_location = $_POST['township_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $township_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $township_sub_location = $_POST['township_sub_location'];
+                                        $sub_location = $township_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Township</option>
+                                        </select>
+                                        <select name="chepkumia_sub_location"class="form-control" id="chepkumia_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $chepkumia_sub_location = $_POST['chepkumia_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $chepkumia_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_sub_location = $_POST['chepkumia_sub_location'];
+                                        $sub_location = $chepkumia_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Chepkumia</option>
+                                            <option>Cheboite</option>
+                                        </select>
+
+                                        <select name="kapkangani_sub_location"class="form-control" id="kapkangani_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kapkangani_sub_location = $_POST['kapkangani_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kapkangani_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_sub_location = $_POST['kapkangani_sub_location'];
+                                        $sub_location = $kapkangani_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>chepsonoi</option>
+                                            <option>Tindinyo</option>
+                                            <option>Kiborgok</option>
+                                        
+                                        </select>
+                                        
+                                        <select name="kilibwoni_sub_location"class="form-control" id="kilibwoni_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kilibwoni_sub_location = $_POST['kilibwoni_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kilibwoni_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_sub_location = $_POST['kilibwoni_sub_location'];
+                                        $sub_location = $kilibwoni_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kilibwoni</option>
+                                            <option>Kapnyeberai</option>
+                                            <option>Kaplonyo</option>
+                                        </select>
+
+                                        <select name="lolminingai_sub_location"class="form-control" id="lolminingai_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $lolminingai_sub_location = $_POST['lolminingai_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $lolminingai_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $lolminingai_sub_location = $_POST['lolminingai_sub_location'];
+                                        $sub_location = $lolminingai_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kabore</option>
+                                            <option>Ndubeneti</option>
+                                            <option>Kiplolok</option>
+                                            <option>Kabore</option>
+                                        </select>
+
+                                        <select name="kipsigak_sub_location"class="form-control" id="kipsigak_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kipsigak_sub_location = $_POST['kipsigak_sub_location'];
+                                    // $_SESSION['kipsigak_sub_location'] = $sub_location;
+                                        echo  $kipsigak_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kipsigak_sub_location = $_POST['kipsigak_sub_location'];
+                                        $sub_location = $kipsigak_sub_location;
+                                        echo $sub_location;
+                                        ?></option>
+                                            <option>Kipsotoi</option>
+                                            <option>kipsigak</option>
+                                            <option>Kapkeruge</option>
+                                            <!-- <option>Kabore</option> -->
+                                        </select>
+
+                                        
+                                        <select name="kipture_sub_location"class="form-control" id="kipture_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kipture_sub_location = $_POST['kipture_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kipture_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kipture_sub_location = $_POST['kipture_sub_location'];
+                                        $sub_location = $kipture_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kipture</option>
+                                            <option>Kimaam</option>
+                                            <option>Irimis</option>
+                                            <!-- <option>Kabore</option> -->
+                                        </select>
+
+                                        <select name="kabirirsang_sub_location"class="form-control" id="kabirirsang_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kabirirsang_sub_location = $_POST['kabirirsang_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kabirirsang_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kabirirsang_sub_location = $_POST['kabirirsang_sub_location'];
+                                        $sub_location = $kabirirsang_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kabirirsang</option>
+                                            <option>Underit</option>
+                                            <option>Chesuwe</option>
+                                            <!-- <option>Kabore</option> -->
+                                        </select>
+
+                                        <select name="arwos_sub_location"class="form-control" id="arwos_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $arwos_sub_location = $_POST['arwos_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $arwos_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $arwos_sub_location = $_POST['arwos_sub_location'];
+                                        $sub_location = $arwos_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Tiryo</option>
+                                            
+                                        </select>
+
+                                        <select name="kaplamai_sub_location"class="form-control" id="kaplamai_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $kaplamai_sub_location = $_POST['kaplamai_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $kaplamai_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kaplamai_sub_location = $_POST['kaplamai_sub_location'];
+                                        $sub_location = $kaplamai_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kaptagunyo</option>
+                                            
+                                        </select>
+
+                                        <select name="tulon_sub_location"class="form-control" id="tulon_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $tulon_sub_location = $_POST['tulon_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $tulon_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $tulon_sub_location = $_POST['tulon_sub_location'];
+                                        $sub_location = $tulon_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Kapchumba</option>
+                                            
+                                        </select>
+
+                                        <select name="terige_sub_location"class="form-control" id="terige_sub" style="display:none;">
+                                            <option value="">-Null-</option>
+                                        <option value="<?php  if(isset($_POST['apply']))
+                                        $terige_sub_location = $_POST['terige_sub_location'];
+                                    // $_SESSION['sub_location'] = $sub_location;
+                                        echo $terige_sub_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $terige_sub_location = $_POST['terige_sub_location'];
+                                        $sub_location = $terige_sub_location;
+                                        echo $sub_location;
+                                        
+                                        ?></option>
+                                            <option>Song'oliet</option>
+                                            
+                                        </select>
                                                      
                                                         <span class="text-danger"><?php echo $sub_location_err;?></span>
                                                       
@@ -666,7 +1074,7 @@ if(isset($_POST['apply'])){
                                                 <div class="row">
                                                     <div class="col-md-3 mt-3">
                                                         <label class="font-weight-bold">Year :</label>
-                                                        <input type="text" value="<?php echo $year;?>"class="form-control"readonly>
+                                                        <input type="text" id="year" value="<?php echo $year;?>"class="form-control"readonly>
                                                     </div>
                                                 </div>
                                                 
@@ -679,7 +1087,7 @@ if(isset($_POST['apply'])){
                                             <div class="row">              
                                                 <div class="col-md-4">
                                                     <label class="font-weight-bold">Institution :</label>
-                                                    <select name="school_level" class="form-control <?php echo $school_level_err ? 'border border-danger' : '';?>">
+                                                    <select name="school_level" id="level" class="form-control <?php echo $school_level_err ? 'border border-danger' : '';?>">
                                                     <option value = ""></option>
                                                         <option value="<?php echo $school_level;?>" selected><?php echo $school_level;?></option>
                                                         <!-- <option>Primary school</option> -->
@@ -692,7 +1100,7 @@ if(isset($_POST['apply'])){
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label class="font-weight-bold">UPI/ Adm/ Reg No :</label>
-                                                    <input type="text" name="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
+                                                    <input type="text" name="reg_no" id="reg" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
                                                     
                                                     <span class="text-danger"><?php echo $reg_no_err;?></span>
                                                    
@@ -701,7 +1109,7 @@ if(isset($_POST['apply'])){
                                                     <label class="font-weight-bold">School name :</label>
                                                     <div class="select-box">
                                                     <div class="select-option">
-                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
+                                                    <input type="text" name="school_name"  class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
                                                     </div>
                                                     <div class="contents" id="contents">
                                                         <div class="search">
@@ -737,45 +1145,90 @@ if(isset($_POST['apply'])){
                                                 <h4 class="text-center font-weight-bold color">Upload Section</h4>
                                             </div>
                                                 <div class="row mt-4">
-                                                    <!-- <div class="col-md-3">
-                                                        <label class="font-weight-bold">Bank Name :</label>
-                                                        <select name="bank_name" class="form-control <?php echo $bank_name_err ? 'border border-danger' : '';?>" id="">
-                                                            <option value="<?php echo $bank_name ? $bank_name : "";?>" selected><?php echo $bank_name ? $bank_name : '';?></option>
-                                                            <option value = ""></option>
-                                                            <option>National Bank</option>
-                                                            <option>KCB Bank</option>
-                                                            <option>Co-operative Bank</option>
-                                                            <option>Family Bank</option>
-                                                        </select>
-                                                       
-                                                    <span class="text-danger"><?php echo $bank_name_err;?></span>
-                                                   
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label class="font-weight-bold">Bank Acc-No :</label>
-                                                        <input type="text" name="account_no" class="form-control <?php echo $account_no_err ? 'border border-danger' : '';?>" placeholder="Enter account number" id="" value="<?php echo $account_no;?>">
-                                                        
-                                                    <span class="text-danger"><?php echo $account_no_err;?></span>
-                                                   
-                                                    </div> -->
+                                                    
                                                     <div class="col-md-6">
-                                                        <label class="font-weight-bold">School Fees Structure : (LIMIT 5Mbs)</label>
-                                                        <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="" value="<?php echo $fee_structure;?>">
-                                                        
-                                                    <span class="text-danger"><?php echo $fee_structure_err;?></span>
+                                                        <div class="column">
+                                                        <label class="font-weight-bold">School Fees Structure : (Limit 5Mb)</label>
+                                                        <!-- <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="file" value="<?php echo $fee_structure;?>" onchange="validateFile(this.files[0]);"> -->
+                                                        <input type="file" id="file-upload-field" class="form-control" name="fee_structure">
+                                                        <span id="file-upload-error" class="text-danger font-weight-bold"></span>
+                                                    <!-- <span class="text-danger"><?php echo $fee_structure_err;?></span> -->
+                                                    <!-- <div class="preview-card mt-2">
+                                                     <iframe id="preview-image" src="" alt="Selected document preview"></iframe>
+                                                    </div> -->
+                                                    </div>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="font-weight-bold">School ID/School adm. letter : (LIMIT 5Mbs)</label>
-                                                        <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="" value="<?php echo $name;?>">
+                                                        <div class="column">
+                                                        <label class="font-weight-bold">School ID/School adm. letter : (Limit 5Mb)</label>
+                                                        <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="file-upload" value="<?php echo $name;?>">
                                                         <span class="text-danger"><?php print_r($errors);?></span>
-                                                    <span class="text-danger"><?php echo $school_doc_err;?></span><br>
+                                                        <span id="file-error" class="text-danger font-weight-bold"></span>
+                                                    <!-- <span class="text-danger"><?php echo $school_doc_err;?></span><br> -->
+                                                    <!-- <div class="preview-card mt-2">
+                                                     <iframe id="preview" src="" alt="Selected document preview"></iframe>
+                                                    </div> -->
                                                     </div>
+                                                    </div>
+                                                    
+
+
                                                 </div>
-                                                <input type="submit" name="apply" class="btn mt-5 font-weight-bold mb-4" style="float: right;color:white;background-color:#166651" value="SUBMIT APPLICATION">
+                                             
+                                                <input type="submit" name="apply" class="btn mt-5 font-weight-bold mb-4 " style="float: right;color:white;background-color:#166651" value="SUBMIT APPLICATION">
                                     </div>
                                 </form>
 								</div>
+                                <?php if(isset($_POST['apply'])){
+                                                            if($_POST['ward'] == 'Kapkangani'){
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapkangani').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kapsabet'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapsabet').style.display = 'block';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kilibwoni'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kilibwoni').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Chepkumia'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('chepkumia').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }
+                                                    }
+                                                        ?>
+                                                        
 							</div>
 							<!-- /Revenue Chart -->
 							
@@ -835,7 +1288,811 @@ if(isset($_POST['apply'])){
                 li[i].style.display = 'none';
             }
         }
-    })
+    });
 
+
+    $(document).ready(function() {
+  // Get the input field
+  var inputField = $('#file-upload-field');
+
+  // Add an event listener for the file change event
+  inputField.on('change', function() {
+    // Get the selected file
+    var file = inputField.prop('files')[0];
+    var maxFileSize = 5242880; // 5MB
+    var minFileSize = 0; //0MB
+  var allowedFileTypes = ['jpeg', 'png', 'doc','docx','pdf','jpg','txt'];
+
+  var fileExtension = file.name.split('.').pop();
+
+    // Check if the file is oversize
+    if (file.size > 5242880 && allowedFileTypes.includes(fileExtension)) {
+      // Display an error message
+      $('#file-upload-error').text('The file is too large.');
+      inputField.val('');
+      return;
+    }
+
+    // Check if the file type is allowed
+    if (!allowedFileTypes.includes(fileExtension) && file.size < 5242880) {
+      // Display an error message
+      $('#file-upload-error').text('The file type is not allowed.');
+      inputField.val('');
+      return;
+    }
+    
+    if(!allowedFileTypes.includes(fileExtension) && file.size > 5242880 ){
+          // Display an error message
+      $('#file-upload-error').text('The file is too large and also the file type is not allowed.');
+      inputField.val('');
+      return;
+    }
+
+    // If the file is valid, clear the error message
+    $('#file-upload-error').text('');
+  });
+
+
+// Get the input element for the file upload.
+const fileInputElement = document.querySelector('#file-upload-field');
+
+// Add an event listener for the file change event.
+fileInputElement.addEventListener('change', function(event) {
+  // Get the selected file.
+  const file = event.target.files[0];
+
+  // Create a new FileReader object.
+  const fileReader = new FileReader();
+
+  // Add an event listener for the load event.
+  fileReader.addEventListener('load', function(event) {
+    // Get the base64 encoded data for the image.
+    const base64Data = event.target.result;
+
+    // Set the src attribute of the preview image to the base64 encoded data.
+    document.querySelector('#preview-image').src = base64Data;
+  });
+
+  // Read the selected file as a data URL.
+  fileReader.readAsDataURL(file);
+});
+
+});
+
+// school doc
+
+$(document).ready(function() {
+  // Get the input field
+  var inputField = $('#file-upload');
+
+  // Add an event listener for the file change event
+  inputField.on('change', function() {
+    // Get the selected file
+    var file = inputField.prop('files')[0];
+    var maxFileSize = 5242880; // 5MB
+    var minFileSize = 0; //0MB
+  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt'];
+
+  var fileExtension = file.name.split('.').pop();
+
+    // Check if the file is oversize
+    if (file.size > 5242880 && allowedFileTypes.includes(fileExtension)) {
+      // Display an error message
+      $('#file-error').text('The file is too large.');
+      inputField.val('');
+      return;
+    }
+
+    // Check if the file type is allowed
+    if (!allowedFileTypes.includes(fileExtension) && file.size <= 5242880 ) {
+      // Display an error message
+      $('#file-error').text('The file type is not allowed.');
+      inputField.val('');
+      return;
+    }
+
+    if(!allowedFileTypes.includes(fileExtension) && file.size > 5242880 ){
+          // Display an error message
+      $('#file-error').text('The file is too large and also the file type is not allowed.');
+      inputField.val('');
+      return;
+    }
+
+    // If the file is valid, clear the error message
+    $('#file-error').text('');
+});
+    // 
+    // Get the input element for the file upload.
+const fileInputElement = document.querySelector('#file-upload');
+
+// Add an event listener for the file change event.
+fileInputElement.addEventListener('change', function(event) {
+  // Get the selected file.
+  const file = event.target.files[0];
+
+  // Create a new FileReader object.
+  const fileReader = new FileReader();
+
+  // Add an event listener for the load event.
+  fileReader.addEventListener('load', function(event) {
+    // Get the base64 encoded data for the image.
+    const base64Data = event.target.result;
+
+    // Set the src attribute of the preview image to the base64 encoded data.
+    document.querySelector('#preview').src = base64Data;
+  });
+
+  // Read the selected file as a data URL.
+  fileReader.readAsDataURL(file);
+
+  });
+});
+
+
+    function validateFile(file) {
+        var inputField = $('#file');
+    var maxFileSize = 5242880; // 5MB
+    var minFileSize = 0; //0MB
+    var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/jpg','image/txt'];
+
+    // Get the file size and file type.
+    var fileSize = file.size;
+    var fileType = file.type;
+
+    // Check if the file size is greater than the maximum allowed file size.
+    if (fileSize > maxFileSize) {
+        // alert("The file size is too large.");
+        // return false;
+        $('#file-upload-error').text('The file is too large.');
+      inputField.val('');
+      return;
+    }
+    //  if(filesize <= minFileSize){
+    //     alert("The file size is too small.");
+    //     return false;
+    // }
+
+    // Check if the file type is one of the allowed file types.
+    if (!allowedFileTypes.includes(fileType)) {
+        // alert("The file type is not allowed.");
+        // return false;
+        $('#file-upload-error').text('The file type is not allowed.');
+      inputField.val('');
+      return;
+    }
+  // If the file is valid, clear the error message
+  $('#file-upload-error').text('');
+    // return true;
+}
+
+// $(document).ready(function(){
+//     load_json_data('ward');
+//     function load_json_data(id,parent_id){
+//         var html_code = '';
+//         $.getJSON('data.json',function(data){
+//             html_code += '<option value="">Select '+id+'</option>';
+//             $.each(data, function(key, value){
+//                 if(id == 'ward'){
+//                     if(value.parent_id == '0'){
+//             html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+
+//                     }
+//                 }else{
+//                     if(value.parent_id == parent_id){
+//             html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+
+//                     }
+//                 }
+//             });
+//             $('#'+id).html(html_code);
+//         });
+        
+//     }
+//     $(document).on('change', '#ward', function(){
+//         var ward_id = $(this).val();
+//         if(ward_id != ''){
+//             load_json_data('location', ward_id);
+//         }else{
+//             $('#location').html('<option value="">Select Location</option>');
+//             $('#sub_location').html('<option value="">Select Sub-Location</option>');
+//         }
+//     });
+//     $(document).on('change', '#location', function(){
+//         var location_id = $(this).val();
+//         if(location_id != ''){
+//             load_json_data('sub_location', location_id);
+//         }else{
+//             // $('#location').html('<option value="">Select Location</option>'); 
+//             $('#sub_location').html('<option value="">Select Sub-Location</option>');
+//         }
+//     });
+// });
+function showHideSelectOptions() {
+  // Get the value of the parent select option.
+  var parentSelectValue = document.getElementById("opts").value;
+
+  // Show the child select option if the parent select option is set to "Option 2".
+  if (parentSelectValue === "Kapsabet") {
+    document.getElementById("kapsabet").style.display = "block";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById('kilibwoni_sub').style.display = 'none';
+    document.getElementById('sub').style.display = 'block';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+    document.getElementById("kapkangani").style.display = "none";
+  } else if(parentSelectValue === "Chepkumia"){
+    
+    document.getElementById("chepkumia").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById('kilibwoni_sub').style.display = 'none';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+        document.getElementById('sub').style.display = 'block';
+    }else if(parentSelectValue === "Kilibwoni") {
+		document.getElementById("kilibwoni").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
+    document.getElementById("default").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById('sub').style.display = 'block';
+    document.getElementById('chepkumia_sub').style.display = 'none';
+    document.getElementById('kapkangani_sub').style.display = 'none';
+        document.getElementById('lolminingai_sub').style.display = 'none';
+        document.getElementById('chepkumia_sub').style.display = 'none';
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+        document.getElementById('kilibwoni_sub').style.display = 'none';
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+
+
+  }else if(parentSelectValue === "Kapkangani") {
+		document.getElementById("kapkangani").style.display = "block";
+    document.getElementById("kapsabet").style.display = "none";
+    document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("chepkumia").style.display = "none";
+    document.getElementById("default").style.display = "none";
+
+        document.getElementById('kilibwoni_sub').style.display = 'none';
+        document.getElementById('terige_sub').style.display = 'none';
+       
+    document.getElementById('kapkangani_sub').style.display = 'none';
+
+        document.getElementById('lolminingai_sub').style.display = 'none';
+       
+        document.getElementById('kipsigak_sub').style.display = 'none';
+        document.getElementById('kipture_sub').style.display = 'none';
+        document.getElementById('kabirirsang_sub').style.display = 'none';
+        document.getElementById('arwos_sub').style.display = 'none';
+    
+        document.getElementById('kaplamai_sub').style.display = 'none';
+        document.getElementById('tulon_sub').style.display = 'none';
+        
+        document.getElementById('sub').style.display = 'block';
+        document.getElementById('township_sub').style.display = 'none';
+    document.getElementById('kamobo_sub').style.display = 'none';
+    document.getElementById('kiminda_sub').style.display = 'none';
+
+  }
+}
+
+// sub-location scripts
+function showOptions() {
+  
+//   var parentValue = document.getElementById("kapkangani").value;
+  if(parentValue === 'Kapkangani'){
+      document.getElementById('kapkangani_sub').style.display = 'block';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+
+  }else if(parentValue === ''){
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'block';
+  }
+  
+}
+
+function Options() {
+//   var parentV = document.getElementById("chepkumia").value;
+if(parentV === "Chepkumia"){
+      document.getElementById('chepkumia_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+
+      }else if(parentV === ''){
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'block';
+      }
+
+}
+function show() {
+//   var parentVa = document.getElementById("kilibwoni").value;
+if(parentVa === "Kilibwoni"){
+      document.getElementById('kilibwoni_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+
+      }else if(parentVa === 'Lolminingai'){
+      document.getElementById('lolminingai_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Kipsigak'){
+      document.getElementById('kipsigak_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Kipture'){
+      document.getElementById('kipture_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }
+      else if(parentVa === 'Kabirirsang'){
+      document.getElementById('kabirirsang_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Arwos'){
+      document.getElementById('arwos_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Kaplamai'){
+      document.getElementById('kaplamai_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Tulon'){
+      document.getElementById('tulon_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }else if(parentVa === 'Terige'){
+      document.getElementById('terige_sub').style.display = 'block';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+      }
+      
+      if(parentVa === ''){
+      document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'block';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      }
+
+}
+
+function showOpt(){
+//   var parent = document.getElementById("kapsabet").value;
+if(parent === 'Kamobo'){
+  document.getElementById('kamobo_sub').style.display = 'block';
+  document.getElementById('kiminda_sub').style.display = 'none';
+  document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+
+}else if(parent === 'Kiminda'){
+  document.getElementById('kiminda_sub').style.display = 'block';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('township_sub').style.display = 'none';
+
+  document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+
+}else if(parent === 'Township'){
+  document.getElementById('township_sub').style.display = 'block';
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+
+  document.getElementById('kilibwoni_sub').style.display = 'none';
+      document.getElementById('sub').style.display = 'none';
+      document.getElementById('kapkangani_sub').style.display = 'none';
+      document.getElementById('lolminingai_sub').style.display = 'none';
+      document.getElementById('chepkumia_sub').style.display = 'none';
+      document.getElementById('kipsigak_sub').style.display = 'none';
+      document.getElementById('kipture_sub').style.display = 'none';
+      document.getElementById('kabirirsang_sub').style.display = 'none';
+      document.getElementById('arwos_sub').style.display = 'none';
+
+      document.getElementById('kaplamai_sub').style.display = 'none';
+      document.getElementById('tulon_sub').style.display = 'none';
+      document.getElementById('terige_sub').style.display = 'none';
+
+}else if(parent === ''){
+  document.getElementById('township_sub').style.display = 'none';
+  document.getElementById('sub').style.display = 'block';
+  
+  document.getElementById('kamobo_sub').style.display = 'none';
+  document.getElementById('kiminda_sub').style.display = 'none';
+}
+}
+
+// const inputFields = document.querySelectorAll('input[required]');
+// const progressBar =document.querySelector('.progress');
+// inputFields.forEach(input => {
+//     input.addEventListener('input', updateProgressBar);
+// });
+// function updateProgressBar(){
+//     const completedFields = document.querySelectorAll('input[required]:not(:empty)');
+//     const progress =completedFields.length / inputFields.length * 100;
+//     progressBar.style.width = '${progress}%';
+// }
+// $(document).ready(function(){
+//     var totalFields = $('input[type="text"]').length;
+//     var completedFields = 0;
+//     $('input[type="text"]').change(function(){
+//         if($(this).val() !== ''){
+//             completedFields++;
+//         }else{
+//             completedFields--;
+//         }
+
+//         var percentage = Math.floor((completedFields / totalFields) * 100);
+//         $('.progress').css('width', percentage + '%');
+//         $('.percentage').text(percentage + '%');
+//     });
+// });
+
+$(document).ready(function() {
+  // Get the progress bar element.
+  const progressBarElement = $('.progress-bar');
+
+  // Get the input field elements.
+  const input1 = $('#first');
+  const input2 = $('#last');
+  const input3 = $('#gender');
+  const input4 = $('#date');
+//   const input5 = $('#parent');
+  const input5 = $('#phone');
+  const input6 = $('#id');
+//   const input8 = $('#email');
+//   const input9 = $('#county');
+  const input7 = $('#opts');
+//   const input11 = $('#default');
+  const input8 = $('#subs');
+  const input9 = $('#level');
+  const input10 = $('#reg');
+//   const input15= $('#soValue');
+  const input11= $('#file-upload-field');
+  const input12= $('#file-upload');
+//   const input18= $('#year');
+  
+
+
+  // Calculate the initial percentage.
+  let percentage = 0;
+
+  // Get the number of input fields.
+  const numberOfInputFields = 12;
+
+  // Check if any of the input fields are already filled.
+  if (input1.val() || input2.val() || input3.val()|| input4.val()|| input5.val()|| input6.val()|| input7.val()|| input8.val()|| input9.val()|| input10.val()
+  || input11.val()|| input12.val()) {
+    // If any of the input fields are already filled, calculate the percentage based on the number of filled input fields.
+    percentage = (100 / numberOfInputFields) * (input1.val() ? 1 : 0) + (input2.val() ? 1 : 0) + (input3.val() ? 1 : 0)+ (input4.val() ? 1 : 0)+ (input5.val() ? 1 : 0)
+    + (input6.val() ? 1 : 0)+ (input7.val() ? 1 : 0)+ (input8.val() ? 1 : 0)+ (input9.val() ? 1 : 0)+ (input10.val() ? 1 : 0)+ (input11.val() ? 1 : 0)+ (input12.val() ? 1 : 0)
+    ;
+  }
+
+  // Update the progress bar percentage.
+  progressBarElement.css('width', percentage + '%');
+  $('.percentage').text(percentage + '%');
+
+  // Add an event listener for the change event on the input field elements.
+  input1.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+     percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+
+  input2.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+
+  input3.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input4.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input5.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input6.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input7.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input8.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input9.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input10.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input11.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  input12.change(function() {
+    // Calculate the new percentage.
+    // percentage = percentage + (100 / numberOfInputFields);
+
+    // Update the progress bar percentage.
+    percentage = Math.floor(percentage + (100 / numberOfInputFields));
+    progressBarElement.css('width', percentage + '%');
+    $('.percentage').text(percentage + '%');
+  });
+  
+});
     </script>
 </html>
