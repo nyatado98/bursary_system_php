@@ -57,9 +57,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>
     <title>Login page-students:</title>
+    <style>
+        /* #body{
+            background-image:url('images/nangi.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 80vh;
+            opacity:1;
+        } */
+        </style>
 </head>
-<body>
-    <div class="container col-md-8" style="margin-top: 20vh">
+<body id="body">
+    <div class="container col-md-8" style="margin-top: 20vh;z-index:99">
         <div class="row" style="border: .1px light black">
         <div class="col-md-6">
             
