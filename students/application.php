@@ -8,6 +8,12 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 
 ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
 
+require "../vendor/autoload.php";
+require __DIR__ . '../vendor/autoload.php';
+use Twilio\Rest\Client;
+
+$dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
+$dotenv->load('../.env');
 // include('php.ini');
 
 // Get the value of the upload_max_filesize directive.
@@ -121,10 +127,10 @@ $sub_location = trim($_POST['sub_location']);
     
     if(empty($_POST['phone'])){
         $phone_err = "Please enter phone number";
-    }elseif(strlen(trim($_POST['phone'])) < 10){
-        $phone_err = "Phone number should not be less than 10 digits.";
+    }elseif(strlen(trim($_POST['phone'])) < 9){
+        $phone_err = "Phone number should not be less than 9 digits.";
     }else{
-        $phone = trim($_POST['phone']);
+        $phone ='+254'.trim($_POST['phone']);
     }
     // if(empty($_POST['occupation'])){
     //     $occupation_err = "Please enter occupation";
@@ -282,7 +288,27 @@ $sub_location = trim($_POST['sub_location']);
         
     }
 
-
+  //send sms via twilio
+  $accountSid = getenv('TWILIO_ACCOUNT_SID');
+  $authToken = getenv('TWILIO_AUTH_TOKEN');
+  $twilioNumber = "+17124300592"; // Your Twilio phone number
+  $recipientNumber = $phone; // Recipient's phone number
+  $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+  
+  $client = new Client($accountSid, $authToken);
+  
+  try {
+    $message = $client->messages->create(
+      $recipientNumber,
+      array(
+        'from' => $twilioNumber,
+        'body' => $message
+      )
+    );
+    echo "SMS message sent successfully!";
+  } catch (Exception $e) {
+    echo "Error sending SMS: " . $e->getMessage();
+  }
 
 
             //send mail
@@ -316,6 +342,27 @@ $sub_location = trim($_POST['sub_location']);
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
 
+            //send sms via twilio
+            $accountSid = getenv('TWILIO_ACCOUNT_SID');
+$authToken = getenv('TWILIO_AUTH_TOKEN');
+$twilioNumber = "+17124300592"; // Your Twilio phone number
+$recipientNumber = $phone; // Recipient's phone number
+$message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+$client = new Client($accountSid, $authToken);
+
+try {
+  $message = $client->messages->create(
+    $recipientNumber,
+    array(
+      'from' => $twilioNumber,
+      'body' => $message
+    )
+  );
+  echo "SMS message sent successfully!";
+} catch (Exception $e) {
+  echo "Error sending SMS: " . $e->getMessage();
+}
             //send mail
             $mailto = $email;
 			$mailSub = 'NANDI COUNTY';
@@ -347,26 +394,7 @@ $sub_location = trim($_POST['sub_location']);
     }
 }
 }
-// 
 
-// $file = $_FILES['file-upload-field'];
-
-// // Check if the file is oversize
-// if ($file['size'] > 1024 * 1024) {
-//   // Display an error message
-//   echo 'The file is too large.';
-//   exit;
-// }
-
-// // Check if the file type is allowed
-// if (!in_array($file['type'], ['image/jpeg', 'image/png', 'application/pdf'])) {
-//   // Display an error message
-//   echo 'The file type is not allowed.';
-//   exit;
-// }
-
-// // Move the uploaded file to its destination
-// move_uploaded_file($file['tmp_name'], '/path/to/destination/directory/' . $file['name']);
 
 
 ?>
@@ -496,13 +524,16 @@ body{
 						<img src="images/nandi.png" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<img src="images/nandi.png" alt="Logo" width="30" height="30">
+						<!-- <img src="images/nandi.png" alt="Logo" width="30" height="30"> -->
+					<label style="font-weight: 900; color: #0f893b; font-size: 15px;margin-left:-130px">BURSARY APPLICATION SYSTEM</label>
+
 					</a>
                 </div>
 				<!-- /Logo -->
 				
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
+                    <label style="font-weight: 900; color: #0f893b; font-size: 25px" class="mx-5">BURSARY APPLICATION SYSTEM</label>
 				</a>
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fas fa-bars"></i>
@@ -553,9 +584,18 @@ body{
 						<div class="row">
 							<div class="col-sm-12">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
-                                <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php echo $_SESSION['user'];?> </span>
+                                <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
+                                echo $_SESSION['user'];
+                                }else{
+                                    $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                    $q = mysqli_query($conn,$sql);
+                                    while($r = $q->fetch_assoc()){
+                                        $user = $r['fullname'];
+                                        echo $user;
+                                    }
+                                }?> </span>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>
+									<!-- <li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li> -->
 								</ul>
 							</div>
 						</div>
@@ -654,23 +694,26 @@ body{
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                                                <?php if($_SESSION['user'] == ""){
+                                                <?php if($_SESSION['user'] != ""){
                                                     ?>
                                                      <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $parent_guardian_name;?>" class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
-                                
+                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
                                                         <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
                                                         <?php }else{
+                                                            $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($r = $q->fetch_assoc()){
+                                                                $user = $r['fullname'];
                                                             ?>
                                                         <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
-                                                        <?php }?>
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
+                                                        <?php }}?>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
-                                                        <input type="number" id="phone" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
+                                                        <input type="number" id="phone" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="7 - - - - - - - -" value="<?php echo $phone;?>">
                                                         <br>
-                                                        <span class="font-italic">Start with 0712345678</span><br>
+                                                        <span class="font-italic">Start with 712345678</span><br>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         
                                                     </div>

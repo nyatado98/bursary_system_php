@@ -58,18 +58,21 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>
     <title>Login page-students:</title>
     <style>
-        /* #body{
-            background-image:url('images/nangi.jpg');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 80vh;
-            opacity:1;
-        } */
+       /* body {
+    background-image: url("images/nangi.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.8; 
+} */
+
+
+
         </style>
 </head>
 <body id="body">
-    <div class="container col-md-8" style="margin-top: 20vh;z-index:99">
+    <div class="container col-md-8 content" style="margin-top: 20vh;">
         <div class="row" style="border: .1px light black">
         <div class="col-md-6">
             
@@ -90,33 +93,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 													 <?php }else{ ?>
 
 														<?php } ?>
-                <!-- <span class="text-success font-weight-bold"><?php echo $mssgs;?></span> -->
-                <!-- <span class="text-danger font-weight-bold"><?php echo $message;?></span> -->
-
-                <!-- @if(session()->has('message'))
-                <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                    <span class="font-weight-bold">{{session()->get('message')}}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                         </button>
-                         </div>
-                @endif
-                @if(session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                    <span class="font-weight-bold">{{session()->get('success')}}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                         </button>
-                         </div>
-                @endif
-                @if($errors->has('email_reset'))
-                <div class="alert alert-danger alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                    <span class="font-weight-bold">{{$errors->first('email_reset')}}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                         </button>
-                         </div>
-                 @endif -->
+                                                        <?php if(isset($_GET['success'])){
+						
+						$message = "You have successfully register. Login Now.";
+						?>
+						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+													 <?php }else{ ?>
+														
+														<?php } ?>
                 <form method="POST" action="">
                    
                 <label class="font-weight-bold">Enter Email address :</label>

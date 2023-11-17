@@ -52,7 +52,7 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
     if($query){
         $mssgs = "You have successfully register login here";
         $_SESSION['mssgs'] = $mssgs;
-        header("location:login");
+        header("location:login?success=");
     }else{
         echo "Could not register user something went wrong";
     }

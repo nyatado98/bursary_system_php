@@ -1696,6 +1696,13 @@ div.dataTables_wrapper div.dataTables_info {
     display: none;
 }
 
+
+/* added */
+
+.header-left .logo label {
+    display: none;
+}
+
 .header .dropdown-menu>li>a {
     position: relative;
 }
@@ -3282,6 +3289,10 @@ table.table-inbox tbody tr.checked {
     .mini-sidebar .header-left .logo.logo-small {
         display: block;
     }
+    /* added */
+    .mini-sidebar .header-left .logo label {
+        display: block;
+    }
     .mini-sidebar .header .header-left {
         padding: 0 5px;
         width: 78px;
@@ -3446,6 +3457,12 @@ table.table-inbox tbody tr.checked {
         display: none;
     }
     .header-left .logo.logo-small {
+        display: inline-block;
+        left: 50%;
+        position: relative;
+    }
+    /* added */
+    .header-left .logo label {
         display: inline-block;
         left: 50%;
         position: relative;

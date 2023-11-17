@@ -1,28 +1,31 @@
-<<<<<<< HEAD
+
 <?php
-use Courier\Courier;
-use PHPMailer\PHPMailer\PHPMailer;
-use vendor\ctrlaltdylan\courier\src;
-//load composer autoloader
-require 'vendor/autoload.php';
 
+require "vendor/autoload.php";
+require __DIR__ . '/vendor/autoload.php';
+use Twilio\Rest\Client;
 
-$courier = new Courier();
+$dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
+$dotenv->load('.env');
+$accountSid = getenv('TWILIO_ACCOUNT_SID');
+$authToken = getenv('TWILIO_AUTH_TOKEN');
+$twilioNumber = "+17124300592"; // Your Twilio phone number
+$recipientNumber = "+254726585782"; // Recipient's phone number
+$message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
 
-$courier->setRecipient('254726585782')->setBody('Hello World')->send();
+$client = new Client($accountSid, $authToken);
 
-=======
-<?php
-use Courier\Courier;
-use PHPMailer\PHPMailer\PHPMailer;
-use vendor\ctrlaltdylan\courier\src;
-//load composer autoloader
-require 'vendor/autoload.php';
+try {
+  $message = $client->messages->create(
+    $recipientNumber,
+    array(
+      'from' => $twilioNumber,
+      'body' => $message
+    )
+  );
+  echo "SMS message sent successfully!";
+} catch (Exception $e) {
+  echo "Error sending SMS: " . $e->getMessage();
+}
 
-
-$courier = new Courier();
-
-$courier->setRecipient('254726585782')->setBody('Hello World')->send();
-
->>>>>>> 2019fb6bd2dd2ea15b95e71ca458d606c33ff2c1
 ?>

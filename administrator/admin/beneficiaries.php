@@ -3,7 +3,13 @@ include 'database/connect.php';
 if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
+	
 }
+require 'vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 $email = $_SESSION['email'];
 
 $sql = "SELECT * FROM beneficiary_upload";
@@ -18,7 +24,10 @@ if(isset($_POST['upload'])){
 	}else{
 		$document_name = trim($_POST['document_name']);
 	}
-	
+	$ward = $_POST['ward'];
+	$location = $_POST['location'];
+	$sub_location = $_POST['sub_location'];
+
 	$name = $_FILES['document']['name'];
 
 	$target = "beneficiary_uploads/";
@@ -29,7 +38,7 @@ if(isset($_POST['upload'])){
     $tmp_name = $_FILES['document']['tmp_name'];
     $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-    $extensions = array("jpeg","jpg","png","gif","mp3","mp4","pdf","txt","doc","jfif","docx","zip");
+    $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
     if (!in_array($file_ext, $extensions)) {
     	$errors = "The file type is not allowed...Please choose another file";
     }
@@ -40,7 +49,7 @@ if(isset($_POST['upload'])){
         $date_added=strtotime("current");
         $date_added = date('Y/m/d  H:i:sa');
 	if(empty($document_name_err)&& empty($document)&& empty($errors)){
-		$sql = "INSERT INTO beneficiary_upload (document_name,document,uploaded_by,created_at,updated_at)VALUES('$document_name','$fileName','$email','$date_added','$date_added')";
+		$sql = "INSERT INTO beneficiary_upload (document_name,document,uploaded_by,ward,location,sub_location,created_at,updated_at)VALUES('$document_name','$fileName','$email','$ward','$location','$sub_location','$date_added','$date_added')";
 		$q = mysqli_query($conn,$sql);
 		if($q){
 			move_uploaded_file($tmp_name,$target.$name);
@@ -52,28 +61,85 @@ if(isset($_POST['upload'])){
 		}
 	}}
 if(isset($_GET['download'])){
-	$download = $_GET['download'];
-	#setting headers
-    // header('Content-Description: File Transfer');
-    // header('Cache-Control: public');
-    // header('Content-Type: '.$type);
-    // header("Content-Transfer-Encoding: binary");
-    // header('Content-Disposition: attachment; filename='. basename($download));
-    // header('Content-Length: '.filesize($download));
-    // ob_clean(); #THIS!
-    // flush();
-    // readfile($download);
-// 	// Get the path to the file.
-$filePath = 'beneficiary_uploads/"'.$download.'"';
+// 	$download = $_GET['download'];
+// 	#setting headers
+//     // header('Content-Description: File Transfer');
+//     // header('Cache-Control: public');
+//     // header('Content-Type: '.$type);
+//     // header("Content-Transfer-Encoding: binary");
+//     // header('Content-Disposition: attachment; filename='. basename($download));
+//     // header('Content-Length: '.filesize($download));
+//     // ob_clean(); #THIS!
+//     // flush();
+//     // readfile($download);
+// // 	// Get the path to the file.
+// $filePath = 'beneficiary_uploads/"'.$download.'"';
 
-// Set the Content-Type header.
-header('Content-Type: application/octet-stream');
+// // Set the Content-Type header.
+// header('Content-Type: application/octet-stream');
 
-// Set the Content-Disposition header.
-header('Content-Disposition: attachment; filename="'.basename($download).'"');
+// // Set the Content-Disposition header.
+// header('Content-Disposition: attachment; filename="'.basename($download).'"');
 
-// Read the file from the server and output it to the browser.
-readfile($filePath);
+// // Read the file from the server and output it to the browser.
+// readfile($filePath);
+// 
+
+$fileName = $_GET["download"];
+$fileContent = file_get_contents($fileName);
+
+$response = new StreamedResponse(
+    function () use ($fileContent) {
+        echo $fileContent;
+    }
+);
+
+$response->headers->set('Content-Type', 'application/octet-stream');
+$response->headers->set('Content-Disposition', 'attachment; filename=' . $fileName);
+
+$response->send();
+// $fileName = $_GET["download"];
+// $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+// $contentType = "";
+
+// switch ($fileExtension) {
+//   case
+ 
+// "jpg":
+//   case
+ 
+// "jpeg":
+//     $contentType = "image/jpeg";
+//     break;
+//   case
+ 
+// "png":
+//     $contentType = "image/png";
+//     break;
+//   case
+ 
+// "pdf":
+//     $contentType = "application/pdf";
+//     break;
+//   case "doc":
+//   case "docx":
+//     $contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+//     break;
+//   case "xls":
+//   case
+ 
+// "xlsx":
+//     $contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+//     break;
+//   default:
+//     $contentType = "application/octet-stream";
+//     break;
+// }
+
+// header("Content-Type: $contentType");
+// header("Content-Disposition: attachment; filename=$fileName");
+
+// readfile($fileName);
 }
 ?>
 <!DOCTYPE html>
@@ -166,8 +232,8 @@ readfile($filePath);
 						<div class="col-md-12">
 						<!-- success message -->
 						<?php if(isset($_GET['success'])){
-						$suc = $_SESSION['succ'];
-						$succs = $suc;
+						// $suc = $_SESSION['succ'];
+						$succs ="Document Uploaded Successfully.";
 						?>
 						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $succs;?></span>
@@ -178,6 +244,7 @@ readfile($filePath);
 													 <?php }else{ ?>
 														
 														<?php } ?>
+														<span class="text-danger"><?php echo $errors;?></span><br>
 							<!-- Revenue Chart -->
                             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#New">Add New Beneficiary Document</a>
                             <div class="modal fade" id="New" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
