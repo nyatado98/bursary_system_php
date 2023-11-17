@@ -62,16 +62,22 @@ if(isset($_POST['edit'])){
 						<img src="./images/nandi.png" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<img src="./images/nandi.png" alt="Logo" width="30" height="30">
+					<label style="font-weight: 900; color: #0f893b; font-size: 15px;margin-left:-130px">BURSARY APPLICATION SYSTEM</label>
+					
 					</a>
+					<!-- <a href="dashboard" class="logo mobile">
+					<label style="font-weight: 900; color: #0f893b; font-size: 15px">BURSARY APPLICATION SYSTEM</label>
+					</a> -->
                 </div>
 				<!-- /Logo -->
 				
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
+					<label style="font-weight: 900; color: #0f893b; font-size: 25px" class="mx-5">BURSARY APPLICATION SYSTEM</label>
 				</a>
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fas fa-bars"></i>
+					<!-- <label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label> -->
 				</a>
                         </div>
 			<!-- /Header -->
@@ -121,9 +127,18 @@ if(isset($_POST['edit'])){
 						<div class="row">
 							<div class="col-sm-12">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
-								<span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php echo $_SESSION['user'];?> </span>
+								<span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
+                                echo $_SESSION['user'];
+                                }else{
+                                    $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                    $q = mysqli_query($conn,$sql);
+                                    while($r = $q->fetch_assoc()){
+                                        $user = $r['fullname'];
+                                        echo $user;
+                                    }
+                                }?> </span>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>
+									<li class="breadcrumb-item active"></li>
 								</ul>
 							</div>
 						</div>

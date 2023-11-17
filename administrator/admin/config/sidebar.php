@@ -36,19 +36,22 @@
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
+							<!-- <li class="submenu">
 								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="location_report">Location Report</a></li>
 									<li><a href="sub_location_report">Sub-location Report</a></li>
 								</ul>
-							</li>
+							</li> -->
 				
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
+							</li>
+							<li> 
+								<a href="messaging"><i class="fa fa-message"></i> <span>Messsages</span></a>
 							</li>
 							<li> 
 								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>

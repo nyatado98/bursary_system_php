@@ -114,16 +114,19 @@ while($rows = $r->fetch_assoc()){
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
+							<!-- <li class="submenu">
 								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="location_report">Location Report</a></li>
 									<li><a href="sub_location_report">Sub-location Report</a></li>
 								</ul>
-							</li>
+							</li> -->
 				
 							<li class="active"> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
+							</li>
+                            <li> 
+								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
 							</li>
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
@@ -158,27 +161,6 @@ while($rows = $r->fetch_assoc()){
 						<div class="container col-md-10">
                             <span class="text-success font-weight-bold"><?php echo $message ?></span><br>
                             <span class="text-danger font-weight-bold"><?php echo $err ?></span><br>
-
-                            <!--  succes message 
-                            @if(session()->has('message'))
-                            <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                <span class="font-weight-bold">{{session()->get('message')}}</span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                     </button>
-                                     </div>
-                            @endif
-                        
-                              error message 
-                              @if(session()->has('error'))
-                              <div class="alert alert-danger alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                  <span class="font-weight-bold">{{session()->get('error')}}</span>
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                       </button>
-                                       </div>
-                              @endif
-                               -->
                             <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#New">Add New User</a>
                             <div class="modal fade" id="New" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
