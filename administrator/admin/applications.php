@@ -326,7 +326,7 @@ unset($_SESSION['m']);
                                                 <td><?php echo $val['today_date'];?></td>
 												<td class="text-warning font-weight-bold"><?php echo $val['status'];?></td>
 												<td class="text-center">	
-												<?php if($val['status'] == "Approved"){?>
+												<?php if($val['status'] == "Awarded"){?>
 													<?php 
 												}else{?>
 												<a href=""class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['reference_number'];?>">Edit</a>

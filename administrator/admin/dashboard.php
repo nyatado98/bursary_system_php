@@ -15,7 +15,7 @@ require 'vendor/autoload.php';
    $mail = new PHPMailer();
 
    
-$ref = $upi_reg = $name = $school_type = $school_name = $location = $bank = $account = "";
+$ref = $upi_reg = $name = $school_type = $school_name = $location = $ward = $sub_location = "";
 date_default_timezone_set('Africa/Nairobi');
 $current_date=strtotime("current");
 $current_date = date('Y/m/d  H:i:sa');
@@ -27,10 +27,10 @@ if(isset($_POST['edit'])){
 	$school_type = $_POST['school_type'];
 	$school_name = $_POST['school_name'];
 	$location = $_POST['location'];
-	$bank = $_POST['bank'];
-	$account = $_POST['account'];
+	$ward = $_POST['ward'];
+	$sub_location = $_POST['sub_location'];
 
-	$sql = "UPDATE applications SET student_fullname ='$name',adm_upi_reg_no = '$upi_reg',school_type ='$school_type',school_name = '$school_name',location='$location',bank_name='$bank',account_no='$account',updated_at ='$current_date' WHERE reference_number = '$ref'";
+	$sql = "UPDATE applications SET student_fullname ='$name',adm_upi_reg_no = '$upi_reg',school_type ='$school_type',school_name = '$school_name',location='$location',ward='$ward',sub_location='$sub_location',updated_at ='$current_date' WHERE reference_number = '$ref'";
 	$query = mysqli_query($conn,$sql);
 	if($query){
 		$suc = "Successfully updated the application for reference number ".$_POST['ref'].".";
@@ -50,20 +50,20 @@ if(isset($_POST["approve"])){
 	$sql = "SELECT * FROM applications WHERE reference_number ='$ref_no'";
 	$mysql = mysqli_query($conn,$sql);
 	while($row = $mysql->fetch_assoc()){
-		if($row["status"] == "Approved"){
+		if($row["status"] == "Awarded"){
 
 			$message = "Application Already Reconciled for reference number <strong>".$ref_no."</strong>. You cannot reconcile again.";
 			$_SESSION['message'] = $message;
 			header("location:dashboard?message=");
 	}else{
-				$sql = "UPDATE applications SET status = 'Approved' WHERE reference_number ='$ref_no'";
+				$sql = "UPDATE applications SET status = 'Awarded' WHERE reference_number ='$ref_no'";
 				$q = mysqli_query($conn,$sql);
 				
 				if($q){
 						$sql = "SELECT * FROM parents WHERE student_fullname = '".$row['student_fullname']."'";
 				        $querys = mysqli_query($conn,$sql);
 				        while($qs = $querys->fetch_assoc()){
-							$sql = "SELECT * FROM applications WHERE reference_number ='$ref_no' AND status = 'Approved'";
+							$sql = "SELECT * FROM applications WHERE reference_number ='$ref_no' AND status = 'Awarded'";
 		            		$res = mysqli_query($conn,$sql);
 		            		while($r = $res->fetch_assoc()){
 			        		if($r['school_type'] == 'Secondary School'){
@@ -74,8 +74,8 @@ if(isset($_POST["approve"])){
 
 					$total = 5000;
 					$rad ='REP'. rand(100,999);
-					$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,location,Amount_awarded)VALUES(
-					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','".$r['location']."','$total')";
+					$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded)VALUES(
+					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total')";
 					mysqli_query($conn,$sql);
 
 					$mailto = $qs['parent_email'];
@@ -106,8 +106,8 @@ if(isset($_POST["approve"])){
 				
 				$total = 10000;
 				$rad ='REP'. rand(100,999);
-				$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,location,Amount_awarded)VALUES(
-				'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','".$r['location']."','$total')";
+				$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded)VALUES(
+				'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total')";
 				mysqli_query($conn,$sql);
 
 			$mailto = $qs['parent_email'];
@@ -331,23 +331,7 @@ if(isset($_POST["approve"])){
 														<?php } ?>
 								<div class="card-body">
 									<div id="line_graph">
-										<!-- @if(session()->has('message'))
-                                        <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('message')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif
-										@if(session()->has('success'))
-                                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('success')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif -->
-										<!-- <span class="text-danger font-weight-bold"><?php echo $message;?></span><br> -->
+										
 									</div>
 									<div class="table-responsive">
 										<table class="table table-bordered table-striped" id="sample">
@@ -376,7 +360,7 @@ if(isset($_POST["approve"])){
 												<td class="text-warning font-weight-bold"><?php echo $val['status'];?></td>
 												<td class="text-center">
 													<?php 
-													if($val['status'] == "Approved"){
+													if($val['status'] == "Awarded"){
 													?>
 													<?php }
 													else{
@@ -414,20 +398,61 @@ if(isset($_POST["approve"])){
 											<label class="font-weight-bold">Location :</label> 
                                             <select name="location" id="" class="form-control" required>
 												<option selected><?php echo $val['location'];?></option>
-                                                <option>--select role--</option>
-                                                <option>Jerusalem</option>
-                                                <option>Munyaka</option>
-												<option>Ziwa</option>
-												<option>Ilula</option>
-												<option>Block10</option>
-												<option>Subaru</option>
-												<option>Vet</option>
-												<option class="">Langas</option>
+                                                <option>--select location--</option>
+                                                <option value ="Kamobo">Kamobo</option>
+                                            <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option>
+																		<option value ="Kapkangani">Kapkangani</option>
+																		   <option value ="Chepkumia">Chepkumia</option>
+																		<option value ="Kilibwoni">Kilibwoni</option>
+                                            <option value ="Lolminingai">Lolminingai</option>
+                                            <option value ="Kipsigak">Kipsigak</option>
+                                            <option value ="Kipture">Kipture</option>
+                                            <option value ="Kabirirsang">Kabirirsang</option>
+                                            <option value ="Arwos">Arwos</option>
+                                            <option value ="Kaplamai">Kaplamai</option>
+                                            <option value ="Tulon">Tulon</option>
+                                            <option value ="Terige">Terige</option>
                                              </select>
-											 <label class="font-weight-bold">Bank name :</label> 
-                                            <input type="text" name="bank" class="form-control" id="" value="<?php echo $val['bank_name'];?>">
-											<label class="font-weight-bold">School Account no :</label> 
-                                            <input type="number" name="account" class="form-control" id="" required value="<?php echo $val['account_no'];?>">
+											 <label class="font-weight-bold">Ward :</label> 
+                                             <select name="ward" id="" class="form-control" required>
+												<option selected><?php echo $val['ward'];?></option>
+                                                <option>--select ward--</option>
+                                                <option>Kapsabet</option>
+                                                <option>Kilibwoni</option>
+												<option>Kapkangani</option>
+												<option>Chepkumia</option>
+                                             </select>
+											<label class="font-weight-bold">Sub-location :</label> 
+											<select name="sub_location" id="" class="form-control" required>
+												<option selected><?php echo $val['sub_location'];?></option>
+                                                <option>--select sub_location--</option>
+                                                <option>Kilibwoni</option>
+                                                            <option>Kapnyerebai</option>
+                                                            <option>Kaplonyo</option>
+                                                            <option>Kabore</option>
+                                                            <option>Ndubeneti</option>
+                                                            <option>Kaplolok</option>
+                                                            <option>Kipsotoi</option>
+                                                            <option>Kisigak</option>
+                                                            <option>Kakeruge</option>
+                                                            <option>Kipture</option>
+                                                            <option>Kimaam</option>
+                                                            <option>Irimis</option>
+                                                            <option>Kibirirsang</option>
+                                                            <option>Underit</option>
+                                                            <option>Chesuwe</option>
+                                                            <option>Tiryo</option>
+                                                            <option>Kaptagunyo</option>
+                                                            <option>Kapchumba</option>
+                                                            <option>Song'oliet</option>
+                                                            <option>Meswo</option>
+                                                            <option>Chepsonoi</option>
+                                                            <option>Tindinyo</option>
+                                                            <option>Koborgok</option>
+                                                            <option>Chepkumia</option>
+                                                            <option>Cheboite</option>
+                                             </select>
                                             <input type="submit" value="E D I T" name="edit" class="btn btn-success form-control mt-2">
                                            </form>
                                         </div>
