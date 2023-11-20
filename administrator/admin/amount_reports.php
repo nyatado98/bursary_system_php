@@ -815,7 +815,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?locations=<?php echo $location;?>&&wards=<?php echo $ward;?>&&years=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?blocations=<?php echo $location;?>&&bwards=<?php echo $ward;?>&&byears=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
                                             <?php }else{
                                                 ?>
                                                 

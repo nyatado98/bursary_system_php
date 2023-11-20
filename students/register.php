@@ -72,12 +72,17 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
     <script src='bootstrap/jquery/jquery-3.5.1.min.js'></script>
     <title>Register page-students:</title>
     <style>
-      
+      body{
+    background-image: url('images/nandi-hills.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
         </style>
 </head>
 <body>
-    <div class="container col-md-8" id="main" style="margin-top: 20vh">
-        <div class="row" style="border: .1px light black">
+    <div class="container col-md-8 bg-dark" id="main" style="margin-top: 13vh;border-radius: .5em;">
+        <div class="row p-3" style="border: .1px light black">
         <div class="col-md-6">
             
             <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:70vh">
@@ -86,27 +91,29 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
             </div>
             </div>
             <div class="col-md-6" style="margin-top: 0vh">
-            <h4 class="text-center font-weight-bold">Register Here</h4>
+            <div style="text-decoration:underline;;color:white">
+              <h4 class="text-center font-weight-bold mb-3" style="font-size:35px"><span style="color: #0f893b">Register</span> <span style="color: orange">Here</span></h4>
+              </div>
             <div class="card-body">
                 <form method="POST" action="">
-                <label class="font-weight-bold">Enter Parent Firstname:</label>
+                <label class="font-weight-bold" style="color: white;">Enter Parent Firstname:</label>
                 <input type="text" name="firstname" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?>" id="" placeholder="john" value="<?php echo $firstname;?>">
                 <span class="text-danger"><?php echo $firstname_err;?></span><br>
                   
-                <label class="font-weight-bold">Enter Parent Lastname :</label>
+                <label class="font-weight-bold" style="color: white;">Enter Parent Lastname :</label>
                 <input type="text" name="lastname" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?>" id="" placeholder="doe" value="<?php echo $lastname;?>">
                 <span class="text-danger"><?php echo $lastname_err;?></span><br>
 
-                <label class="font-weight-bold">Enter Parent Email Address :</label>
+                <label class="font-weight-bold" style="color: white;">Enter Parent Email Address :</label>
                 <input type="email" name="email" class="form-control <?php echo $email_err ? 'border border-danger' : '';?>" id="" placeholder="email@gmail.com" value="<?php echo $email;?>">
                 <span class="text-danger"><?php echo $email_err;?></span><br>
                 
-                <label class="font-weight-bold">Enter Password :</label>
+                <label class="font-weight-bold" style="color: white;">Enter Password :</label>
                 <input type="password" name="password" class="form-control <?php echo $password_err ? 'border border-danger' : '';?>" id="" placeholder="********" value="<?php echo $password;?>">
                 
                 <span class="text-danger"><?php echo $password_err;?></span><br>
                 
-                <label class="font-weight-bold">Re-Enter Password :</label>
+                <label class="font-weight-bold" style="color: white;">Re-Enter Password :</label>
                 <input type="password" name="re_password" class="form-control <?php echo $re_pass_err ? 'border border-danger' : '';?>" id="" placeholder="********" value="<?php echo $re_password;?>">
                 
                 <span class="text-danger"><?php echo $re_pass_err;?></span><br>
@@ -114,7 +121,7 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
                 <input type="submit" class="btn btn-primary mt-2 form-control font-weight-bold" style="font-size:17px" name="register" value="R E G I S T E R">
                 </form>
                 <div class="row justify-content-between">
-                   <p class="mt-5" style="font-size:18px">If Registered ?. Click <a href="login"> Here</a></p>
+                   <p class="mt-5" style="font-size:18px;color: white;" >If Registered ?. Click <a href="login"> Here</a></p>
             </div>
             </div>
         </div>
