@@ -488,10 +488,10 @@ $pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
     // Output the PDF (you can choose to save it to a file or send it as a response)
     $pdf->Output();
 }
-elseif(isset($_GET['wards'])&&isset($_GET['locations'])&&isset($_GET['years'])){
-    $ward = $_GET['wards'];
-    $location = $_GET['locations'];
-    $year = $_GET['years'];
+elseif(isset($_GET['bwards']) && isset($_GET['blocations']) && isset($_GET['byears'])){
+    $ward = $_GET['bwards'];
+    $location = $_GET['blocations'];
+    $year = $_GET['byears'];
 
     $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' AND YEAR(created_at)='$year'";
 $results = mysqli_query($conn, $sql);
