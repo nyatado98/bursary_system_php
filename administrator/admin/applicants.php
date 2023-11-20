@@ -93,6 +93,9 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
 							</li>
+                            <li> 
+								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
+							</li>
 							<li> 
 								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
 							</li>
@@ -411,6 +414,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                             ?>
                                             <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
                                             <?php }else{?>
+                                            <p class="text-danger">There is no available data from the selection</p>
                                                 
                                                 <?php
                                             }
@@ -448,9 +452,9 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                     $counts = mysqli_num_rows($ress);
                                     if($counts > 0){
                                         ?>
-                                        <a href="print?year_by=<?php echo $year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                        <a href="print?year_by=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
                                         <?php }else{?>
-                                            hahah
+                                            <p class="text-danger">The selected year is not available in the records.</p>
                                             <?php
                                         }
                                     }
@@ -490,7 +494,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                             ?>
                                             <a href="print?ward_by=<?php echo $_POST['ward'];?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
                                             <?php }else{?>
-                                                
+                                            <p class="text-danger">There is no available data from the selection</p>
                                                 <?php
                                             }
                                         }
@@ -504,6 +508,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                              ?>
                                              <a href="print?ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
                                             <?php }else{?>
+                                            <p class="text-danger">There is no available data from the selection</p>
                                                 
                                                 <?php
                                              }
@@ -518,6 +523,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                                 ?>
                                                 <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
                                                <?php }else{?>
+                                            <p class="text-danger">There is no available data from the selection</p>
                                                    
                                                    <?php
                                                 }
@@ -534,6 +540,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                                     ?>
                                                     <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                    <?php }else{?>
+                                            <p class="text-danger">There is no available data from the selection</p>
                                                        
                                                        <?php
                                                     }
@@ -548,6 +555,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                                         ?>
                                                         <a href="print?ward_by=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                                        <?php }else{?>
+                                            <p class="text-danger">There is no available data from the ward selected.</p>
                                                            
                                                            <?php
                                                         }
@@ -1611,28 +1619,22 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
     document.getElementById('kiminda_sub').style.display = 'none';
 
   }
-  else if(parentSelectValue === "School") {
-		document.getElementById("year").style.display = "none";
-    document.getElementById("sub-location").style.display = "none";
-    document.getElementById("school").style.display = "block";
-    document.getElementById("location").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-  }
+ 
   else if(parentSelectValue === "Null"){
     document.getElementById("kapsabet").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
     document.getElementById("kapkangani").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-    document.getElementById("opts").style.display = "block";
-
+    document.getElementById("ward").style.display = "block";
+    document.getElementById("default").style.display = "block";
   
-  }else{
+  }
+  else{
     document.getElementById("kapsabet").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
     document.getElementById("kapkangani").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "none";
+    document.getElementById("ward").style.display = "block";
     document.getElementById("default").style.display = "block";
   }
 }
