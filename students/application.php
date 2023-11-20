@@ -7,13 +7,12 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 }
 
 ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
+// require "../vendor/autoload.php";
+// require __DIR__ . '../vendor/autoload.php';
+// use Twilio\Rest\Client;
 
-require "../vendor/autoload.php";
-require __DIR__ . '../vendor/autoload.php';
-use Twilio\Rest\Client;
-
-$dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
-$dotenv->load('../.env');
+// $dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
+// $dotenv->load('../.env');
 // include('php.ini');
 
 // Get the value of the upload_max_filesize directive.
@@ -127,10 +126,10 @@ $sub_location = trim($_POST['sub_location']);
     
     if(empty($_POST['phone'])){
         $phone_err = "Please enter phone number";
-    }elseif(strlen(trim($_POST['phone'])) < 9){
-        $phone_err = "Phone number should not be less than 9 digits.";
+    }elseif(strlen(trim($_POST['phone'])) < 10){
+        $phone_err = "Phone number should not be less than 10 digits.";
     }else{
-        $phone ='+254'.trim($_POST['phone']);
+        $phone = trim($_POST['phone']);
     }
     // if(empty($_POST['occupation'])){
     //     $occupation_err = "Please enter occupation";
@@ -221,7 +220,7 @@ $sub_location = trim($_POST['sub_location']);
          
           $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
       
-          $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
           if (!in_array($file_ext, $extensions)) {
               $fee_structure_err = "The file type is not allowed...Please choose another file";
           }
@@ -288,27 +287,27 @@ $sub_location = trim($_POST['sub_location']);
         
     }
 
-  //send sms via twilio
-  $accountSid = getenv('TWILIO_ACCOUNT_SID');
-  $authToken = getenv('TWILIO_AUTH_TOKEN');
-  $twilioNumber = "+17124300592"; // Your Twilio phone number
-  $recipientNumber = $phone; // Recipient's phone number
-  $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
-  
-  $client = new Client($accountSid, $authToken);
-  
-  try {
-    $message = $client->messages->create(
-      $recipientNumber,
-      array(
-        'from' => $twilioNumber,
-        'body' => $message
-      )
-    );
-    echo "SMS message sent successfully!";
-  } catch (Exception $e) {
-    echo "Error sending SMS: " . $e->getMessage();
-  }
+               //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
 
 
             //send mail
@@ -341,28 +340,27 @@ $sub_location = trim($_POST['sub_location']);
             created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
+       //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
 
-            //send sms via twilio
-            $accountSid = getenv('TWILIO_ACCOUNT_SID');
-$authToken = getenv('TWILIO_AUTH_TOKEN');
-$twilioNumber = "+17124300592"; // Your Twilio phone number
-$recipientNumber = $phone; // Recipient's phone number
-$message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+// $client = new Client($accountSid, $authToken);
 
-$client = new Client($accountSid, $authToken);
-
-try {
-  $message = $client->messages->create(
-    $recipientNumber,
-    array(
-      'from' => $twilioNumber,
-      'body' => $message
-    )
-  );
-  echo "SMS message sent successfully!";
-} catch (Exception $e) {
-  echo "Error sending SMS: " . $e->getMessage();
-}
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
             //send mail
             $mailto = $email;
 			$mailSub = 'NANDI COUNTY';
@@ -394,14 +392,40 @@ try {
     }
 }
 }
+// 
 
+// $file = $_FILES['file-upload-field'];
+
+// // Check if the file is oversize
+// if ($file['size'] > 1024 * 1024) {
+//   // Display an error message
+//   echo 'The file is too large.';
+//   exit;
+// }
+
+// // Check if the file type is allowed
+// if (!in_array($file['type'], ['image/jpeg', 'image/png', 'application/pdf'])) {
+//   // Display an error message
+//   echo 'The file type is not allowed.';
+//   exit;
+// }
+
+// // Move the uploaded file to its destination
+// move_uploaded_file($file['tmp_name'], '/path/to/destination/directory/' . $file['name']);
 
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <?php include('config/head.php');?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <style>
+  body{
+      font-family: 'Roboto', sans-serif;
+  }
     .select-option:after{
     content:"";
     position:absolute;
@@ -417,7 +441,9 @@ try {
     padding:20px;
 }
 .contents{
-    z-index: 999;
+    position:absolute;
+    background-color:white;
+    z-index: 99;
     display:none;
 }
 .search input{
@@ -431,7 +457,7 @@ try {
     padding:0;
     margin-top:10px;
     overflow-y: auto;
-    max-height: 200px;
+    max-height: 220px;
 }
 .options li{
     padding :10px 15px;
@@ -459,30 +485,29 @@ try {
 .progress {
   width: 0%;
   height: 100%;
-  color: green;
   background-color: #008000;
   transition: width 0.5s ease-in-out;
 }
 
 .progress-bar {
-    position: fixed;
-  top: 10;
-  /* z-index: 99; */
-  width: 100%;
-  margin-top: 70px;
+     position: fixed;
+  top: 13;
+  margin-top:70px;
+  width: 81%;
   height: 20px;
   background-color: #ccc;
   border: 1px solid #ddd;
-  
 }
 .percentage{
     position: absolute;
     left: 50%;
+    top:13;
     font-weight: bold;
     transform: translate(-50%, -50%);
     font-size: 16px;
     color:#000;
 }
+
 .green {
   background-color: #008000;
 }
@@ -521,19 +546,17 @@ body{
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="images/nandi.png" alt="Logo">
+						<img src="images/CDF LOGO.jpg" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<!-- <img src="images/nandi.png" alt="Logo" width="30" height="30"> -->
-					<label style="font-weight: 900; color: #0f893b; font-size: 15px;margin-left:-130px">BURSARY APPLICATION SYSTEM</label>
-
+						<img src="images/CDF LOGO.jpg" alt="Logo" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->
 				
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
-                    <label style="font-weight: 900; color: #0f893b; font-size: 25px" class="mx-5">BURSARY APPLICATION SYSTEM</label>
+                    	<label style="font-weight: 900; color: #0f893b; font-size: 25px;" class="mx-5">BURSARY APPLICATION SYSTEM</label>
 				</a>
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fas fa-bars"></i>
@@ -582,7 +605,7 @@ body{
 
                 	<div class="page-header col-md-12">
 						<div class="row">
-							<div class="col-sm-12">
+							<div class="col-sm-12 mt-4">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
                                 <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
                                 echo $_SESSION['user'];
@@ -595,7 +618,7 @@ body{
                                     }
                                 }?> </span>
 								<ul class="breadcrumb">
-									<!-- <li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li> -->
+									<!--<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>-->
 								</ul>
 							</div>
 						</div>
@@ -650,8 +673,8 @@ body{
                                         </div>
              
 <div class="progress-bar sticky-top">
-    <div class="progress"></div>
-    <span class="percentage">0%</span>
+    <div class="progress" id="progress"></div>
+    <span class="percentage" id="percentage">0%</span>
 </div>
                                         <div class="card-body mt-2">
                                             
@@ -694,7 +717,7 @@ body{
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                                                <?php if($_SESSION['user'] != ""){
+                                                 <?php if($_SESSION['user'] != ""){
                                                     ?>
                                                      <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
                                                         <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
@@ -711,30 +734,30 @@ body{
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
-                                                        <input type="number" id="phone" name="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="7 - - - - - - - -" value="<?php echo $phone;?>">
+                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
                                                         <br>
-                                                        <span class="font-italic">Start with 712345678</span><br>
+                                                        <span class="font-italic">Start with 0712345678</span><br>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         
                                                     </div>
                                                    
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Email :</label>
-                                                        <input type="email" id="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
+                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Parent Id No :</label>
-                                                        <input type="number" id="id" name="id_no" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
+                                                        <input type="number" name="id_no" id="id" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">County :</label>
-                                                        <select name="county" id="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = "Nandi County" selected>Nandi County</option>
                                                             <!-- <option value="<?php echo $county ? $county : '';?>" selected><?php echo $county ? $county : '';?></option> -->
                                                            
@@ -1117,7 +1140,7 @@ body{
                                                 <div class="row">
                                                     <div class="col-md-3 mt-3">
                                                         <label class="font-weight-bold">Year :</label>
-                                                        <input type="text" id="year" value="<?php echo $year;?>"class="form-control"readonly>
+                                                        <input type="text" value="<?php echo $year;?>"class="form-control"readonly>
                                                     </div>
                                                 </div>
                                                 
@@ -1152,7 +1175,7 @@ body{
                                                     <label class="font-weight-bold">School name :</label>
                                                     <div class="select-box">
                                                     <div class="select-option">
-                                                    <input type="text" name="school_name"  class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
+                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
                                                     </div>
                                                     <div class="contents" id="contents">
                                                         <div class="search">
@@ -1165,19 +1188,14 @@ body{
                                                     <li>UG High School</li>
                                                     <li>64 Secondary School</li>
                                                     <li>Central Secondary School</li>
+                                                    <li>Segero Girls</li>
+                                                    <li>Alliance Girls</li>
+                                                    <li>Alliance Boys</li>
+                                                    <li>Kapsabet Boys</li>
+
                                                     </ul>
                                                     </div>
                                                     </div>
-<!--                                                     
-                                                    <select name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" id="">
-                                                    <option value = ""></option>
-                                                        <option selected value="<?php echo $school_name ? $school_name : '';?>"><?php echo $school_name ? $school_name : '';?></option>
-                                                        <option>Umoja High</option>
-                                                        <option>Kimumu Secondary School</option>
-                                                        <option>UG High School</option>
-                                                        <option>64 Secondary School</option>
-                                                        <option>Central Secondary School</option>
-                                                    </select> -->
                                                    
                                                     <span class="text-danger"><?php echo $school_name_err;?></span>
                                                    
@@ -1344,7 +1362,7 @@ body{
     var file = inputField.prop('files')[0];
     var maxFileSize = 5242880; // 5MB
     var minFileSize = 0; //0MB
-  var allowedFileTypes = ['jpeg', 'png', 'doc','docx','pdf','jpg','txt'];
+  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt', 'PDF'];
 
   var fileExtension = file.name.split('.').pop();
 
@@ -1963,6 +1981,7 @@ if(parent === 'Kamobo'){
 //     const progress =completedFields.length / inputFields.length * 100;
 //     progressBar.style.width = '${progress}%';
 // }
+
 // $(document).ready(function(){
 //     var totalFields = $('input[type="text"]').length;
 //     var completedFields = 0;
@@ -1979,163 +1998,269 @@ if(parent === 'Kamobo'){
 //     });
 // });
 
-$(document).ready(function() {
-  // Get the progress bar element.
-  const progressBarElement = $('.progress-bar');
+  const inputFields = document.querySelectorAll('input, select, ul');
+    const progressBarFillElement = document.getElementById('progress');
+    const progressTextElement = document.getElementById('percentage');
 
-  // Get the input field elements.
-  const input1 = $('#first');
-  const input2 = $('#last');
-  const input3 = $('#gender');
-  const input4 = $('#date');
-//   const input5 = $('#parent');
-  const input5 = $('#phone');
-  const input6 = $('#id');
-//   const input8 = $('#email');
-//   const input9 = $('#county');
-  const input7 = $('#opts');
-//   const input11 = $('#default');
-  const input8 = $('#subs');
-  const input9 = $('#level');
-  const input10 = $('#reg');
-//   const input15= $('#soValue');
-  const input11= $('#file-upload-field');
-  const input12= $('#file-upload');
-//   const input18= $('#year');
+    function updateProgress() {
+      const totalFields = 18;
+      let filledFields = 0;
+
+      for (const inputField of inputFields) {
+        if (inputField.value) {
+          filledFields++;
+        }
+      }
+
+      const progressPercentage = Math.floor(((filledFields / totalFields) * 100)-5);
+      progressBarFillElement.style.width = `${progressPercentage}%`;
+      progressTextElement.textContent = `Progress: ${progressPercentage}%`;
+    }
+
+    // Update progress initially
+    updateProgress();
+
+    // Update progress on input change
+    for (const inputField of inputFields) {
+      inputField.addEventListener('input', updateProgress);
+    }
+
+
+// starts here
+
+// $(document).ready(function() {
+//   // Get the progress bar element.
+//   const progressBarElement = $('.progress-bar');
+
+//   // Get the input field elements.
+//   const input1 = $('#first');
+//   const input2 = $('#last');
+//   const input3 = $('#gender');
+//   const input4 = $('#date');
+// //   const input5 = $('#parent');
+//   const input5 = $('#phone');
+//   const input6 = $('#id');
+// //   const input8 = $('#email');
+// //   const input9 = $('#county');
+//   const input7 = $('#opts');
+// //   const input11 = $('#default');
+//   const input8 = $('#subs');
+//   const input9 = $('#level');
+//   const input10 = $('#reg');
+// //   const input15= $('#soValue');
+//   const input11= $('#file-upload-field');
+//   const input12= $('#file-upload');
+// //   const input18= $('#year');
   
 
 
-  // Calculate the initial percentage.
-  let percentage = 0;
-
-  // Get the number of input fields.
-  const numberOfInputFields = 12;
-
-  // Check if any of the input fields are already filled.
-  if (input1.val() || input2.val() || input3.val()|| input4.val()|| input5.val()|| input6.val()|| input7.val()|| input8.val()|| input9.val()|| input10.val()
-  || input11.val()|| input12.val()) {
-    // If any of the input fields are already filled, calculate the percentage based on the number of filled input fields.
-    percentage = (100 / numberOfInputFields) * (input1.val() ? 1 : 0) + (input2.val() ? 1 : 0) + (input3.val() ? 1 : 0)+ (input4.val() ? 1 : 0)+ (input5.val() ? 1 : 0)
-    + (input6.val() ? 1 : 0)+ (input7.val() ? 1 : 0)+ (input8.val() ? 1 : 0)+ (input9.val() ? 1 : 0)+ (input10.val() ? 1 : 0)+ (input11.val() ? 1 : 0)+ (input12.val() ? 1 : 0)
-    ;
-  }
-
-  // Update the progress bar percentage.
-  progressBarElement.css('width', percentage + '%');
-  $('.percentage').text(percentage + '%');
-
-  // Add an event listener for the change event on the input field elements.
-  input1.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-     percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-
-  input2.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-
-  input3.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input4.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input5.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input6.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input7.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input8.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input9.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input10.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input11.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
-  input12.change(function() {
-    // Calculate the new percentage.
-    // percentage = percentage + (100 / numberOfInputFields);
-
-    // Update the progress bar percentage.
-    percentage = Math.floor(percentage + (100 / numberOfInputFields));
-    progressBarElement.css('width', percentage + '%');
-    $('.percentage').text(percentage + '%');
-  });
+//   // Calculate the initial percentage.
+//   let percentage = 0;
   
-});
+
+//   // Get the number of input fields.
+//   const numberOfInputFields = 12;
+
+//   // Check if any of the input fields are already filled.
+//   if (input1.val() || input2.val() || input3.val()|| input4.val()|| input5.val()|| input6.val()|| input7.val()|| input8.val()|| input9.val()|| input10.val()
+//   || input11.val()|| input12.val()) {
+//     // If any of the input fields are already filled, calculate the percentage based on the number of filled input fields.
+//     percentage = (100 / numberOfInputFields) * (input1.val() ? 1 : 0) + (input2.val() ? 1 : 0) + (input3.val() ? 1 : 0)+ (input4.val() ? 1 : 0)+ (input5.val() ? 1 : 0)
+//     + (input6.val() ? 1 : 0)+ (input7.val() ? 1 : 0)+ (input8.val() ? 1 : 0)+ (input9.val() ? 1 : 0)+ (input10.val() ? 1 : 0)+ (input11.val() ? 1 : 0)+ (input12.val() ? 1 : 0)
+//     ;
+//   }
+
+//     var completedFields = 0;
+//   // Update the progress bar percentage.
+//   progressBarElement.css('width', percentage + '%');
+//   $('.percentage').text(percentage + '%');
+
+//   // Add an event listener for the change event on the input field elements.
+//   input1.change(function() {
+//        if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+     
+//   });
+
+//   input2.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//      if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+
+//   input3.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//    if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input4.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//      if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input5.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//      if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input6.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//     percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//      if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input7.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//     if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input8.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//      if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input9.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//     if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input10.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//    if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input11.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//    if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+//   input12.change(function() {
+//     // Calculate the new percentage.
+//     // percentage = percentage + (100 / numberOfInputFields);
+
+//     // Update the progress bar percentage.
+//    if($(this).val() !== ''){
+//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }else{
+//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
+//     progressBarElement.css('width', percentage + '%');
+//     $('.percentage').text(percentage + '%');
+//         }
+//   });
+  
+// });
     </script>
 </html>

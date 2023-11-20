@@ -197,14 +197,14 @@ if(isset($_POST['edit'])){
 												<td><?php echo $item['id'];?></td>
 												<td><?php echo $item['reference_number'];?></td>
 												<td><?php echo $item['student_fullname'];?></td>
-												<?php if($item['status'] == "Approved"){ ?>
+												<?php if($item['status'] == "Awarded"){ ?>
 												<td class="text-success font-weight-bold"><?php echo $item['status'];?></td>
 												
 												<?php }else{?>
 												<td class="text-warning font-weight-bold"><?php echo $item['status'];?></td>
 													<?php }?>
 												<td class="text-center">
-												<?php if($item['status'] == "Approved"){
+												<?php if($item['status'] == "Awarded"){
 
 ?>
 <?php }else{?>
