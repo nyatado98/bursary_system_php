@@ -171,7 +171,7 @@ while($data = $re->fetch_assoc()){
 								<a href="amount_reports"><i class="fa fa-money-bill"></i> <span>Amount Reports</span></a>
 							</li>
 							<li class="active"> 
-								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
+								<a href="reports"><i class="fa fa-list"></i> <span>Bursary Reports</span></a>
 							</li>
 						
 							<!-- <li class="submenu">
@@ -300,7 +300,7 @@ while($data = $re->fetch_assoc()){
                                         <select name="location" id="default" class="form-control">
                                         <option value="">-select location-</option>
                                         </select>
-                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none">
+                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none" onchange="showO(this.value)">
                                         <option value=""></option>
                                         <option value="<?php 
                                         $kapsabet_location ="";
@@ -317,8 +317,8 @@ while($data = $re->fetch_assoc()){
                                             <option value ="Township">Township</option>
                                             <option value ="Kiminda">Kiminda</option>
                                         </select>
-                                        <div  onchange="showOptions()">
-                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;">
+                                        <div >
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php 
                                         $kapkangani_location = "";
@@ -334,8 +334,8 @@ while($data = $re->fetch_assoc()){
                                             <option value ="Kapkangani">Kapkangani</option>
                                         </select>
                                         </div>
-                                        <div onchange="Options()">
-                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" >
+                                        <div >
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="showChep(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $chepkumia_location = "";
@@ -352,7 +352,7 @@ while($data = $re->fetch_assoc()){
                                             <option value ="Chepkumia">Chepkumia</option>
                                         </select>
                                         </div>
-                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="show()">
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $kilibwoni_location = "";
@@ -380,7 +380,7 @@ while($data = $re->fetch_assoc()){
                                 <div class="col-md-3">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
-                                        <select name="sub_location"class="form-control">
+                                        <select name="sub_location"class="form-control" id="sec">
                                         <option value="">-select sub-location-</option>
                                         <option value="<?php if(isset($_POST['filter_all']))
                                         $sub_location = $_POST['sub_location'];
@@ -391,7 +391,7 @@ while($data = $re->fetch_assoc()){
                                         echo $sub_location;
                                         
                                         ?></option>
-                                        <option>Kilibwoni</option>
+                                        <!-- <option>Kilibwoni</option>
                                                             <option>Kapnyerebai</option>
                                                             <option>Kaplonyo</option>
                                                             <option>Kabore</option>
@@ -415,7 +415,7 @@ while($data = $re->fetch_assoc()){
                                                             <option>Tindinyo</option>
                                                             <option>Koborgok</option>
                                                             <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
+                                                            <option>Cheboite</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -523,6 +523,7 @@ while($data = $re->fetch_assoc()){
                                             ?>
                                         <a href="print?year_print=<?php echo $year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                             <?php }else{?>
+                                                <span class="text-danger">No data avalable in the selected fields</span>
                                                 
                                                 <?php
                                             }
@@ -562,6 +563,7 @@ while($data = $re->fetch_assoc()){
                                                 ?>
                                             <a href="print?ward_print=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                 <?php }else{?>
+                                                    <span class="text-danger">No data avalable in the selected fields</span>
                                                     
                                                     <?php
                                                 }
@@ -601,6 +603,7 @@ while($data = $re->fetch_assoc()){
                                                     ?>
                                                 <a href="print?pbyward=<?php echo $ward;?>&&pbylocation=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                     <?php }else{?>
+                                                        <span class="text-danger">No data avalable in the selected fields</span>
                                                         
                                                         <?php
                                                     }
@@ -640,6 +643,7 @@ while($data = $re->fetch_assoc()){
                                                     ?>
                                             <a href="print?pbyward=<?php echo $ward;?>&&pbylocation=<?php echo $location;?>&&pbysub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                     <?php }else{?>
+                                                        <span class="text-danger">No data avalable in the selected fields</span>
                                                         
                                                         <?php
                                                     }
@@ -678,6 +682,7 @@ while($data = $re->fetch_assoc()){
                                                     ?>
                                     <a href="print?pbyyear=<?php echo $year;?>&&pbyward=<?php echo $ward;?>&&pbylocation=<?php echo $location;?>&&pbysub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                     <?php }else{?>
+                                                        <span class="text-danger">No data avalable in the selected fields</span>
                                                         
                                                         <?php
                                                     }
@@ -716,6 +721,7 @@ while($data = $re->fetch_assoc()){
                                                     ?>
         <a href="print?pbyyear=<?php echo $year;?>&&pbyward=<?php echo $ward;?>&&pbylocation=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                     <?php }else{?>
+                                                        <span class="text-danger">No data avalable in the selected fields</span>
                                                         
                                                         <?php
                                                     }
@@ -754,7 +760,7 @@ while($data = $re->fetch_assoc()){
                                                     ?>
                                         <a href="print?pbyyear=<?php echo $year;?>&&pbyward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                     <?php }else{?>
-                                                        
+                                                        <span class="text-danger">No data avalable in the selected fields</span>
                                                         <?php
                                                     }
                                             }
@@ -1109,6 +1115,7 @@ while($data = $re->fetch_assoc()){
     document.getElementById("default").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
     document.getElementById('kilibwoni_sub').style.display = 'none';
     document.getElementById('sub').style.display = 'block';
     document.getElementById('kapkangani_sub').style.display = 'none';
@@ -1125,7 +1132,7 @@ while($data = $re->fetch_assoc()){
         document.getElementById('township_sub').style.display = 'none';
     document.getElementById('kamobo_sub').style.display = 'none';
     document.getElementById('kiminda_sub').style.display = 'none';
-    document.getElementById("kapkangani").style.display = "none";
+  
   } else if(parentSelectValue === "Chepkumia"){
     
     document.getElementById("chepkumia").style.display = "block";
@@ -1210,5 +1217,86 @@ while($data = $re->fetch_assoc()){
     document.getElementById("default").style.display = "block";
   }
 }
+
+function showO(optionValue){
+    const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kamobo: ['','Kamobo'],
+        Township: ['','Township'],
+        Kiminda: ['','Kiminda', 'Meswo'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+
+function showK(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
+        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
+        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
+        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
+        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
+        Arwos: ['','Tiryo'],
+        Kaplamai: ['','Kaptangunyo'],
+        Tulon: ['','Kapchumba'],
+        Terige: ['','Song`oliet'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+    }
+function showKap(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+function showChep(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Chepkumia: ['','Chepkumia', 'Cheboite'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+
     </script>
 </html>
