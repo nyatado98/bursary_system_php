@@ -84,7 +84,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 								<a href="amount_reports"><i class="fa fa-money-bill"></i> <span>Amount Reports</span></a>
 							</li>
 							<li> 
-								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
+								<a href="reports"><i class="fa fa-list"></i> <span>Bursary Reports</span></a>
 							</li>
 						
 							<li> 
@@ -93,9 +93,9 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
 							</li>
-                            <li> 
+                            <!-- <li> 
 								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
-							</li>
+							</li> -->
 							<li> 
 								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
 							</li>
@@ -191,7 +191,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         <option value="">-select location-</option>
                                        
                                         </select>
-                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none">
+                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none" onchange="showO(this.value)">
                                         <option value=""></option>
                                         <option value="<?php 
                                         $kapsabet_location ="";
@@ -208,8 +208,8 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                             <option value ="Township">Township</option>
                                             <option value ="Kiminda">Kiminda</option>
                                         </select>
-                                        <div  onchange="showOptions()">
-                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;">
+                                        
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;"  onchange="showKap(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php 
                                         $kapkangani_location = "";
@@ -224,9 +224,8 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         ?></option>
                                             <option value ="Kapkangani">Kapkangani</option>
                                         </select>
-                                        </div>
-                                        <div onchange="Options()">
-                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" >
+                                       
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="showChep(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $chepkumia_location = "";
@@ -242,8 +241,8 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         ?></option>
                                             <option value ="Chepkumia">Chepkumia</option>
                                         </select>
-                                        </div>
-                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="show()">
+                                        
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $kilibwoni_location = "";
@@ -271,7 +270,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                 <div class="col-md-3">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
-                                        <select name="sub_location"class="form-control">
+                                        <select name="sub_location" class="form-control" id="sec">
                                         <option value="">-select sub-location-</option>
                                         <option value="<?php if(isset($_POST['filter_all']))
                                         $sub_location = $_POST['sub_location'];
@@ -282,7 +281,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         echo $sub_location;
                                         
                                         ?></option>
-                                        <option>Kilibwoni</option>
+                                        <!-- <option>Kilibwoni</option>
                                                             <option>Kapnyerebai</option>
                                                             <option>Kaplonyo</option>
                                                             <option>Kabore</option>
@@ -306,7 +305,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                                             <option>Tindinyo</option>
                                                             <option>Koborgok</option>
                                                             <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
+                                                            <option>Cheboite</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -375,7 +374,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                                     }
                                                         ?>
 							 <?php
-                            // $school = $location = $ward = $sub_location = $year ="";
+                            $school = $location = $ward = $sub_location = $year ="";
                             // $kapsabet_location = $kilibwoni_location = $chepkumia_location = $kapkangani_location ="";
                             
                            
@@ -452,7 +451,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                     $counts = mysqli_num_rows($ress);
                                     if($counts > 0){
                                         ?>
-                                        <a href="print?year_by=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                        <a href="print?year_by=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                         <?php }else{?>
                                             <p class="text-danger">The selected year is not available in the records.</p>
                                             <?php
@@ -492,7 +491,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                         $counts = mysqli_num_rows($ress);
                                         if($counts > 0){
                                             ?>
-                                            <a href="print?ward_by=<?php echo $_POST['ward'];?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                            <a href="print?ward_by=<?php echo $_POST['ward'];?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                             <?php }else{?>
                                             <p class="text-danger">There is no available data from the selection</p>
                                                 <?php
@@ -506,7 +505,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                          $counts = mysqli_num_rows($ress);
                                          if($counts > 0){
                                              ?>
-                                             <a href="print?ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                             <a href="print?ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                             <?php }else{?>
                                             <p class="text-danger">There is no available data from the selection</p>
                                                 
@@ -521,7 +520,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
                                             $counts = mysqli_num_rows($ress);
                                             if($counts > 0){
                                                 ?>
-                                                <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
+                                                <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
                                                <?php }else{?>
                                             <p class="text-danger">There is no available data from the selection</p>
                                                    
@@ -1527,6 +1526,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
     document.getElementById("default").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
     document.getElementById('kilibwoni_sub').style.display = 'none';
     document.getElementById('sub').style.display = 'block';
     document.getElementById('kapkangani_sub').style.display = 'none';
@@ -1543,7 +1543,7 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
         document.getElementById('township_sub').style.display = 'none';
     document.getElementById('kamobo_sub').style.display = 'none';
     document.getElementById('kiminda_sub').style.display = 'none';
-    document.getElementById("kapkangani").style.display = "none";
+    
   } else if(parentSelectValue === "Chepkumia"){
     
     document.getElementById("chepkumia").style.display = "block";
@@ -1637,6 +1637,86 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
     document.getElementById("ward").style.display = "block";
     document.getElementById("default").style.display = "block";
   }
+}
+
+function showO(optionValue){
+    const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kamobo: ['','Kamobo'],
+        Township: ['','Township'],
+        Kiminda: ['','Kiminda', 'Meswo'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+
+function showK(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
+        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
+        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
+        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
+        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
+        Arwos: ['','Tiryo'],
+        Kaplamai: ['','Kaptangunyo'],
+        Tulon: ['','Kapchumba'],
+        Terige: ['','Song`oliet'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+    }
+function showKap(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+function showChep(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Chepkumia: ['','Chepkumia', 'Cheboite'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
 }
 
 function showOptions() {

@@ -1,14 +1,22 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
 include 'database/connect.php';
 
 $user_email = $password = "";
-$email_err = $password_err = $message = $email_reset = "";
+$email_err = $password_err = $message = $email_reset =$mssge= "";
 $email_reset_err = "";
 $user = "";
+
+require 'vendor/autoload.php';
+ require 'vendor/phpmailer/phpmailer/src/Exception.php';
+ require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+ require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+$mail = new PHPMailer();
+
 // $mssgs = "You have successfully register login here";
 //  $_SESSION['mssgs'] = $mssgs;
 // $mssgs = $_SESSION['mssgs'];
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if(isset($_POST['login'])){
     if(empty(trim($_POST["user_email"]))){
         $email_err = "Enter email address";
     }elseif(isset($_POST["user_email"])){
@@ -16,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $result = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($result);
         if($count == 0){
-            $message = "The email address is not registered";
+            $mssge = "The email address is not registered";
         }else{
             $user_email = trim($_POST["user_email"]);
         }
@@ -37,12 +45,49 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 
             header("Location:dashboard");
             }else{
-                $message = "Wrong password";
+                $mssge = "Wrong password";
             }
         }
     }else{
         
     }
+}
+if(isset($_POST['reset'])){
+    $email_reset = $_POST['email_reset'];
+        $sql = "SELECT * FROM users WHERE email ='".$_POST['email_reset']."'";
+        $result = mysqli_query($conn, $sql);
+        $count = mysqli_num_rows($result);
+        if($count == 0){
+            $mssge = "The email address is not in our records";
+        }else{
+            $url = "http://localhost/nrs_projects/New%20folder/bursary_system_php/students/reset?email=$email_reset";
+            $html ="Reset Password by clicking the link " . "$url";
+            //send mail
+            $mailto = $_POST['email_reset'];
+			$mailSub = 'NANDI COUNTY';
+			$mailMsg = $html;
+		
+			$mail ->IsSmtp();
+		   $mail ->SMTPDebug = 0;
+		   $mail ->SMTPAuth = true;
+		   $mail ->SMTPSecure = 'ssl';
+		   //$mail ->SMTPSecure = 'tsl';
+		   $mail ->Host = "smtp.gmail.com";
+		   $mail ->Port = 465; // or 587 or 465
+		   //$mail ->IsHTML(true);
+		   $mail ->Username = "danndong080@gmail.com";
+		   $mail ->Password = "okzumpamraiksdcq";
+		   $mail ->SetFrom("ict@nandicounty.com");
+		   $mail ->Subject = $mailSub;
+		   $mail ->Body = $mailMsg;
+		   $mail ->AddAddress($mailto);
+		
+		   $mail->Send();
+           $mssg = $fullname." Application made successfully and mail has been sent to applicant.";
+           $_SESSION['message'] = $mssg;
+           $message = "Application made successfully and mail has been sent to applicant.";
+			header("location:login?m=");
+        }
 }
 
 ?>
@@ -88,12 +133,12 @@ body{
 													 <?php }else{ ?>
 
 														<?php } ?>
-                                                         <?php if(isset($_GET['success'])){
+                                                        <?php if(isset($_GET['m'])){
 						
-						$message = "You have successfully register. Login Now.";
+						$m = "Reset Link Sent Successfully to your email.";
 						?>
 						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                                <span class="font-weight-bold" style="color: white;"><?php echo $message;?></span>
+                                                <span class="font-weight-bold"><?php echo $m;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
@@ -101,9 +146,35 @@ body{
 													 <?php }else{ ?>
 														
 														<?php } ?>
+                                                         <?php if(isset($_GET['success'])){
+						
+						$message = "You have successfully register. Login Now.";
+						?>
+						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+													 <?php }else{ ?>
+														
+														<?php } ?>
+                                                         <?php if(isset($_GET['s'])){
+                        
+                        $message = "You have successfully reset your password. Login Now.";
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                
                  <h4 class="text-center font-weight-bold mb-3"  style="font-size:35px;text-decoration:underline;color:white"><span style="color: #0f893b">Login</span> <span style="color: orange">Here</span></h4>
-                 <span class="text-danger"><?php echo $message;?></span>
+                 <span class="text-danger"><?php echo $mssge;?></span>
                 <form method="POST" action="">
                    
                 <label class="font-weight-bold" style="color: white;">Enter Email address :</label>
@@ -138,7 +209,7 @@ body{
                 <form method="post" action="">
                   
                 <label class="font-weight-bold">Enter Email :</label>
-                 <input type="email" name="email" class="form-control" id="" required>
+                 <input type="email" name="email_reset" class="form-control" id="" required>
              
                  <span><?php echo $email_reset_err;?></span><br>
                  
