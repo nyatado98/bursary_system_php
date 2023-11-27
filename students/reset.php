@@ -31,7 +31,7 @@ if(isset($_POST['reset'])){
         $query = "UPDATE users SET password = '$password' WHERE email = '$email'";
         $result = mysqli_query($conn, $query);
         if($result){
-            header("location:reset?success");
+            header("location:login?s");
         }else{
             $err = "Could not change password. Something went wrong";
         }

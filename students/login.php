@@ -159,6 +159,19 @@ body{
 													 <?php }else{ ?>
 														
 														<?php } ?>
+                                                         <?php if(isset($_GET['s'])){
+                        
+                        $message = "You have successfully reset your password. Login Now.";
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                
                  <h4 class="text-center font-weight-bold mb-3"  style="font-size:35px;text-decoration:underline;color:white"><span style="color: #0f893b">Login</span> <span style="color: orange">Here</span></h4>
                  <span class="text-danger"><?php echo $mssge;?></span>
