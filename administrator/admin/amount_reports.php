@@ -6,7 +6,8 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
 }
-$ward = $location = $sub_location = $Year ="";
+
+$ward = $location = $sub_location = $Year = "";
 
 if(isset($_POST['reset'])){
     unset($_POST['filter']);
@@ -245,7 +246,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
 								<a href="amount_reports"><i class="fa fa-money-bill"></i> <span>Amount Reports</span></a>
 							</li>
 							<li> 
-								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
+								<a href="reports"><i class="fa fa-list"></i> <span>Bursary Reports</span></a>
 							</li>
 						
 							
@@ -378,7 +379,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         <select class="form-control" id="default">
                                             <option value=""></option>
                                         </select>
-                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showOpt()">
+                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showO(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php 
                                         $kapsabet_location ="";
@@ -395,8 +396,8 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                             <option value ="Township">Township</option>
                                             <option value ="Kiminda">Kiminda</option>
                                         </select>
-                                        <div  onchange="showOptions()">
-                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;">
+                                        <div >
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php 
                                         $kapkangani_location = "";
@@ -412,8 +413,8 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                             <option value ="Kapkangani">Kapkangani</option>
                                         </select>
                                         </div>
-                                        <div onchange="Options()">
-                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" >
+                                        <div >
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="showChep(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $chepkumia_location = "";
@@ -430,7 +431,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                             <option value ="Chepkumia">Chepkumia</option>
                                         </select>
                                         </div>
-                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="show()">
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php
                                         $kilibwoni_location = "";
@@ -458,10 +459,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                 <div class="col-md-3">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-location :</label>
-                                        <select class="form-control" id="" name="sub_location">
+                                        <select name="sub_location" class="form-control" id="sec" >
                                             <option>-select sub-location-</option>
                                             <option value="<?php echo $sub_location;?>" selected><?php echo $sub_location;?></option>
-                                                            <option>Kilibwoni</option>
+                                                            <!-- <option>Kilibwoni</option>
                                                             <option>Kapnyerebai</option>
                                                             <option>Kaplonyo</option>
                                                             <option>Kabore</option>
@@ -485,7 +486,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                             <option>Tindinyo</option>
                                                             <option>Koborgok</option>
                                                             <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
+                                                            <option>Cheboite</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -565,7 +566,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                             if(isset($_POST['filter'])){
                                 $Year = $_POST['Year'];
                                 $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
+                                $sub_location = $_POST['sub_location'] ?? null;
                             if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
                                 $location_err = "Please select location";
                             }else{
@@ -595,6 +596,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         <a href="print?year=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -602,7 +604,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                             if(isset($_POST['filter'])){
                                 $Year = $_POST['Year'];
                                 $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
+                                $sub_location = $_POST['sub_location'] ?? null;
                             if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
                                 $location_err = "Please select location";
                             }else{
@@ -629,9 +631,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?year=<?php echo $Year;?>&&location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?year=<?php echo $Year;?>&&location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -667,9 +670,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -704,9 +708,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?locationss=<?php echo $location;?>&&wardss=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -741,9 +746,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -778,9 +784,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?years=<?php echo $Year;?>&&wards=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?years=<?php echo $Year;?>&&wards=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 
                                                 <?php
                                             }}}?>
@@ -815,10 +822,10 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                                 $c = mysqli_num_rows($q);
                                                 if($c > 0){
                                             ?>
-                                        <a href="print?locations=<?php echo $location;?>&&wards=<?php echo $ward;?>&&years=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">P R I N T</a>
+                                        <a href="print?blocations=<?php echo $location;?>&&bwards=<?php echo $ward;?>&&byears=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
                                             <?php }else{
                                                 ?>
-                                                
+                                                <span class="text-danger">There is no available data in the selection made</span>
                                                 <?php
                                             }}}?>
 
@@ -1419,6 +1426,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
     document.getElementById("default").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
+    document.getElementById("kapkangani").style.display = "none";
     document.getElementById('kilibwoni_sub').style.display = 'none';
     document.getElementById('sub').style.display = 'block';
     document.getElementById('kapkangani_sub').style.display = 'none';
@@ -1435,7 +1443,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
         document.getElementById('township_sub').style.display = 'none';
     document.getElementById('kamobo_sub').style.display = 'none';
     document.getElementById('kiminda_sub').style.display = 'none';
-    document.getElementById("kapkangani").style.display = "none";
+   
   } else if(parentSelectValue === "Chepkumia"){
     
     document.getElementById("chepkumia").style.display = "block";
@@ -1535,6 +1543,85 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
     document.getElementById("ward").style.display = "none";
     document.getElementById("default").style.display = "block";
   }
+}
+function showO(optionValue){
+    const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kamobo: ['','Kamobo'],
+        Township: ['','Township'],
+        Kiminda: ['','Kiminda', 'Meswo'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+
+function showK(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
+        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
+        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
+        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
+        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
+        Arwos: ['','Tiryo'],
+        Kaplamai: ['','Kaptangunyo'],
+        Tulon: ['','Kapchumba'],
+        Terige: ['','Song`oliet'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+    }
+function showKap(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
+}
+function showChep(optionValue) {
+      const secondSelect = document.getElementById('sec');
+      secondSelect.innerHTML = ''; // Clear the existing options
+
+      const optionData = {
+        Chepkumia: ['','Chepkumia', 'Cheboite'],
+      };
+
+      if (optionData[optionValue]) {
+        optionData[optionValue].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          secondSelect.appendChild(optionElement);
+        });
+      }
 }
 
     </script>

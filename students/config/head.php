@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="./DataTables/DataTables-1.13.4/css/jquery.dataTables.css" />
 <script type="text/javascript" src="./DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
 
-
+<meta name="description" content="Emgwen: Emgwen bursary application system" data-react-helmet="true">
 <!-- Fontawesome CSS -->
 <link rel="stylesheet" href="./css/fontawesome.min.css">
 <link rel="stylesheet" href="./css/all.min.css">
