@@ -1,65 +1,65 @@
 # BURSARY APPLICATION SYSTEM
 
 
-Online bursary application and management system made in php.
+- Online bursary application and management system made in php.
 
 
-Features.
+# Features.
 
 
-User registration and login.
+* User registration and login.
 
 
-Bursary application form.
+* Bursary application form.
 
 
-view applications users end,.
+* view applications users end,.
 
 
-Update profile.
+* Update profile.
 
 
-Bursary application management Admin side.
+* Bursary application management Admin side.
 
 
-Bursary report generation.
+* Bursary report generation.
 
 
-Amount allocation and report generation.
+* Amount allocation and report generation.
 
 
-Requirements.
+# Requirements.
 
 
-PHP 7 or higher.
+* PHP 7 or higher.
 
-Composer.
+* Composer.
 
-MySQL 5 or higher.
+* MySQL 5 or higher.
 
-XAMPP .
+* XAMPP .
 
-Installation.
+# Installation.
 
-Download or clone the project files from the GitHub repository.
-
-
-Extract the ZIP file to your XAMPP htdocs directory.
+* Download or clone the project files from the GitHub repository.
 
 
-Create a MySQL database named "bursary".
+* Extract the ZIP file to your XAMPP htdocs directory.
 
 
-Import the "bursary.sql" file into the database.
+* Create a MySQL database named "bursary".
 
 
-Start XAMPP by starting both Apache and Mysql.
+* Import the "bursary.sql" file into the database.
 
 
-Open your web browser.
+* Start XAMPP by starting both Apache and Mysql.
 
 
-Navigate to http://localhost/bursary_system_php/
+* Open your web browser.
 
 
-You should now be able to access the bursary application and management system.
+* Navigate to http://localhost/bursary_system_php/
+
+
+* You should now be able to access the bursary application and management system.
