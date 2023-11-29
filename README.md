@@ -44,7 +44,14 @@
 * Download or clone the project files from the GitHub repository.
 
 
-* Extract the ZIP file to your XAMPP htdocs directory.
+* If downloaded, extract the ZIP file in your XAMPP htdocs directory.
+
+
+* To clone it move within the xampp htdocs directory then run this command:
+
+  `git clone github-repo-url`
+
+  - Change 'github-repo-url' with the actual repository url. Then click Enter.
 
 
 * Create a MySQL database named "bursary".
