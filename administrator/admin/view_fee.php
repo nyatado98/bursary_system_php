@@ -87,21 +87,20 @@ $err = "";
 								<div class="card-body">
 									<div id="line_graph">
 									</div>
-                                    <?php
-                                    if(isset($_GET['view']) && isset($_GET['id'])){
-                                        $school_id_letter = $_GET['view'];
-										$id = $_GET['id'];
-                                        $sql = "SELECT * FROM students_uploads WHERE school_id_letter = '$school_id_letter' AND id= '$id'";
-                                        $re = mysqli_query($conn, $sql);
-                                        while($rows = $re->fetch_assoc()){
-                                            ?>
-                                            <!-- <img src="<?php echo '../../students/students_upload/'.$rows['school_id_letter']?>" alt="Image picture"> -->
-                                            <iframe src="<?php echo '../../students/students_upload/'.$rows['school_id_letter'];?>" width="1500" height="800" class="col-md-10"></iframe>
-                                            <?php
-                                        }
-                                    }?>
 
-                                 
+                                    <?php if(isset($_GET["view_fee"]) && isset($_GET['fee_id'])){
+                                        $school_id_letter = $_GET['view_fee'];
+										$id = $_GET['fee_id'];
+                                        $sql = "SELECT * FROM students_uploads WHERE fee_structure = '$school_id_letter' AND id = '$id'";
+                                        $ree = mysqli_query($conn, $sql);
+                                        while($row = $ree->fetch_assoc()){
+                                            ?>
+                                            <!-- <img src="<?php echo '../../students/students_upload/'.$rows['fee_structure']?>" alt="Image picture"> -->
+                                            <iframe src="<?php echo '../../students/students_upload/'.$row['fee_structure'];?>" class="col-md-10" width="1500" height="800"></iframe>
+                                            <?php
+                                    }}
+                                    ?>
+									
 								</div>
 							
 							<!-- /Revenue Chart -->

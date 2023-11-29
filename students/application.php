@@ -178,13 +178,13 @@ if(empty($_POST['sub_location'])){
              
 
              $target = "students_upload/";
-             $target_file =$target . basename($_FILES["school_doc"]["name"]);
+             $target_file1 =$target . basename($_FILES["school_doc"]["name"]);
              $fileName = basename($_FILES["school_doc"]["name"]);
              $file_size = $_FILES["school_doc"]["size"];
              $file_type = $_FILES["school_doc"]["type"];
              $tmp_name = $_FILES['school_doc']['tmp_name'];
             
-             $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+             $file_ext = strtolower(pathinfo($target_file1,PATHINFO_EXTENSION));
          
              $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
              if (!in_array($file_ext, $extensions)) {
@@ -198,24 +198,6 @@ if(empty($_POST['sub_location'])){
 
     if(empty($fee_name)){
         $fee_structure_err = "Please select fee structure document";
-    }else{
-          //insert uploads/school fee_structure
-          $target = "students_upload/";
-          $target_file =$target . basename($_FILES["fee_structure"]["name"]);
-          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
-          $file_size = $_FILES["fee_structure"]["size"];
-          $file_type = $_FILES["fee_structure"]["type"];
-          $tmp_name = $_FILES['fee_structure']['tmp_name'];
-         
-          $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-      
-          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
-          if (!in_array($file_ext, $extensions)) {
-              $fee_structure_err = "The file type is not allowed...Please choose another file";
-          }
-          elseif ($file_size > 5242880 || $file_size <= 0) {
-              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
-          }
     }
     // if(empty($_POST['account_no'])){
     //     $account_no_err = "Please enter account number";
@@ -251,28 +233,37 @@ if(empty($_POST['sub_location'])){
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
-       
+       move_uploaded_file($tmp_name,$target_file1);
+        // move_uploaded_file($tmp_name,$target_file2);
 
-    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','$fee_fileName','$current_date','$current_date')";
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
     $query = mysqli_query($conn,$sql);
     if($query){
-        move_uploaded_file($tmp_name,$target.$name);
-        move_uploaded_file($tmp_name,$target.$fee_name);
-         //insert uploads/fee_structure
-        // $name = $_FILES['fee_structure']['name'];
+        
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file2 =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
+    
 
-        // $target = "students_upload/";
-        // $target_file =$target . basename($_FILES['fee_structure']['name']);
-        // $file = basename($_FILES['fee_structure']['name']);
-        // $file_size = $_FILES['fee_structure']['size'];
-        // $file_type = $_FILES['fee_structure']['type'];
-        // $tmp_name = $_FILES['fee_structure']['tmp_name'];
-
-        // $sql = "UPDATE students_uploads SET fee_structure = '$file' WHERE reference_number = '$app_ref'";
-        // $r = mysqli_query($conn,$sql);
-        // if($r){
-        // move_uploaded_file($tmp_name,$target.$name);
-        // }
+        $sql = "UPDATE students_uploads SET fee_structure = '$fee_fileName' WHERE reference_number = '$app_ref'";
+        $r = mysqli_query($conn,$sql);
+        if($r){
+        move_uploaded_file($tmp_name,$target_file2);
+        }
         
     }
 
@@ -1134,7 +1125,8 @@ body{
     var file = inputField.prop('files')[0];
     var maxFileSize = 5242880; // 5MB
     var minFileSize = 0; //0MB
-  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt', 'PDF'];
+  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','JPG','jpg','txt', 'PDF'];
+     // var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/PDF','image/JPG','image/jpg','image/txt'];
 
   var fileExtension = file.name.split('.').pop();
 
@@ -1204,7 +1196,9 @@ $(document).ready(function() {
     var file = inputField.prop('files')[0];
     var maxFileSize = 5242880; // 5MB
     var minFileSize = 0; //0MB
-  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt'];
+  var allowedFileTypes =['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','JPG','txt', 'PDF'];
+    // var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/PDF','image/JPG','image/jpg','image/txt'];
+
 
   var fileExtension = file.name.split('.').pop();
 
@@ -1262,41 +1256,41 @@ fileInputElement.addEventListener('change', function(event) {
 });
 
 
-    function validateFile(file) {
-        var inputField = $('#file');
-    var maxFileSize = 5242880; // 5MB
-    var minFileSize = 0; //0MB
-    var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/jpg','image/txt'];
+//     function validateFile(file) {
+//         var inputField = $('#file');
+//     var maxFileSize = 5242880; // 5MB
+//     var minFileSize = 0; //0MB
+//     var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/jpg','image/txt'];
 
-    // Get the file size and file type.
-    var fileSize = file.size;
-    var fileType = file.type;
+//     // Get the file size and file type.
+//     var fileSize = file.size;
+//     var fileType = file.type;
 
-    // Check if the file size is greater than the maximum allowed file size.
-    if (fileSize > maxFileSize) {
-        // alert("The file size is too large.");
-        // return false;
-        $('#file-upload-error').text('The file is too large.');
-      inputField.val('');
-      return;
-    }
-    //  if(filesize <= minFileSize){
-    //     alert("The file size is too small.");
-    //     return false;
-    // }
+//     // Check if the file size is greater than the maximum allowed file size.
+//     if (fileSize > maxFileSize) {
+//         // alert("The file size is too large.");
+//         // return false;
+//         $('#file-upload-error').text('The file is too large.');
+//       inputField.val('');
+//       return;
+//     }
+//     //  if(filesize <= minFileSize){
+//     //     alert("The file size is too small.");
+//     //     return false;
+//     // }
 
-    // Check if the file type is one of the allowed file types.
-    if (!allowedFileTypes.includes(fileType)) {
-        // alert("The file type is not allowed.");
-        // return false;
-        $('#file-upload-error').text('The file type is not allowed.');
-      inputField.val('');
-      return;
-    }
-  // If the file is valid, clear the error message
-  $('#file-upload-error').text('');
-    // return true;
-}
+//     // Check if the file type is one of the allowed file types.
+//     if (!allowedFileTypes.includes(fileType)) {
+//         // alert("The file type is not allowed.");
+//         // return false;
+//         $('#file-upload-error').text('The file type is not allowed.');
+//       inputField.val('');
+//       return;
+//     }
+//   // If the file is valid, clear the error message
+//   $('#file-upload-error').text('');
+//     // return true;
+// }
 
 
 // kapsabet sub-location
