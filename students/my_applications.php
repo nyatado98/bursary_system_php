@@ -35,6 +35,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 				
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
+					<label style="font-weight: 900; color: #0f893b; font-size: 25px" class="mx-5">BURSARY APPLICATION SYSTEM</label>
 				</a>
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fas fa-bars"></i>
@@ -96,7 +97,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
                                     }
                                 }?> </span>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>
+									<li class="breadcrumb-item active"></li>
 								</ul>
 							</div>
 						</div>
