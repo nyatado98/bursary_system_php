@@ -23,7 +23,7 @@ $ref = $upi_reg = $name = $school_type = $school_name = $location = $ward = $sub
 // $m = "";
 // $m = $_SESSION['m'];
 // $_SESSION['m'] = $m;
-
+$parent ="";
 
 
 date_default_timezone_set('Africa/Nairobi');
@@ -89,7 +89,7 @@ if(isset($_POST["approve"])){
 					$total = 5000;
 					$rad ='REP'. rand(100,999);
 					$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded,created_at,updated_at)VALUES(
-					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."'.'$sub_location','$total','$current_date','$current_date')";
+					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total','$current_date','$current_date')";
 					mysqli_query($conn,$sql);
 
 					$mailto = $qs['parent_email'];
@@ -205,14 +205,6 @@ unset($_SESSION['m']);
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
-								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="location_report">Location Report</a></li>
-									<li><a href="sub_location_report">Sub-location Report</a></li>
-								</ul>
-							</li>
-				
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>

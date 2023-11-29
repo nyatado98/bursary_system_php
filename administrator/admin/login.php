@@ -52,34 +52,44 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>
     <title>Login page:</title>
+    <style type="text/css">
+        body{
+    background-image: url('images/nandi-hills.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+@media (max-width:800px){
+    .container{
+        margin-top:2vh;
+    }
+}
+@media (min-width:801px){
+    .container{
+        margin-top:20vh;
+    }
+}
+
+    </style>
 </head>
 <body>
-    <div class="container col-md-8" style="margin-top: 20vh">
+    <div class="container col-md-8 bg-dark " style="">
         <div class="row" style="border: .1px light black">
-        <div class="col-md-6">
-            
-            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:50vh">
-                
-                <h4 class="text-center font-weight-bold">LOGIN HERE</h4>
-            </div>
-            </div>
-            <div class="col-md-6" style="margin-top: 6vh">
+               <img src="images/emgwen.jpg" class="img-fluid col-md-6" >
+        
+            <div class="col-md-6" style="">
+                 <h4 class="text-center font-weight-bold mb-3"  style="font-size:35px;text-decoration:underline;color:white"><span style="color: #0f893b">Login</span> <span style="color: orange">Here</span></h4>
             <div class="card-body"> 
-                <!-- <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky"> -->
                     <span class="font-weight-bold text-danger"><?php echo $message;?></span>
-                    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                         </button>
-                         </div> -->
                
                 <form method="POST" action="">
-                <label class="font-weight-bold">Enter Email address :</label>
+                <label class="font-weight-bold text-white">Enter Email address :</label>
                 <input type="email" name="email" class="form-control" id="" placeholder="example@admin.com" value="<?php echo $email;?>">
                 <span class="text-danger"><?php echo $email_err;?></span><br>
-                <label class="font-weight-bold">Enter Password :</label>
+                <label class="font-weight-bold text-white">Enter Password :</label>
                 <input type="password" name="password" class="form-control" id="" placeholder="********" value<?php echo $password;?>>
                 <span class="text-danger"><?php echo $password_err;?></span><br>
-                <input type="submit" class="btn btn-primary mt-2" value="LOGIN">
+                <input type="submit" class="btn btn-primary mt-2 form-control font-weight-bold" value="L O G I N">
                 </form>
                 <div class="row justify-content-between">
                     <!-- <p class="mt-5">If not Registered Click <a href="{{url('register')}}"> Here</a></p>  -->

@@ -6,8 +6,7 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	exit;
 }
 
-$sql = "SELECT * FROM students_uploads";
-$result = mysqli_query($conn, $sql);
+
 
 $fullname = $age = $family_status = $school_level =$school_name = $county = $ward  = $location =$sub_location = "";
 $message = "";
@@ -64,14 +63,6 @@ $year = date('Y');
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
-								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="location_report">Location Report</a></li>
-									<li><a href="sub_location_report">Sub-location Report</a></li>
-								</ul>
-							</li>
-				
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
@@ -110,22 +101,7 @@ $year = date('Y');
 							<div class="card card-chart">
 								<div class="card-body">
 									<div id="line_graph">
-                                        <!-- @if(session()->has('message'))
-                                        <div class="alert alert-warning alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('message')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif
-										@if(session()->has('success'))
-                                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                            <span class="font-weight-bold">{{session()->get('success')}}</span>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                 <span aria-hidden="true">&times;</span>
-                                                 </button>
-                                                 </div>
-                                        @endif -->
+                                      
 										<span class="text-success font-weight-bold"><?php if(isset($_GET['message'])){
 										echo $message;
 										}else{
@@ -145,7 +121,11 @@ $year = date('Y');
                                         </thead>
                                         
                                         <tbody>
-                                           <?php while($val = $result->fetch_assoc()){
+                                           <?php
+                                           $sql = "SELECT * FROM students_uploads";
+											$result = mysqli_query($conn, $sql);
+
+                                            while($val = $result->fetch_assoc()){
 											?>
                                             <tr>
                                                 <td><?php echo $val['id'];?></td>
@@ -153,7 +133,7 @@ $year = date('Y');
                                                 <td><?php echo $val['school_id_letter'];?></td>
                                                 <td><?php echo $val['fee_structure'];?></td>
                                                 <td class="text-center"><a href="view?view=<?php echo $val['school_id_letter'];?>&&id=<?php echo $val['id'];?>"class="btn btn-primary">VIEW SCHOOL LETTER</a>
-                                                 <a href="view?view_fee=<?php echo $val['fee_structure'];?>&&id=<?php echo $val['id'];?>" name="view_fee" class="btn btn-secondary">VIEW FEE STRUCTURE</a>
+                                                 <a href="view_fee?view_fee=<?php echo $val['fee_structure'];?>&&fee_id=<?php echo $val['id'];?>" name="view_fee" class="btn btn-secondary">VIEW FEE STRUCTURE</a>
 											
                                                 </td>
                                             </tr>
