@@ -85,7 +85,7 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
         <div class="row p-3" style="border: .1px light black">
         <div class="col-md-6">
             
-            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:70vh">
+            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.png');background-position:center;background-repeat:no-repeat;height:70vh">
                 
                 
             </div>
