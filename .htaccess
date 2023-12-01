@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -9,3 +10,16 @@
    RewriteCond %{REQUEST_FILENAME} !-f
    RewriteRule (.*) $1.php [L]
 </IfModule>
+=======
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteRule (.*) $1.php [L]
+</IfModule>
+>>>>>>> 2019fb6bd2dd2ea15b95e71ca458d606c33ff2c1
