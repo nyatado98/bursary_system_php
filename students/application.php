@@ -372,27 +372,6 @@ if(empty($_POST['sub_location'])){
     }
 }
 }
-// 
-
-// $file = $_FILES['file-upload-field'];
-
-// // Check if the file is oversize
-// if ($file['size'] > 1024 * 1024) {
-//   // Display an error message
-//   echo 'The file is too large.';
-//   exit;
-// }
-
-// // Check if the file type is allowed
-// if (!in_array($file['type'], ['image/jpeg', 'image/png', 'application/pdf'])) {
-//   // Display an error message
-//   echo 'The file type is not allowed.';
-//   exit;
-// }
-
-// // Move the uploaded file to its destination
-// move_uploaded_file($file['tmp_name'], '/path/to/destination/directory/' . $file['name']);
-
 
 ?>
 <!DOCTYPE html>
@@ -471,7 +450,7 @@ if(empty($_POST['sub_location'])){
 
 .progress-bar {
      position: fixed;
-  top: 13;
+  top: 13px;
   margin-top:70px;
   width: 80%;
   height: 20px;
@@ -482,7 +461,7 @@ if(empty($_POST['sub_location'])){
     position: absolute;
     left: 50%;
     margin-bottom: 10px;
-    top:0px;
+    top:-12px;
     font-weight: bold;
     transform: translate(-50%, -50%);
     font-size: 16px;
