@@ -456,6 +456,7 @@ if(empty($_POST['sub_location'])){
   height: 20px;
   background-color: #ccc;
   border: 1px solid #ddd;
+  border-radius: .5em;
 }
 .percentage{
     position: absolute;
@@ -632,8 +633,8 @@ body{
                                             
                                         </div>
              
-<div class="progress-bar sticky-top col-md-9">
-    <div class="progress" id="progress"></div>
+<div class="progress-bar mx-5 sticky-top col-md-9">
+    <div class="progress " id="progress"></div>
     <span class="percentage" id="percentage">0%</span>
 </div>
                                         <div class="card-body mt-2">
