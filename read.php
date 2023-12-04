@@ -1,3 +1,4 @@
+
 <?php
 
 // Decode the JSON file into an associative array.

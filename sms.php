@@ -1,3 +1,4 @@
+
 <?php
 
 require "vendor/autoload.php";
@@ -28,3 +29,5 @@ try {
 } catch (Exception $e) {
   echo "Error sending SMS: " . $e->getMessage();
 }
+
+?>

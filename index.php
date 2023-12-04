@@ -5,5 +5,4 @@ if(isset($_SESSION["user_email"]) || $_SESSION["email_user"] == true){
 	exit;
 }
 require('students/dashboard.php');
-
 ?>

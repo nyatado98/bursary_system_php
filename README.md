@@ -44,14 +44,23 @@
 * Download or clone the project files from the GitHub repository.
 
 
-* If downloaded, extract the ZIP file in your XAMPP htdocs directory.
+* Make sure you have downloaded XAMPP and installed it in Local Disk C.
 
 
-* To clone it move within the xampp htdocs directory then run this command:
+* If you downloaded the zip file of the project, extract the ZIP file in XAMPP htdocs directory.
+
+
+* To clone the project, ensure you are in xampp htdocs directory then run this command:
 
   `git clone github-repo-url`
 
   - Change 'github-repo-url' with the actual repository url. Then click Enter.
+
+
+* Open XAMPP then start both Mysql and Apache.
+
+
+* Click the Amin button next to start Mysql so as to open phpMyadmin.
 
 
 * Create a MySQL database named "bursary".
@@ -60,13 +69,10 @@
 * Import the "bursary.sql" file into the database.
 
 
-* Start XAMPP by starting both Apache and Mysql.
-
-
 * Open your web browser.
 
 
-* Navigate to http://localhost/bursary_system_php/
+* Navigate to http://localhost/Emgwen-Bursary/
 
 
 * You should now be able to access the bursary application and management system.
