@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2023 at 10:03 AM
+-- Generation Time: Nov 29, 2023 at 08:13 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.2.0
 
@@ -107,6 +107,38 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `location_id` int(11) NOT NULL,
+  `ward_id` int(11) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`location_id`, `ward_id`, `location`) VALUES
+(1, 1, 'Kamobo'),
+(2, 1, 'Township'),
+(3, 1, 'Kiminda'),
+(4, 3, 'Chepkumia'),
+(5, 2, 'Kapkangani'),
+(6, 4, 'Kilibwoni'),
+(7, 4, 'Lolminingai'),
+(8, 4, 'Kipsigak'),
+(9, 4, 'Kipture'),
+(10, 4, 'Kabirirsang'),
+(11, 4, 'Arwos'),
+(12, 4, 'Kaplamai'),
+(13, 4, 'Tulon'),
+(14, 4, 'Terige');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -115,23 +147,6 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2023_09_19_092615_students', 1),
-(6, '2023_09_19_092634_parents', 1),
-(7, '2023_09_19_092907_bursaries', 2),
-(8, '2023_09_19_092938_applications', 2),
-(9, '2023_09_29_095258_admins', 3),
-(10, '2023_10_06_083822_reports', 3),
-(11, '2023_10_13_083301_beneficiaries', 3);
 
 -- --------------------------------------------------------
 
@@ -250,6 +265,63 @@ CREATE TABLE `students_uploads` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sub_locations`
+--
+
+CREATE TABLE `sub_locations` (
+  `sub_location_id` int(11) NOT NULL,
+  `location` varchar(11) DEFAULT NULL,
+  `sub_location` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sub_locations`
+--
+
+INSERT INTO `sub_locations` (`sub_location_id`, `location`, `sub_location`) VALUES
+(1, 'Kamobo', 'Kamobo'),
+(2, 'Township', 'Township'),
+(3, 'Kiminda', 'Meswo'),
+(4, 'Kiminda', 'Kiminda'),
+(5, 'Chepkumia', 'Chepkumia'),
+(6, 'Chepkumia', 'Cheboite'),
+(7, 'Kapkangani', 'Chepsonoi'),
+(8, 'Kapkangani', 'Tindinyo'),
+(9, 'Kapkangani', 'Kiborgok'),
+(10, 'Kilibwoni', 'Kilibwoni'),
+(11, 'Kilibwoni', 'Kapnyeberai'),
+(12, 'Kilibwoni', 'Kaplonyo'),
+(13, 'Lolminingai', 'Kabore'),
+(14, 'Lolminingai', 'Ndubeneti'),
+(15, 'Lolminingai', 'Kiplolok'),
+(16, 'Lolminingai', 'Lolminingai'),
+(17, 'Kipsigak', 'Kipsotoi'),
+(18, 'Kipsigak', 'Kipsigak'),
+(19, 'Kipsigak', 'Kapkeruge'),
+(20, 'Kipture', 'Kipture'),
+(21, 'Kipture', 'Imaam'),
+(22, 'Kipture', 'Irimis'),
+(23, 'Kabirirsang', 'Kabirirsang'),
+(24, 'Kabirirsang', 'Underit'),
+(25, 'Kabirirsang', 'Chesuwe'),
+(26, 'Arwos', 'Tiryo'),
+(27, 'Arwos', 'Arwos'),
+(28, 'Arwos', 'Kaptendon'),
+(29, 'Kaplamai', 'Kaptagunyo'),
+(30, 'Kaplamai', 'Kapchemoiywo'),
+(31, 'Kaplamai', 'Kaplamai'),
+(32, 'Kaplamai', 'Kapsumbeiywo'),
+(33, 'Tulon', 'Kapchumba'),
+(34, 'Tulon', 'Tulon'),
+(35, 'Tulon', 'Kapchepsir'),
+(36, 'Tulon', 'Kiptenden'),
+(37, 'Terige', 'Song\'oliet'),
+(38, 'Terige', 'Terige'),
+(39, 'Terige', 'Emdin');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -261,6 +333,27 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wards`
+--
+
+CREATE TABLE `wards` (
+  `ward_id` int(11) NOT NULL,
+  `ward` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wards`
+--
+
+INSERT INTO `wards` (`ward_id`, `ward`) VALUES
+(1, 'Kapsabet'),
+(2, 'Kapkangani'),
+(3, 'Chepkumia'),
+(4, 'Kilibwoni');
 
 --
 -- Indexes for dumped tables
@@ -290,6 +383,12 @@ ALTER TABLE `beneficiary_upload`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+  ADD PRIMARY KEY (`location_id`);
 
 --
 -- Indexes for table `migrations`
@@ -336,11 +435,23 @@ ALTER TABLE `students_uploads`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sub_locations`
+--
+ALTER TABLE `sub_locations`
+  ADD PRIMARY KEY (`sub_location_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wards`
+--
+ALTER TABLE `wards`
+  ADD PRIMARY KEY (`ward_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -371,10 +482,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `parents`
@@ -407,10 +524,22 @@ ALTER TABLE `students_uploads`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `sub_locations`
+--
+ALTER TABLE `sub_locations`
+  MODIFY `sub_location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wards`
+--
+ALTER TABLE `wards`
+  MODIFY `ward_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

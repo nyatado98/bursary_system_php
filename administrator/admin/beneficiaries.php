@@ -61,86 +61,24 @@ if(isset($_POST['upload'])){
 		}
 	}}
 if(isset($_GET['download'])){
-// 	$download = $_GET['download'];
-// 	#setting headers
-//     // header('Content-Description: File Transfer');
-//     // header('Cache-Control: public');
-//     // header('Content-Type: '.$type);
-//     // header("Content-Transfer-Encoding: binary");
-//     // header('Content-Disposition: attachment; filename='. basename($download));
-//     // header('Content-Length: '.filesize($download));
-//     // ob_clean(); #THIS!
-//     // flush();
-//     // readfile($download);
-// // 	// Get the path to the file.
-// $filePath = 'beneficiary_uploads/"'.$download.'"';
+	$download = $_GET['download'];
 
-// // Set the Content-Type header.
-// header('Content-Type: application/octet-stream');
+// 	// Get the path to the file.
+$filePath = 'beneficiary_uploads/'."$download";
 
-// // Set the Content-Disposition header.
-// header('Content-Disposition: attachment; filename="'.basename($download).'"');
+// Set the Content-Type header.
+header('Content-Type: application/octet-stream');
 
-// // Read the file from the server and output it to the browser.
-// readfile($filePath);
-// 
+// Set the Content-Disposition header.
+header('Content-Description: File Transfer');
+header('Content-Disposition: attachment; filename="'.basename($filePath).'"');
+header('Content-Length: ' . filesize($filePath));
+header('Pragma: public');
+// Read the file from the server and output it to the browser.
+readfile($filePath);
 
-$fileName = $_GET["download"];
-$fileContent = file_get_contents($fileName);
-
-$response = new StreamedResponse(
-    function () use ($fileContent) {
-        echo $fileContent;
-    }
-);
-
-$response->headers->set('Content-Type', 'application/octet-stream');
-$response->headers->set('Content-Disposition', 'attachment; filename=' . $fileName);
-
-$response->send();
-// $fileName = $_GET["download"];
-// $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-// $contentType = "";
-
-// switch ($fileExtension) {
-//   case
- 
-// "jpg":
-//   case
- 
-// "jpeg":
-//     $contentType = "image/jpeg";
-//     break;
-//   case
- 
-// "png":
-//     $contentType = "image/png";
-//     break;
-//   case
- 
-// "pdf":
-//     $contentType = "application/pdf";
-//     break;
-//   case "doc":
-//   case "docx":
-//     $contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-//     break;
-//   case "xls":
-//   case
- 
-// "xlsx":
-//     $contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-//     break;
-//   default:
-//     $contentType = "application/octet-stream";
-//     break;
-// }
-
-// header("Content-Type: $contentType");
-// header("Content-Disposition: attachment; filename=$fileName");
-
-// readfile($fileName);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,13 +126,6 @@ $response->send();
 								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
 							</li>
 						
-							<li class="submenu">
-								<a href="dashboard"><i class="fa fa-file"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="location_report">Location Report</a></li>
-									<li><a href="sub_location_report">Sub-location Report</a></li>
-								</ul>
-							</li>
 				
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>

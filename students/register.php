@@ -78,18 +78,45 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
   background-size: cover;
   background-attachment: fixed;
 }
+@media (max-width:800px){
+    .container{
+        margin-top:2vh;
+    }
+     #text{
+/*        display: none;*/
+    }
+    #h3{
+        font-size: 15px;
+    }
+    #h4{
+        font-size: 15px;
+    }
+}
+@media (min-width:801px){
+    .container{
+        margin-top:10vh;
+    }
+    #img{
+        margin-top: 0px;
+        margin-left: -30px;
+        margin-right: -45px;
+        height: 50vh;
+    }
+
+}
         </style>
 </head>
 <body>
-    <div class="container col-md-8 bg-dark" id="main" style="margin-top: 13vh;border-radius: .5em;">
-        <div class="row p-3" style="border: .1px light black">
-        <div class="col-md-6">
+    <div class="container col-md-8 bg-dark" id="main" style="border-radius: .5em;">
+        <div class="row" style="border: .1px light black">
             
-            <div class="card-header jalign-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:70vh">
-                
-                
-            </div>
-            </div>
+<div class="column col-md-6" id="img">
+        <img src="images/emgwen.png" class="col-md-12" >
+        <div id="text">
+        <h3 class="text-center mt-5" id="h3" style="color: orange">Welcome To Emgwen Bursary System.</h3>
+        <h4 class="text-center mt-5" id="h4" style="color: #0f893b">Please Register to get full access to the system.</h4>
+    </div>
+    </div>
             <div class="col-md-6" style="margin-top: 0vh">
             <div style="text-decoration:underline;;color:white">
               <h4 class="text-center font-weight-bold mb-3" style="font-size:35px"><span style="color: #0f893b">Register</span> <span style="color: orange">Here</span></h4>

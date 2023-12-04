@@ -60,33 +60,33 @@ if(isset($_POST['reset'])){
         if($count == 0){
             $mssge = "The email address is not in our records";
         }else{
-            $url = "http://localhost/nrs_projects/New%20folder/bursary_system_php/students/reset?email=$email_reset";
+            $url = "https://bursary.rf.gd/students/reset?email=$email_reset";
             $html ="Reset Password by clicking the link " . "$url";
             //send mail
             $mailto = $_POST['email_reset'];
-			$mailSub = 'NANDI COUNTY';
-			$mailMsg = $html;
-		
-			$mail ->IsSmtp();
-		   $mail ->SMTPDebug = 0;
-		   $mail ->SMTPAuth = true;
-		   $mail ->SMTPSecure = 'ssl';
-		   //$mail ->SMTPSecure = 'tsl';
-		   $mail ->Host = "smtp.gmail.com";
-		   $mail ->Port = 465; // or 587 or 465
-		   //$mail ->IsHTML(true);
-		   $mail ->Username = "danndong080@gmail.com";
-		   $mail ->Password = "okzumpamraiksdcq";
-		   $mail ->SetFrom("ict@nandicounty.com");
-		   $mail ->Subject = $mailSub;
-		   $mail ->Body = $mailMsg;
-		   $mail ->AddAddress($mailto);
-		
-		   $mail->Send();
+            $mailSub = 'NANDI COUNTY';
+            $mailMsg = $html;
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
            $mssg = $fullname." Application made successfully and mail has been sent to applicant.";
            $_SESSION['message'] = $mssg;
            $message = "Application made successfully and mail has been sent to applicant.";
-			header("location:login?m=");
+            header("location:login?m=");
         }
 }
 
@@ -109,56 +109,67 @@ body{
   background-size: cover;
   background-attachment: fixed;
 }
+@media (max-width:800px){
+    .container{
+        margin-top:2vh;
+    }
+}
+@media (min-width:801px){
+    .container{
+        margin-top:20vh;
+    }
+}
+
         </style>
 </head>
 <body>
-    <div class="container col-md-8 bg-dark" style="margin-top: 20vh;border-radius: .5em;">
-        <div class="row p-3" style="border: .1px light black">
-        <div class="col-md-6">
+    <div class="container col-md-8 bg-dark main" style="border-radius: .5em;">
+        <div class="row" style="border: .1px light black">
+        <!--<div class="">
             
-            <div class="card-header align-item-center" style="background-image: url('images/emgwen.jpg');background-position:center;background-repeat:no-repeat;height:50vh;">
+            <!--<div class="card-header align-item-center">-->
+               <img src="images/emgwen.png" class="img-fluid col-md-6" >
                 
-                
-            </div>
-            </div>
-            <div class="col-md-6" style="margin-top: 2vh">
+            <!--</div>-->
+            <!--</div>-->
+            <div class="col-md-6" style="margin-top: ">
             <div class="card-body">
             <?php if(isset($mssgs)){?>
-						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $mssgs;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
                                                      </div>
-													 <?php }else{ ?>
+                                                     <?php }else{ ?>
 
-														<?php } ?>
+                                                        <?php } ?>
                                                         <?php if(isset($_GET['m'])){
-						
-						$m = "Reset Link Sent Successfully to your email.";
-						?>
-						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                        
+                        $m = "Reset Link Sent Successfully to your email.";
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $m;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
                                                      </div>
-													 <?php }else{ ?>
-														
-														<?php } ?>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                                                          <?php if(isset($_GET['success'])){
-						
-						$message = "You have successfully register. Login Now.";
-						?>
-						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                        
+                        $message = "You have successfully register. Login Now.";
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $message;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
                                                      </div>
-													 <?php }else{ ?>
-														
-														<?php } ?>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                                                          <?php if(isset($_GET['s'])){
                         
                         $message = "You have successfully reset your password. Login Now.";
@@ -213,7 +224,7 @@ body{
              
                  <span><?php echo $email_reset_err;?></span><br>
                  
-                 <input type="submit" value="Reset" name="reset" class="btn btn-primary mt-2">
+                 <input type="submit" value="Send Reset Link" name="reset" class="btn btn-primary mt-2">
                 </form>
              </div>
          </div>

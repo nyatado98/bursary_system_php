@@ -2,17 +2,17 @@
 use PHPMailer\PHPMailer\PHPMailer;
 include 'database/connect.php';
 if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset($_SESSION['user'])){
-	header("location:login");
-	exit;
+    header("location:login");
+    exit;
 }
 
 ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
-require "../vendor/autoload.php";
-require __DIR__ . '../vendor/autoload.php';
-use Twilio\Rest\Client;
+// require "../vendor/autoload.php";
+// require __DIR__ . '../vendor/autoload.php';
+// use Twilio\Rest\Client;
 
-$dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
-$dotenv->load('../.env');
+// $dotenv = new Symfony\Component\Dotenv\Dotenv(__DIR__);
+// $dotenv->load('../.env');
 // include('php.ini');
 
 // Get the value of the upload_max_filesize directive.
@@ -130,7 +130,7 @@ if(empty($_POST['sub_location'])){
     if(empty($_POST['phone'])){
         $phone_err = "Please enter phone number";
     }elseif(strlen(trim($_POST['phone'])) < 9){
-        $phone_err = "Phone number should not be less than 9 digits.";
+        $phone_err = "Phone number should not be less than 10 digits.";
     }else{
         $phone ='+254'.trim($_POST['phone']);
     }
@@ -178,13 +178,13 @@ if(empty($_POST['sub_location'])){
              
 
              $target = "students_upload/";
-             $target_file =$target . basename($_FILES["school_doc"]["name"]);
+             $target_file1 =$target . basename($_FILES["school_doc"]["name"]);
              $fileName = basename($_FILES["school_doc"]["name"]);
              $file_size = $_FILES["school_doc"]["size"];
              $file_type = $_FILES["school_doc"]["type"];
              $tmp_name = $_FILES['school_doc']['tmp_name'];
             
-             $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+             $file_ext = strtolower(pathinfo($target_file1,PATHINFO_EXTENSION));
          
              $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
              if (!in_array($file_ext, $extensions)) {
@@ -198,24 +198,6 @@ if(empty($_POST['sub_location'])){
 
     if(empty($fee_name)){
         $fee_structure_err = "Please select fee structure document";
-    }else{
-          //insert uploads/school fee_structure
-          $target = "students_upload/";
-          $target_file =$target . basename($_FILES["fee_structure"]["name"]);
-          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
-          $file_size = $_FILES["fee_structure"]["size"];
-          $file_type = $_FILES["fee_structure"]["type"];
-          $tmp_name = $_FILES['fee_structure']['tmp_name'];
-         
-          $file_ext = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-      
-          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
-          if (!in_array($file_ext, $extensions)) {
-              $fee_structure_err = "The file type is not allowed...Please choose another file";
-          }
-          elseif ($file_size > 5242880 || $file_size <= 0) {
-              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
-          }
     }
     // if(empty($_POST['account_no'])){
     //     $account_no_err = "Please enter account number";
@@ -251,157 +233,145 @@ if(empty($_POST['sub_location'])){
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
-       
+       move_uploaded_file($tmp_name,$target_file1);
+        // move_uploaded_file($tmp_name,$target_file2);
 
-    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','$fee_fileName','$current_date','$current_date')";
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
     $query = mysqli_query($conn,$sql);
     if($query){
-        move_uploaded_file($tmp_name,$target.$name);
-        move_uploaded_file($tmp_name,$target.$fee_name);
-         //insert uploads/fee_structure
-        // $name = $_FILES['fee_structure']['name'];
+        
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file2 =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
+    
 
-        // $target = "students_upload/";
-        // $target_file =$target . basename($_FILES['fee_structure']['name']);
-        // $file = basename($_FILES['fee_structure']['name']);
-        // $file_size = $_FILES['fee_structure']['size'];
-        // $file_type = $_FILES['fee_structure']['type'];
-        // $tmp_name = $_FILES['fee_structure']['tmp_name'];
-
-        // $sql = "UPDATE students_uploads SET fee_structure = '$file' WHERE reference_number = '$app_ref'";
-        // $r = mysqli_query($conn,$sql);
-        // if($r){
-        // move_uploaded_file($tmp_name,$target.$name);
-        // }
+        $sql = "UPDATE students_uploads SET fee_structure = '$fee_fileName' WHERE reference_number = '$app_ref'";
+        $r = mysqli_query($conn,$sql);
+        if($r){
+        move_uploaded_file($tmp_name,$target_file2);
+        }
         
     }
 
                //send sms via twilio
-            $accountSid = getenv('TWILIO_ACCOUNT_SID');
-$authToken = getenv('TWILIO_AUTH_TOKEN');
-$twilioNumber = "+17124300592"; // Your Twilio phone number
-$recipientNumber = $phone; // Recipient's phone number
-$message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
 
-$client = new Client($accountSid, $authToken);
+// $client = new Client($accountSid, $authToken);
 
-try {
-  $message = $client->messages->create(
-    $recipientNumber,
-    array(
-      'from' => $twilioNumber,
-      'body' => $message
-    )
-  );
-  echo "SMS message sent successfully!";
-} catch (Exception $e) {
-  echo "Error sending SMS: " . $e->getMessage();
-}
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
 
 
             //send mail
             $mailto = $email;
-			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
-		
-			$mail ->IsSmtp();
-		   $mail ->SMTPDebug = 0;
-		   $mail ->SMTPAuth = true;
-		   $mail ->SMTPSecure = 'ssl';
-		   //$mail ->SMTPSecure = 'tsl';
-		   $mail ->Host = "smtp.gmail.com";
-		   $mail ->Port = 465; // or 587 or 465
-		   //$mail ->IsHTML(true);
-		   $mail ->Username = "danndong080@gmail.com";
-		   $mail ->Password = "okzumpamraiksdcq";
-		   $mail ->SetFrom("ict@nandicounty.com");
-		   $mail ->Subject = $mailSub;
-		   $mail ->Body = $mailMsg;
-		   $mail ->AddAddress($mailto);
-		
-		   $mail->Send();
+            $mailSub = 'NANDI COUNTY';
+            $mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
            $mssg = $fullname." Application made successfully and mail has been sent to applicant.";
            $_SESSION['message'] = $mssg;
            $message = "Application made successfully and mail has been sent to applicant.";
-			header("location:application?message=");
+            header("location:application?message=");
         }else{
             $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
             created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
        //send sms via twilio
-            $accountSid = getenv('TWILIO_ACCOUNT_SID');
-$authToken = getenv('TWILIO_AUTH_TOKEN');
-$twilioNumber = "+17124300592"; // Your Twilio phone number
-$recipientNumber = $phone; // Recipient's phone number
-$message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
 
-$client = new Client($accountSid, $authToken);
+// $client = new Client($accountSid, $authToken);
 
-try {
-  $message = $client->messages->create(
-    $recipientNumber,
-    array(
-      'from' => $twilioNumber,
-      'body' => $message
-    )
-  );
-  echo "SMS message sent successfully!";
-} catch (Exception $e) {
-  echo "Error sending SMS: " . $e->getMessage();
-}
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
             //send mail
             $mailto = $email;
-			$mailSub = 'NANDI COUNTY';
-			// $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
-			// Thank You.\n";
+            $mailSub = 'NANDI COUNTY';
+            // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
+            // Thank You.\n";
             $mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
-		
-			$mail ->IsSmtp();
-		   $mail ->SMTPDebug = 0;
-		   $mail ->SMTPAuth = true;
-		   $mail ->SMTPSecure = 'ssl';
-		   //$mail ->SMTPSecure = 'tsl';
-		   $mail ->Host = "smtp.gmail.com";
-		   $mail ->Port = 465; // or 587 or 465
-		   //$mail ->IsHTML(true);
-		   $mail ->Username = "danndong080@gmail.com";
-		   $mail ->Password = "okzumpamraiksdcq";
-		   $mail ->SetFrom("ict@nandicounty.com");
-		   $mail ->Subject = $mailSub;
-		   $mail ->Body = $mailMsg;
-		   $mail ->AddAddress($mailto);
-		
-		   $mail->Send();
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
            $mssg = $fullname.", Application made successfully and mail has been sent to applicant.";
             $_SESSION['message'] = $mssg;
-			$message = "Application made successfully and mail has been sent to applicant.";
-			header("location:application?message=");
+            $message = "Application made successfully and mail has been sent to applicant.";
+            header("location:application?message=");
         }
     }
 }
 }
-// 
-
-// $file = $_FILES['file-upload-field'];
-
-// // Check if the file is oversize
-// if ($file['size'] > 1024 * 1024) {
-//   // Display an error message
-//   echo 'The file is too large.';
-//   exit;
-// }
-
-// // Check if the file type is allowed
-// if (!in_array($file['type'], ['image/jpeg', 'image/png', 'application/pdf'])) {
-//   // Display an error message
-//   echo 'The file type is not allowed.';
-//   exit;
-// }
-
-// // Move the uploaded file to its destination
-// move_uploaded_file($file['tmp_name'], '/path/to/destination/directory/' . $file['name']);
-
 
 ?>
 <!DOCTYPE html>
@@ -480,7 +450,7 @@ try {
 
 .progress-bar {
      position: fixed;
-  top: 13;
+  top: 13px;
   margin-top:70px;
   width: 80%;
   height: 20px;
@@ -490,7 +460,8 @@ try {
 .percentage{
     position: absolute;
     left: 50%;
-    top:13;
+    margin-bottom: 10px;
+    top:-12px;
     font-weight: bold;
     transform: translate(-50%, -50%);
     font-size: 16px;
@@ -526,76 +497,76 @@ body{
 
     </script>
     <body>
-	
-		<!-- Main Wrapper -->
+    
+        <!-- Main Wrapper -->
         <div class="main-wrapper">
-		
-			<!-- Header -->
+        
+            <!-- Header -->
             <div class="header">
-				<!-- Logo -->
+                <!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="images/CDF LOGO.jpg" alt="Logo">
-					</a>
-					<a href="dashboard" class="logo logo-small">
-						<img src="images/CDF LOGO.jpg" alt="Logo" width="30" height="30">
-					</a>
+                        <img src="images/CDF LOGO.jpg" alt="Logo">
+                    </a>
+                    <a href="dashboard" class="logo logo-small">
+                        <img src="images/CDF LOGO.jpg" alt="Logo" width="30" height="30">
+                    </a>
                 </div>
-				<!-- /Logo -->
-				
-				<a href="javascript:void(0);" id="toggle_btn">
-					<i class="fas fa-align-left"></i>
-                    	<label style="font-weight: 900; color: #0f893b; font-size: 25px;" class="mx-5">BURSARY APPLICATION SYSTEM</label>
-				</a>
-				<a class="mobile_btn" id="mobile_btn">
-					<i class="fas fa-bars"></i>
-				</a>
+                <!-- /Logo -->
+                
+                <a href="javascript:void(0);" id="toggle_btn">
+                    <i class="fas fa-align-left"></i>
+                        <label style="font-weight: 900; color: #0f893b; font-size: 25px;" class="mx-5">BURSARY APPLICATION SYSTEM</label>
+                </a>
+                <a class="mobile_btn" id="mobile_btn">
+                    <i class="fas fa-bars"></i>
+                </a>
                         </div>
-			<!-- /Header -->
-			
-			<!-- Sidebar -->
+            <!-- /Header -->
+            
+            <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-inner slimscroll">
-					<div id="sidebar-menu" class="sidebar-menu">
-						<ul >
-							<li class="menu-title"> 
-								<!--<span>Main Menu</span>-->
-							</li>
-							<li > 
-								<a href="dashboard"><i class="fa fa-th-large"></i> <span>Dashboard</span></a>
-							</li>
-							<li class="active"> 
-								<a href="application"><i class="fa fa-file"></i> <span>New Application</span></a>
-							</li>
-							
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul >
+                            <li class="menu-title"> 
+                                <!--<span>Main Menu</span>-->
+                            </li>
+                            <li > 
+                                <a href="dashboard"><i class="fa fa-th-large"></i> <span>Dashboard</span></a>
+                            </li>
+                            <li class="active"> 
+                                <a href="application"><i class="fa fa-file"></i> <span>New Application</span></a>
+                            </li>
+                            
                             <!-- <li> 
-								<a href="{{url('students/request_application"><i class="fa fa-key"></i> <span>Request Application</span></a>
-							</li> -->
-							<li> 
-								<a href="my_applications"><i class="fa fa-list"></i> <span>My Applications</span></a>
-							</li>
-							<li> 
-								<a href="profile"><i class="fa fa-user"></i> <span>Profile</span></a>
-							</li>
-					
-							<li> 
-								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
-							</li>
-						</ul>
-					</div>
+                                <a href="{{url('students/request_application"><i class="fa fa-key"></i> <span>Request Application</span></a>
+                            </li> -->
+                            <li> 
+                                <a href="my_applications"><i class="fa fa-list"></i> <span>My Applications</span></a>
+                            </li>
+                            <li> 
+                                <a href="profile"><i class="fa fa-user"></i> <span>Profile</span></a>
+                            </li>
+                    
+                            <li> 
+                                <a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-			<!-- /Sidebar -->
-			
-			<!-- Page Wrapper -->
+            <!-- /Sidebar -->
+            
+            <!-- Page Wrapper -->
             <div class="page-wrapper">
-			
+            
                 <div class="content container-fluid">
 
-                	<div class="page-header col-md-12">
-						<div class="row">
-							<div class="col-sm-12 mt-4">
-								<!--<h3 class="page-title">Welcome Admin!</h3>-->
+                    <div class="page-header col-md-12">
+                        <div class="row">
+                            <div class="col-sm-12 mt-4">
+                                <!--<h3 class="page-title">Welcome Admin!</h3>-->
                                 <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
                                 echo $_SESSION['user'];
                                 }else{
@@ -606,62 +577,62 @@ body{
                                         echo $user;
                                     }
                                 }?> </span>
-								<ul class="breadcrumb">
-									<!--<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>-->
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-						
-							<!-- Revenue Chart -->
-							<div class="card card-chart">
-								<div class="card-header">
-									<div class="row align-items-center">
-										<div class="col-12">
-											<h5 class="font-weight-bold text-center" style="font-size: 30px"><span style="color: #0f893b">New</span> - <span style="color: orange">Application</span></h5>
-										</div>
-										<div class="col-6">
-											                                        
-										</div>
-									</div>						
-								</div>
-								<div class="card-body">
+                                <ul class="breadcrumb">
+                                    <!--<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+                            <!-- Revenue Chart -->
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-12">
+                                            <h5 class="font-weight-bold text-center" style="font-size: 30px"><span style="color: #0f893b">New</span> - <span style="color: orange">Application</span></h5>
+                                        </div>
+                                        <div class="col-6">
+                                                                                    
+                                        </div>
+                                    </div>                      
+                                </div>
+                                <div class="card-body">
                                     <form action="" method="POST" enctype="multipart/form-data">
                                         <div class="card-header" id="head" >
                                         <?php if(isset($_GET['mssg'])){
-						$mssg = $_SESSION['mssg'];
-						$message = $mssg;
-						?>
-						<div class="alert alert-danger alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                        $mssg = $_SESSION['mssg'];
+                        $message = $mssg;
+                        ?>
+                        <div class="alert alert-danger alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $message;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
                                                      </div>
-													 <?php }else{ ?>
-														
-														<?php } ?>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                                                         <?php if(isset($_GET['message'])){
-						$mssg = $_SESSION['message'];
-						$message = $mssg;
-						?>
-						<div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                        $mssg = $_SESSION['message'];
+                        $message = $mssg;
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $message;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
                                                      </div>
-													 <?php }else{ ?>
-														
-														<?php } ?>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
                                            
                                             <h4 class="text-center font-weight-bold color ">Personal Details </h4>
                                             
                                         </div>
              
-<div class="progress-bar sticky-top">
+<div class="progress-bar sticky-top col-md-9">
     <div class="progress" id="progress"></div>
     <span class="percentage" id="percentage">0%</span>
 </div>
@@ -769,10 +740,14 @@ body{
                                                         <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = "">Null</option>
                                                             <option value="<?php echo $ward ? $ward : '';?>" selected><?php echo $ward ? $ward : '';?></option>
-                                                            <option value="Kapsabet">Kapsabet</option>
-                                                            <option value="Chepkumia">Chepkumia</option>
-                                                            <option value="Kapkangani">Kapkangani</option>
-                                                            <option value="Kilibwoni">Kilibwoni</option>
+                                                            <?php 
+                                                            $sql = "SELECT * FROM wards";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                                            <option value="<?php echo $rows['ward'];?>"><?php echo $rows['ward'];?></option>
+                                                        <?php }?>
+                                                            
                                                         </select>
                                                       
                                                         <span class="text-danger"><?php echo $ward_err;?></span>
@@ -792,16 +767,21 @@ body{
                                         $kapsabet_location ="";
                                         if(isset($_POST['apply']))
                                         $kapsabet_location = $_POST['kapsabet_location'];
-                                    // $_SESSION['kapsabet_location'] = $kapsabet_location;
                                         echo $kapsabet_location;?>" selected><?php
                                         if(isset($_POST['kapsabet_location']))
                                         $kapsabet_location = $_POST['kapsabet_location'];
                                         echo $kapsabet_location;
                                         
                                         ?></option>
-                                            <option value ="Kamobo">Kamobo</option>
-                                            <option value ="Township">Township</option>
-                                            <option value ="Kiminda">Kiminda</option>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=1";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                            <!-- <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option> -->
                                         </select>
                                         <!-- onchange="showOptions()" -->
                                         <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
@@ -817,9 +797,13 @@ body{
                                         echo $kapkangani_location;
                                         
                                         ?></option>
-                                        <div  >
-                                            <option value ="Kapkangani" >Kapkangani</option>
-                                        </div>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=2";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
                                         </select>
                                         
                                         <!-- onchange="Options()" -->
@@ -837,9 +821,13 @@ body{
                                         echo $chepkumia_location;
                                         
                                         ?></option>
-                                        <div >
-                                            <option value ="Chepkumia" >Chepkumia</option>
-                                        </div>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=3";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
                                         </select>
                                         
                                         <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
@@ -855,15 +843,14 @@ body{
                                         echo $kilibwoni_location;
                                         
                                         ?></option>
-                                            <option  value ="Kilibwoni" id="kili"><span>Kilibwoni</span></option>
-                                            <option  value ="Lolminingai" id="lol">Lolminingai</option>
-                                            <option  value ="Kipsigak" id="kip">Kipsigak</option>
-                                            <option  value ="Kipture" id="kipt">Kipture</option>
-                                            <option value ="Kabirirsang">Kabirirsang</option>
-                                            <option value ="Arwos">Arwos</option>
-                                            <option value ="Kaplamai">Kaplamai</option>
-                                            <option value ="Tulon">Tulon</option>
-                                            <option value ="Terige">Terige</option>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=4";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option  value ="<?php echo $rows['location'];?>" id="kili"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        
                                         </select>
                                        
                                              
@@ -875,34 +862,7 @@ body{
                                                         <select name="sub_location" id="sec"  class="form-control <?php echo $sub_location_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                              <option id="main" style="display: none;" value="<?php echo $sub_location ? $sub_location :'';?>" selected><?php echo $sub_location ? $sub_location :'';?></option>
-                                                           <!-- <option  id="kamobo_sub" style="display: none;">Kamobo</option>
-                                                           <option id="township_sub"style="display: none;">Township</option>
-                                                           <option  id="kilibwoni_sub1"style="display: none;">Kilibwoni</option>
-                                                            <option id="kilibwoni_sub2"style="display: none;">Kapnyerebai</option>
-                                                            <option id="kilibwoni_sub3"style="display: none;">Kaplonyo</option>
-                                                            <option id="lolminingai_sub1"style="display: none;">Kabore</option>
-                                                            <option id="lolminingai_sub2"style="display: none;">Ndubeneti</option>
-                                                            <option id="lolminingai_sub3"style="display: none;">Kaplolok</option>
-                                                            <option id="kipsigak_sub1"style="display: none;">Kipsotoi</option>
-                                                            <option id="kipsigak_sub2"style="display: none;">Kisigak</option>
-                                                            <option id="kipsigak_sub3"style="display: none;">Kakeruge</option>
-                                                            <option id="kipture_sub1"style="display: none;">Kipture</option>
-                                                            <option id="kipture_sub2"style="display: none;">Kimaam</option>
-                                                            <option id="kipture_sub3"style="display: none;">Irimis</option>
-                                                            <option id="kabirirsang_sub1"style="display: none;">Kibirirsang</option>
-                                                            <option id="kabirirsang_sub2"style="display: none;">Underit</option>
-                                                            <option id="kabirirsang_sub3"style="display: none;">Chesuwe</option>
-                                                            <option id="arwos_sub"style="display: none;">Tiryo</option>
-                                                            <option id="kaplamai_sub"style="display: none;">Kaptagunyo</option>
-                                                            <option id="tulon_sub"style="display: none;">Kapchumba</option>
-                                                            <option id="terige_sub"style="display: none;">Song'oliet</option>
-                                                            <option id="kiminda_sub1"style="display: none;">Kiminda</option>
-                                                            <option id="kiminda_sub2"style="display: none;">Meswo</option>
-                                                            <option id="kapkangani_sub1"style="display: none;">Chepsonoi</option>
-                                                            <option id="kapkangani_sub2"style="display: none;">Tindinyo</option>
-                                                            <option id="kapkangani_sub3"style="display: none;">Koborgok</option>
-                                                            <option id="chepkumia_sub1"style="display: none;">Chepkumia</option>
-                                                            <option id="chepkumia_sub2"style="display: none;">Cheboite</option> -->
+                                                          
                                                         </select>
                                                        
                                                      
@@ -919,7 +879,7 @@ body{
                                                 
                                     </div>
                                     <hr>
-									<div class="card-header" id="head" >
+                                    <div class="card-header" id="head" >
                                         <h4 class="text-center font-weight-bold color">School Details</h4>
                                     </div>
                                     <div class="card-body mt-4" >
@@ -1013,7 +973,7 @@ body{
                                                 <input type="submit" name="apply" class="btn mt-5 font-weight-bold mb-4 " style="float: right;color:white;background-color:#166651" value="SUBMIT APPLICATION">
                                     </div>
                                 </form>
-								</div>
+                                </div>
                                 <?php if(isset($_POST['apply'])){
                                                             if($_POST['ward'] == 'Kapkangani'){
                                                             ?>
@@ -1072,28 +1032,28 @@ body{
                                         }}
                                             ?>
                                                         
-							</div>
-							<!-- /Revenue Chart -->
-							
-						</div>
-					</div>
+                            </div>
+                            <!-- /Revenue Chart -->
+                            
+                        </div>
+                    </div>
 
-				</div>
+                </div>
 
-			</div>
-			<!-- /Page Wrapper -->
+            </div>
+            <!-- /Page Wrapper -->
 
-			
+            
         </div>
-		<!-- /Main Wrapper -->
-		<?php include('config/scripts.php');?>
+        <!-- /Main Wrapper -->
+        <?php include('config/scripts.php');?>
     </body>
-	
+    
      <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script> 
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script type="text/javascript" src="DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
@@ -1144,7 +1104,8 @@ body{
     var file = inputField.prop('files')[0];
     var maxFileSize = 5242880; // 5MB
     var minFileSize = 0; //0MB
-  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt', 'PDF'];
+  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','JPG','jpg','txt', 'PDF'];
+     // var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/PDF','image/JPG','image/jpg','image/txt'];
 
   var fileExtension = file.name.split('.').pop();
 
@@ -1214,7 +1175,9 @@ $(document).ready(function() {
     var file = inputField.prop('files')[0];
     var maxFileSize = 5242880; // 5MB
     var minFileSize = 0; //0MB
-  var allowedFileTypes = ['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','txt'];
+  var allowedFileTypes =['jpeg', 'png', 'PNG', 'doc','docx','pdf','jpg','JPG','txt', 'PDF'];
+    // var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/PDF','image/JPG','image/jpg','image/txt'];
+
 
   var fileExtension = file.name.split('.').pop();
 
@@ -1272,166 +1235,145 @@ fileInputElement.addEventListener('change', function(event) {
 });
 
 
-    function validateFile(file) {
-        var inputField = $('#file');
-    var maxFileSize = 5242880; // 5MB
-    var minFileSize = 0; //0MB
-    var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/jpg','image/txt'];
+//     function validateFile(file) {
+//         var inputField = $('#file');
+//     var maxFileSize = 5242880; // 5MB
+//     var minFileSize = 0; //0MB
+//     var allowedFileTypes = ['image/jpeg', 'image/png', 'image/PNG', 'image/doc','image/docx','image/pdf','image/jpg','image/txt'];
 
-    // Get the file size and file type.
-    var fileSize = file.size;
-    var fileType = file.type;
+//     // Get the file size and file type.
+//     var fileSize = file.size;
+//     var fileType = file.type;
 
-    // Check if the file size is greater than the maximum allowed file size.
-    if (fileSize > maxFileSize) {
-        // alert("The file size is too large.");
-        // return false;
-        $('#file-upload-error').text('The file is too large.');
-      inputField.val('');
-      return;
-    }
-    //  if(filesize <= minFileSize){
-    //     alert("The file size is too small.");
-    //     return false;
-    // }
-
-    // Check if the file type is one of the allowed file types.
-    if (!allowedFileTypes.includes(fileType)) {
-        // alert("The file type is not allowed.");
-        // return false;
-        $('#file-upload-error').text('The file type is not allowed.');
-      inputField.val('');
-      return;
-    }
-  // If the file is valid, clear the error message
-  $('#file-upload-error').text('');
-    // return true;
-}
-
-// $(document).ready(function(){
-//     load_json_data('ward');
-//     function load_json_data(id,parent_id){
-//         var html_code = '';
-//         $.getJSON('data.json',function(data){
-//             html_code += '<option value="">Select '+id+'</option>';
-//             $.each(data, function(key, value){
-//                 if(id == 'ward'){
-//                     if(value.parent_id == '0'){
-//             html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-
-//                     }
-//                 }else{
-//                     if(value.parent_id == parent_id){
-//             html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-
-//                     }
-//                 }
-//             });
-//             $('#'+id).html(html_code);
-//         });
-        
+//     // Check if the file size is greater than the maximum allowed file size.
+//     if (fileSize > maxFileSize) {
+//         // alert("The file size is too large.");
+//         // return false;
+//         $('#file-upload-error').text('The file is too large.');
+//       inputField.val('');
+//       return;
 //     }
-//     $(document).on('change', '#ward', function(){
-//         var ward_id = $(this).val();
-//         if(ward_id != ''){
-//             load_json_data('location', ward_id);
-//         }else{
-//             $('#location').html('<option value="">Select Location</option>');
-//             $('#sub_location').html('<option value="">Select Sub-Location</option>');
-//         }
-//     });
-//     $(document).on('change', '#location', function(){
-//         var location_id = $(this).val();
-//         if(location_id != ''){
-//             load_json_data('sub_location', location_id);
-//         }else{
-//             // $('#location').html('<option value="">Select Location</option>'); 
-//             $('#sub_location').html('<option value="">Select Sub-Location</option>');
-//         }
-//     });
-// });
+//     //  if(filesize <= minFileSize){
+//     //     alert("The file size is too small.");
+//     //     return false;
+//     // }
+
+//     // Check if the file type is one of the allowed file types.
+//     if (!allowedFileTypes.includes(fileType)) {
+//         // alert("The file type is not allowed.");
+//         // return false;
+//         $('#file-upload-error').text('The file type is not allowed.');
+//       inputField.val('');
+//       return;
+//     }
+//   // If the file is valid, clear the error message
+//   $('#file-upload-error').text('');
+//     // return true;
+// }
 
 
+// kapsabet sub-location
+function showO(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-function showO(optionValue){
-    const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-      const optionData = {
-        Kamobo: ['','Kamobo'],
-        Township: ['','Township'],
-        Kiminda: ['','Kiminda', 'Meswo'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
       }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
 }
-
-function showK(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
-        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
-        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
-        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
-        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
-        Arwos: ['','Tiryo'],
-        Kaplamai: ['','Kaptangunyo'],
-        Tulon: ['','Kapchumba'],
-        Terige: ['','Song`oliet'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-    }
+// kapkangani sub-location
 function showKap(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-      const optionData = {
-        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
-      };
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
       }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
 }
+// chepkumia sub-location
 function showChep(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-      const optionData = {
-        Chepkumia: ['','Chepkumia', 'Cheboite'],
-      };
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
       }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
 }
+
+// show kilibwoni sub_locations
+function showK(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
+}
+
 
 function showHideSelectOptions() {
   // Get the value of the parent select option.
@@ -1440,26 +1382,14 @@ function showHideSelectOptions() {
   // Show the child select option if the parent select option is set to "Option 2".
   if (parentSelectValue === "Kapsabet") {
     document.getElementById("kapsabet").style.display = "block";
+     document.getElementById("kapkangani").style.display = "none";
     document.getElementById("default").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
     document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-    document.getElementById("kapkangani").style.display = "none";
+ 
+   
+    
   } else if(parentSelectValue === "Chepkumia"){
     
     document.getElementById("chepkumia").style.display = "block";
@@ -1467,620 +1397,32 @@ function showHideSelectOptions() {
     document.getElementById("default").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
     document.getElementById("kapkangani").style.display = "none";
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
 
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
     }else if(parentSelectValue === "Kilibwoni") {
-		document.getElementById("kilibwoni").style.display = "block";
+        document.getElementById("kilibwoni").style.display = "block";
     document.getElementById("kapsabet").style.display = "none";
     document.getElementById("kapkangani").style.display = "none";
     document.getElementById("default").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('chepkumia_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
 
 
   }else if(parentSelectValue === "Kapkangani") {
-		document.getElementById("kapkangani").style.display = "block";
+        document.getElementById("kapkangani").style.display = "block";
     document.getElementById("kapsabet").style.display = "none";
     document.getElementById("kilibwoni").style.display = "none";
     document.getElementById("chepkumia").style.display = "none";
     document.getElementById("default").style.display = "none";
 
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-       
-    document.getElementById('kapkangani_sub').style.display = 'none';
-
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-       
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-    
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        
-        document.getElementById('sub').style.display = 'block';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
   }
 }
 
-// sub-location scripts
-function showOptions() {
-  
-  var parentValue = document.getElementById("kapkangani").value;
-  if(parentValue === 'Kapkangani'){
-      document.getElementById('kapkangani_sub1').style.display = 'block';
-      document.getElementById('kapkangani_sub2').style.display = 'block';
-      document.getElementById('kapkangani_sub3').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-
-  }else if(parentValue === ''){
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('sub').style.display = 'block';
-  }
-  
-}
-
-function Options() {
-  var parentV = document.getElementById("chepkumia").value;
-if(parentV === "Chepkumia"){
-      document.getElementById('chepkumia_sub1').style.display = 'block';
-      document.getElementById('chepkumia_sub2').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-
-      }else if(parentV === ''){
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('sub').style.display = 'block';
-      }
-
-}
-
-function show() {
-  var parentVa = document.getElementById("kilibwoni").value;
-if(parentVa === "Kilibwoni"){
-      document.getElementById('kilibwoni_sub1').style.display = 'block';
-      document.getElementById('kilibwoni_sub2').style.display = 'block';
-      document.getElementById('kilibwoni_sub3').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-
-      }else if(parentVa === 'Lolminingai'){
-      document.getElementById('lolminingai_sub1').style.display = 'block';
-      document.getElementById('lolminingai_sub2').style.display = 'block';
-      document.getElementById('lolminingai_sub3').style.display = 'block';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub1').style.display = 'none';
-      document.getElementById('kapkangani_sub2').style.display = 'none';
-      document.getElementById('kapkangani_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub').style.display = 'none';
-      document.getElementById('chepkumia_sub1').style.display = 'none';
-      document.getElementById('chepkumia_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('kipture_sub').style.display = 'none';
-      document.getElementById('kabirirsang_sub').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub').style.display = 'none';
-      }else if(parentVa === 'Kipsigak'){
-      document.getElementById('kipsigak_sub1').style.display = 'block';
-      document.getElementById('kipsigak_sub2').style.display = 'block';
-      document.getElementById('kipsigak_sub3').style.display = 'block';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }else if(parentVa === 'Kipture'){
-      document.getElementById('kipture_sub1').style.display = 'block';
-      document.getElementById('kipture_sub2').style.display = 'block';
-      document.getElementById('kipture_sub3').style.display = 'block';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }
-      else if(parentVa === 'Kabirirsang'){
-      document.getElementById('kabirirsang_sub1').style.display = 'block';
-      document.getElementById('kabirirsang_sub2').style.display = 'block';
-      document.getElementById('kabirirsang_sub3').style.display = 'block';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }else if(parentVa === 'Arwos'){
-      document.getElementById('arwos_sub').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }else if(parentVa === 'Kaplamai'){
-      document.getElementById('kaplamai_sub').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }else if(parentVa === 'Tulon'){
-      document.getElementById('tulon_sub').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }else if(parentVa === 'Terige'){
-      document.getElementById('terige_sub').style.display = 'block';
-      document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-      }
-      
-      else if(parentVa === ''){
-      document.getElementById('kilibwoni_sub').style.display = 'none';
-      document.getElementById('sub').style.display = 'block';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kipsigak_sub').style.display = 'none';
-      document.getElementById('kipture_sub').style.display = 'none';
-      document.getElementById('kabirirsang_sub').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      }
-
-}
-
-function showOpt(){
-  var parent = document.getElementById("kapsabet").value;
-if(parent === 'Kamobo'){
-  document.getElementById('kamobo_sub').style.display = 'block';
-  document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-
-}else if(parent === 'Kiminda'){
-  document.getElementById('kiminda_sub1').style.display = 'block';
-  document.getElementById('kiminda_sub2').style.display = 'block';
-  document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-      document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-
-}else if(parent === 'Township'){
-  document.getElementById('township_sub').style.display = 'block';
-  document.getElementById('kabirirsang_sub1').style.display = 'none';
-      document.getElementById('kabirirsang_sub2').style.display = 'none';
-      document.getElementById('kabirirsang_sub3').style.display = 'none';
-      document.getElementById('kipsigak_sub1').style.display = 'none';
-      document.getElementById('kipsigak_sub2').style.display = 'none';
-      document.getElementById('kipsigak_sub3').style.display = 'none';
-      document.getElementById('sub').style.display = 'none';
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('kapkangani_sub').style.display = 'none';
-      document.getElementById('lolminingai_sub1').style.display = 'none';
-      document.getElementById('lolminingai_sub2').style.display = 'none';
-      document.getElementById('lolminingai_sub3').style.display = 'none';
-      document.getElementById('chepkumia_sub').style.display = 'none';
-      document.getElementById('kilibwoni_sub1').style.display = 'none';
-      document.getElementById('kilibwoni_sub2').style.display = 'none';
-      document.getElementById('kilibwoni_sub3').style.display = 'none';
-      document.getElementById('kipture_sub1').style.display = 'none';
-      document.getElementById('kipture_sub2').style.display = 'none';
-      document.getElementById('kipture_sub3').style.display = 'none';
-      document.getElementById('arwos_sub').style.display = 'none';
-      document.getElementById('kaplamai_sub').style.display = 'none';
-      document.getElementById('tulon_sub').style.display = 'none';
-      document.getElementById('terige_sub').style.display = 'none';
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub1').style.display = 'none';
-  document.getElementById('kiminda_sub2').style.display = 'none';
-  document.getElementById('chepkumia_sub1').style.display = 'none';
-  document.getElementById('chepkumia_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub1').style.display = 'none';
-  document.getElementById('kapkangani_sub2').style.display = 'none';
-  document.getElementById('kapkangani_sub3').style.display = 'none';
-
-}else if(parent === ''){
-  document.getElementById('township_sub').style.display = 'none';
-  document.getElementById('sub').style.display = 'block';
-  
-  document.getElementById('kamobo_sub').style.display = 'none';
-  document.getElementById('kiminda_sub').style.display = 'none';
-}
-}
-
-// const inputFields = document.querySelectorAll('input[required]');
-// const progressBar =document.querySelector('.progress');
-// inputFields.forEach(input => {
-//     input.addEventListener('input', updateProgressBar);
-// });
-// function updateProgressBar(){
-//     const completedFields = document.querySelectorAll('input[required]:not(:empty)');
-//     const progress =completedFields.length / inputFields.length * 100;
-//     progressBar.style.width = '${progress}%';
-// }
-
-// $(document).ready(function(){
-//     var totalFields = $('input[type="text"]').length;
-//     var completedFields = 0;
-//     $('input[type="text"]').change(function(){
-//         if($(this).val() !== ''){
-//             completedFields++;
-//         }else{
-//             completedFields--;
-//         }
-
-//         var percentage = Math.floor((completedFields / totalFields) * 100);
-//         $('.progress').css('width', percentage + '%');
-//         $('.percentage').text(percentage + '%');
-//     });
-// });
-
+// progress bar
   const inputFields = document.querySelectorAll('input, select, ul');
     const progressBarFillElement = document.getElementById('progress');
     const progressTextElement = document.getElementById('percentage');
 
     function updateProgress() {
-      const totalFields = 18;
+      const totalFields = 14;
       let filledFields = 0;
 
       for (const inputField of inputFields) {
@@ -2089,7 +1431,7 @@ if(parent === 'Kamobo'){
         }
       }
 
-      const progressPercentage = Math.floor(((filledFields / totalFields) * 100)-5);
+      const progressPercentage = Math.floor(((filledFields / totalFields) * 100)-35);
       progressBarFillElement.style.width = `${progressPercentage}%`;
       progressTextElement.textContent = `Progress: ${progressPercentage}%`;
     }
@@ -2103,241 +1445,6 @@ if(parent === 'Kamobo'){
     }
 
 
-// starts here
 
-// $(document).ready(function() {
-//   // Get the progress bar element.
-//   const progressBarElement = $('.progress-bar');
-
-//   // Get the input field elements.
-//   const input1 = $('#first');
-//   const input2 = $('#last');
-//   const input3 = $('#gender');
-//   const input4 = $('#date');
-// //   const input5 = $('#parent');
-//   const input5 = $('#phone');
-//   const input6 = $('#id');
-// //   const input8 = $('#email');
-// //   const input9 = $('#county');
-//   const input7 = $('#opts');
-// //   const input11 = $('#default');
-//   const input8 = $('#subs');
-//   const input9 = $('#level');
-//   const input10 = $('#reg');
-// //   const input15= $('#soValue');
-//   const input11= $('#file-upload-field');
-//   const input12= $('#file-upload');
-// //   const input18= $('#year');
-  
-
-
-//   // Calculate the initial percentage.
-//   let percentage = 0;
-  
-
-//   // Get the number of input fields.
-//   const numberOfInputFields = 12;
-
-//   // Check if any of the input fields are already filled.
-//   if (input1.val() || input2.val() || input3.val()|| input4.val()|| input5.val()|| input6.val()|| input7.val()|| input8.val()|| input9.val()|| input10.val()
-//   || input11.val()|| input12.val()) {
-//     // If any of the input fields are already filled, calculate the percentage based on the number of filled input fields.
-//     percentage = (100 / numberOfInputFields) * (input1.val() ? 1 : 0) + (input2.val() ? 1 : 0) + (input3.val() ? 1 : 0)+ (input4.val() ? 1 : 0)+ (input5.val() ? 1 : 0)
-//     + (input6.val() ? 1 : 0)+ (input7.val() ? 1 : 0)+ (input8.val() ? 1 : 0)+ (input9.val() ? 1 : 0)+ (input10.val() ? 1 : 0)+ (input11.val() ? 1 : 0)+ (input12.val() ? 1 : 0)
-//     ;
-//   }
-
-//     var completedFields = 0;
-//   // Update the progress bar percentage.
-//   progressBarElement.css('width', percentage + '%');
-//   $('.percentage').text(percentage + '%');
-
-//   // Add an event listener for the change event on the input field elements.
-//   input1.change(function() {
-//        if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-     
-//   });
-
-//   input2.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//      if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-
-//   input3.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//    if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input4.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//      if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input5.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//      if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input6.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//     percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//      if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input7.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//     if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input8.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//      if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input9.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//     if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input10.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//    if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input11.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//    if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-//   input12.change(function() {
-//     // Calculate the new percentage.
-//     // percentage = percentage + (100 / numberOfInputFields);
-
-//     // Update the progress bar percentage.
-//    if($(this).val() !== ''){
-//             percentage = Math.floor(percentage + (100 / numberOfInputFields));
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }else{
-//             percentage = Math.floor(percentage - (100 / numberOfInputFields) +1);
-//     progressBarElement.css('width', percentage + '%');
-//     $('.percentage').text(percentage + '%');
-//         }
-//   });
-  
-// });
     </script>
 </html>
