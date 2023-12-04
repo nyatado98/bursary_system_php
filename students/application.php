@@ -492,6 +492,7 @@ if(empty($_POST['sub_location'])){
 body{
     overflow: auto;
 }
+
 </style>
 <script>
 
@@ -971,7 +972,7 @@ body{
 
                                                 </div>
                                              
-                                                <input type="submit" name="apply" class="btn mt-5 font-weight-bold mb-4 " style="float: right;color:white;background-color:#166651" value="SUBMIT APPLICATION">
+                                                <input type="submit" name="apply" class="btn application mt-5 font-weight-bold mb-4 " style="float: right;color:white;background-color:#166651" onmouseover="this.style.backgroundColor='orange'" onmouseout="this.style.backgroundColor='#166651'" value="SUBMIT APPLICATION">
                                     </div>
                                 </form>
                                 </div>
