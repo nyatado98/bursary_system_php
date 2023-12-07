@@ -220,7 +220,7 @@ while($data = $re->fetch_assoc()){
 						<div class="col-md-12">
 						<div class="row">
                                     <div class="col-md-6">
-                                    <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY :</h4>
+                                    <h4 class="" style=""><i class="fa fa-filter"></i>&nbsp&nbspFilter By : </h4>
                                     </div>
                                 </div>
                                 <form method="post" action="">
