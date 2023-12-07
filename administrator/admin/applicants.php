@@ -6,6 +6,23 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	exit;
 }
 
+if (isset($_GET['option'])) {
+    $selectedOption = $_GET['option'];
+ $query = "SELECT id, student_fullname, age, school_level, county,location,sub_location FROM students WHERE year ='$selectedOption'";
+    $result = mysqli_query($conn, $query);
+
+    $data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+
+
+    // Return data as JSON
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    }
+
+
 $sql = "SELECT * FROM students";
 $result = mysqli_query($conn, $sql);
 
@@ -56,6 +73,9 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                         </div>
 			<!-- /Header -->
 			
+            <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
 			<!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-inner slimscroll">
@@ -125,7 +145,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 						<div class="col-md-12">
 						<div class="row">
                                     <div class="col-md-6">
-                                    <h4 class="font-weight-bold" style="text-decoration:underline">FILTER BY :</h4>
+                                    <h4 class="" style=""><i class="fa fa-filter"></i>&nbsp&nbspFilter By : </h4>
                                     </div>
                                     
                                 </div>
@@ -137,7 +157,8 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 								<div class="col-md-3" id="year">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Year :</label>
-                                        <select name="Year" class="form-control" id="">
+                                        <select name="Year" class="form-control" id="year" >
+                                            <!-- onchange="loadData()" -->
 											<option value="">-Select Year-</option>
 											<option value="<?php if(isset($_POST['filter_all']))
                                         $Year = $_POST['Year'];
@@ -155,7 +176,7 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 							
 												?>
 												
-												<option><?php echo $key;?></option>
+												<option value="<?php echo $key;?>"><?php echo $key;?></option>
 											<?php endforeach ?>
 										</select>
                                     </div>
@@ -2018,6 +2039,38 @@ if(parentVa === 'Kamobo'){
 }
 }
 
+// fetch data
+function loadData() {
+     const selectedOption = document.getElementById('year').value;
+            
+            if (selectedOption !== "") {
+                fetch(`applicants.php?option=${selectedOption}`)
+                    .then(response => response.json())
+                    .then(data => updateTable(data))
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+        }
 
+        function updateTable(data) {
+            const dataTable = document.getElementById('sample');
+            dataTable.innerHTML = ''; // Clear existing rows
+
+            // Add table header
+            const headerRow = dataTable.insertRow();
+            for (const key in data[0]) {
+                const headerCell = document.createElement('th');
+                headerCell.textContent = key;
+                headerRow.appendChild(headerCell);
+            }
+
+            // Add data rows
+            data.forEach(row => {
+                const dataRow = dataTable.insertRow();
+                for (const key in row) {
+                    const dataCell = dataRow.insertCell();
+                    dataCell.textContent = row[key];
+                }
+            });
+        }
     </script>
 </html>

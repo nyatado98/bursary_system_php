@@ -128,16 +128,12 @@ while($rows = $r->fetch_assoc()){
 							<div class="col-sm-12">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
 								<span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php 
-                                if($_SESSION['user'] != ''){
-                                echo $_SESSION['user'];
-                                }else{
                                     $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
                                     $q = mysqli_query($conn,$sql);
                                     while($r = $q->fetch_assoc()){
                                         $user = $r['fullname'];
                                         echo $user;
                                     }
-                                }
                                 ?> </span>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active"></li>

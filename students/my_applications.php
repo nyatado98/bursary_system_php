@@ -86,16 +86,14 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 						<div class="row">
 							<div class="col-sm-12">
 								<!--<h3 class="page-title">Welcome Admin!</h3>-->
-								<span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
-                                echo $_SESSION['user'];
-                                }else{
+								<span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php 
                                     $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
                                     $q = mysqli_query($conn,$sql);
                                     while($r = $q->fetch_assoc()){
                                         $user = $r['fullname'];
                                         echo $user;
                                     }
-                                }?> </span>
+                                ?> </span>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active"></li>
 								</ul>
