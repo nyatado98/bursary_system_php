@@ -290,7 +290,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                     <div class="col-md-6">
                                     <h4 class="" style=""><i class="fa fa-filter"></i>&nbsp&nbspFilter By : </h4>
                                     </div>
-                                    
+                                    <!-- add -->
                                 </div>
                             <div class="row">
                                 <div class="col-md-12">
