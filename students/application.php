@@ -6,6 +6,11 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
     exit;
 }
 
+require "../vendor/autoload.php";
+require __DIR__ . '../vendor/autoload.php';
+
+use \Savannabits\Advantasms\Advantasms;
+
 ini_set('include_path', get_include_path() . PATH_SEPARATOR . 'php.ini');
 // require "../vendor/autoload.php";
 // require __DIR__ . '../vendor/autoload.php';
@@ -132,7 +137,7 @@ if(empty($_POST['sub_location'])){
     }elseif(strlen(trim($_POST['phone'])) < 9){
         $phone_err = "Phone number should not be less than 10 digits.";
     }else{
-        $phone ='+254'.trim($_POST['phone']);
+        $phone ='254'.trim($_POST['phone']);
     }
    
     if(empty($_POST['email'])){
@@ -266,7 +271,18 @@ if(empty($_POST['sub_location'])){
         }
         
     }
+// send sms using advantasms
 
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile = $phone;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
                //send sms via twilio
 //             $accountSid = getenv('TWILIO_ACCOUNT_SID');
 // $authToken = getenv('TWILIO_AUTH_TOKEN');
@@ -320,6 +336,20 @@ if(empty($_POST['sub_location'])){
             created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
+
+
+            // send sms using advantasms
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile = $phone;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
        //send sms via twilio
 //             $accountSid = getenv('TWILIO_ACCOUNT_SID');
 // $authToken = getenv('TWILIO_AUTH_TOKEN');
@@ -569,16 +599,14 @@ body{
                         <div class="row">
                             <div class="col-sm-12 mt-4">
                                 <!--<h3 class="page-title">Welcome Admin!</h3>-->
-                                <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php if($_SESSION['user'] != ''){
-                                echo $_SESSION['user'];
-                                }else{
+                                <span class="font-weight-bold page-title" style="font-size:15px">WELCOME : <?php 
                                     $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
                                     $q = mysqli_query($conn,$sql);
                                     while($r = $q->fetch_assoc()){
                                         $user = $r['fullname'];
                                         echo $user;
                                     }
-                                }?> </span>
+                                ?> </span>
                                 <ul class="breadcrumb">
                                     <!--<li class="breadcrumb-item active"><label style="font-weight: 900; color: #0f893b; font-size: 25px">BURSARY APPLICATION SYSTEM</label></li>-->
                                 </ul>
@@ -679,13 +707,8 @@ body{
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                                                 <?php if($_SESSION['user'] != ""){
-                                                    ?>
-                                                     <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $_SESSION['user'];?>" class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name" readonly>
-                                                        <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
+                        
                                                         <?php
-                                                        }else{
                                                             $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($r = $q->fetch_assoc()){
@@ -698,7 +721,7 @@ body{
                                                         <?php }else{?>
                                                         <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
                                                         <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
-                                                        <?php }}}?>
+                                                        <?php }}?>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
