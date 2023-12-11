@@ -725,9 +725,10 @@ body{
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
-                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
-                                                        <br>
+                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
+                                                        
                                                         <span class="font-italic">Start with 0712345678</span><br>
+                                                        <span id="phoneError" style="color: red;"></span>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         
                                                     </div>
@@ -799,7 +800,7 @@ body{
                                         
                                         ?></option>
                                          <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward_id=1";
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapsabet'";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -823,7 +824,7 @@ body{
                                         
                                         ?></option>
                                          <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward_id=2";
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapkangani'";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -847,7 +848,7 @@ body{
                                         
                                         ?></option>
                                         <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward_id=3";
+                                                            $sql = "SELECT * FROM locations WHERE ward='Chepkumia'";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -869,7 +870,7 @@ body{
                                         
                                         ?></option>
                                         <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward_id=4";
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kilibwoni'";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -1469,7 +1470,20 @@ function showHideSelectOptions() {
       inputField.addEventListener('input', updateProgress);
     }
 
+       function validatePhoneNumber() {
+            var phoneInput = document.getElementById("phone");
+            var phoneError = document.getElementById("phoneError");
 
+            var phoneNumber = phoneInput.value.trim();
+
+            if (phoneNumber.length > 9) {
+                phoneError.textContent = "Phone number should not exceed 9 characters.";
+                phoneInput.setCustomValidity("Phone number should not exceed 9 characters.");
+            } else {
+                phoneError.textContent = "";
+                phoneInput.setCustomValidity("");
+            }
+        }
 
     </script>
 </html>
