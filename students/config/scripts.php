@@ -8,11 +8,11 @@
 	<!-- Slimscroll JS -->
 	<script src="./slimscroll/jquery.slimscroll.min.js"></script>
      <script src="assets/js/popper.min.js"></script>
-        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <!-- <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> -->
 	
 	<!-- Chart JS -->
-	<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
-	<script src="assets/plugins/apexchart/chart-data.js"></script>
+	<!-- <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+	<script src="assets/plugins/apexchart/chart-data.js"></script> -->
 	
 	<!-- Custom JS -->
 	<script  src="bootstrap/js/script.js"></script>

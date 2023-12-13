@@ -1485,10 +1485,10 @@ $pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
     // Output the PDF (you can choose to save it to a file or send it as a response)
     $pdf->Output();
 }
-if(isset($_GET['pbysub_location'])&& isset($_GET['pbyward'])&& isset($_GET['pbylocation'])){
-    $location = $_GET['pbylocation'];
-    $ward = $_GET['pbyward'];
-    $sub_location = $_GET['pbysub_location'];
+if(isset($_GET['pby_sub_location'])&& isset($_GET['pby_ward'])&& isset($_GET['pby_location'])){
+    $location = $_GET['pby_location'];
+    $ward = $_GET['pby_ward'];
+    $sub_location = $_GET['pby_sub_location'];
 
     $sql = "SELECT * FROM applications WHERE sub_location='$sub_location' AND location='$location' AND ward='$ward'";
 $results = mysqli_query($conn, $sql);
@@ -1569,11 +1569,11 @@ $pdf->cell(120, 6, "info@emgwen.go.ke", 0, 1, 'C');
     // Output the PDF (you can choose to save it to a file or send it as a response)
     $pdf->Output();
 }
-elseif(isset($_GET['by_year']) && isset($_GET['by_location']) && isset($_GET['by_ward']) && isset($_GET['by_sub_location'])){
-    $year = $_GET['by_year'];
-    $location = $_GET['by_location'];
-    $ward = $_GET['by_ward'];
-    $sub_location = $_GET['by_sub_location'];
+elseif(isset($_GET['pby_year']) && isset($_GET['pby_location']) && isset($_GET['pby_ward']) && isset($_GET['pby_sub_location'])){
+    $year = $_GET['pby_year'];
+    $location = $_GET['pby_location'];
+    $ward = $_GET['pby_ward'];
+    $sub_location = $_GET['pby_sub_location'];
 
 
 $sql = "SELECT * FROM applications WHERE location='$location' AND year='$year' AND ward='$ward' AND sub_location='$sub_location'";
