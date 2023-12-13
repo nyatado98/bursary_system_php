@@ -25,6 +25,7 @@ class ComposerStaticInitd97f525b04781a4259ff09ebc8556f73
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Dotenv\\' => 25,
+            'Savannabits\\Advantasms\\' => 23,
         ),
         'C' => 
         array (
@@ -56,6 +57,10 @@ class ComposerStaticInitd97f525b04781a4259ff09ebc8556f73
         'Symfony\\Component\\Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/dotenv',
+        ),
+        'Savannabits\\Advantasms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/savannabits/advantasms/src',
         ),
         'Courier\\' => 
         array (

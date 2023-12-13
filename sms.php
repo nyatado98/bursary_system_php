@@ -10,7 +10,7 @@ $dotenv->load('.env');
 // $accountSid = getenv('TWILIO_ACCOUNT_SID');
 // $authToken = getenv('TWILIO_AUTH_TOKEN');
 $accountSid ="AC437a44a5e6e89a4a174115facfaeeafb";
-$authToken = "d47602f256dc14aee2e626ff3ed9827c";
+$authToken = "9996ac251c5dafeae99d5f4df738f55d";
 $twilioNumber = "+17124300592"; // Your Twilio phone number
 $recipientNumber = "+254726585782"; // Recipient's phone number
 $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
@@ -25,9 +25,17 @@ try {
       'body' => $message
     )
   );
-  echo "SMS message sent successfully!";
+  $responseData = array(
+    'status' => 'success',
+    // 'message' => $message,
+    'data' => array(
+        'from' => $twilioNumber,
+        'to' => $recipientNumber,
+    ),
+);
+  echo json_encode($responseData);
 } catch (Exception $e) {
   echo "Error sending SMS: " . $e->getMessage();
-}
-
+  // return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+}  
 ?>
