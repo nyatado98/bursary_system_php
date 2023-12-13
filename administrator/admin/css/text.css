@@ -66,3 +66,9 @@
 #head {
     background-color: #40686A;
 }
+@media screen and (max-width: 800px) {
+    #none {
+        display: none;
+    }
+}
+

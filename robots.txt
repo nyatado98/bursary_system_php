@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://bursary.rf.gd/sitemapOriginal.xml

@@ -18,11 +18,15 @@
 <link rel="stylesheet" type="text/css" href="./DataTables/DataTables-1.13.4/css/jquery.dataTables.css" />
 <script type="text/javascript" src="./DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
 
+<!-- flaticons cdn -->
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 
 <!-- Fontawesome CSS -->
 <link rel="stylesheet" href="./css/fontawesome.min.css">
 <link rel="stylesheet" href="./css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/text.css">
+
 <!-- Main CSS -->
 
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu8tAPbW80jEzW0Yuh86M83xqSD3eqKJk"></script> -->

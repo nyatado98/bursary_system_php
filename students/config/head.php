@@ -1,6 +1,7 @@
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+<!-- , user-scalable=0 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMS</title>
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,11 +19,13 @@
 <link rel="stylesheet" type="text/css" href="./DataTables/DataTables-1.13.4/css/jquery.dataTables.css" />
 <script type="text/javascript" src="./DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
 
-<meta name="description" content="Emgwen: Emgwen bursary application system" data-react-helmet="true">
+<meta name="description" content="Emgwen bursary application system" data-react-helmet="true">
 <!-- Fontawesome CSS -->
 <link rel="stylesheet" href="./css/fontawesome.min.css">
 <link rel="stylesheet" href="./css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
+<link rel="manifest" href="././manifest.json">
+
 <!-- Main CSS -->
 <style>
 #alert-box {

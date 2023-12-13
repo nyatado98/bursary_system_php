@@ -10,7 +10,7 @@ $dotenv->load('.env');
 // $accountSid = getenv('TWILIO_ACCOUNT_SID');
 // $authToken = getenv('TWILIO_AUTH_TOKEN');
 $accountSid ="AC437a44a5e6e89a4a174115facfaeeafb";
-$authToken = "9996ac251c5dafeae99d5f4df738f55d";
+$authToken = "863b067947b4c700048fb93eda3c60ac";
 $twilioNumber = "+17124300592"; // Your Twilio phone number
 $recipientNumber = "+254726585782"; // Recipient's phone number
 $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
