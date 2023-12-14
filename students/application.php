@@ -658,7 +658,7 @@ body{
                                                         
                                                         <?php } ?>
                                            
-                                            <h4 class="text-center font-weight-bold color ">Personal Details </h4>
+                                            <h4 class="text-center font-weight-bold color ">Applicant's Details</h4>
                                             
                                         </div>
              
@@ -689,6 +689,7 @@ body{
                                                         <!-- <option value = ""></option> -->
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
                                                             <option> Male</option> 
+                                                            <option> Rather Not Say</option> 
                                                             <option>Female</option>
                                                         </select>
                                                         
