@@ -522,6 +522,30 @@ $response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You ha
 body{
     overflow: auto;
 }
+  /* Style the container */
+        .input-container {
+            position: relative;
+        }
+
+        /* Style the icon */
+        .input-icon {
+            /*height: 35px;
+            width: 28px;*/
+/*            background-color: black;*/
+font-weight: bold;
+font-size: 14px;
+            position: absolute;
+            left: 19px;
+            top: 54%;
+            transform: translateY(-50%);
+            color: black; /* Adjust the color as needed */
+        }
+
+        /* Style the input field */
+        .input-field {
+            padding-left: 30px; /* Space for the icon */
+/*            width: 200px; /* Adjust the width as needed */*/
+        }
 
 </style>
 <script>
@@ -725,14 +749,18 @@ body{
                                                         <?php }}?>
                                                     </div>
                                                     <div class="col-md-4">
-
-                                                        <label class="font-weight-bold" for="phone">Phone No :</label>
-                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
-                                                        
+                                                        <div class="column mx-3">
+                                                        <label class="font-weight-bold" for="phone">Phone Number :</label>
+                                                        <div class="row">
+                                                        <p class="form-control col-md-2 text-center font-weight-bold" readonly>+254</p>
+                                                        <!-- <p class="input-icon">254</p> -->
+                                                        <input type="number" name="phone" id="phone" class="col-md-10 input-field form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
+                                                        </div>
                                                         <span class="font-italic">Example:0712345678</span><br>
+
                                                         <span id="phoneError" style="color: red;"></span>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
-                                                        
+                                                        </div>
                                                     </div>
                                                    
                                                     <div class="col-md-4">
@@ -743,7 +771,7 @@ body{
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="id_no">Parent Id No :</label>
+                                                        <label class="font-weight-bold" for="id_no">ID Number :</label>
                                                         <input type="number" name="id_no" id="id" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
@@ -926,7 +954,7 @@ body{
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="font-weight-bold" for="reg_no">UPI/ Adm/ Reg No :</label>
+                                                    <label class="font-weight-bold" for="reg_no">UPI/ Adm/ Reg Number :</label>
                                                     <input type="text" name="reg_no" id="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
                                                     
                                                     <span class="text-danger"><?php echo $reg_no_err;?></span>
@@ -942,7 +970,7 @@ body{
                                                         <div class="search">
                                                             <input type="text" name="" placeholder="Search.." class="form-control" id="optionSearch">
                                                         </div>
-                                                        <ul class="options">
+                                                        <ul class="options" id="schools">
                                                             <!-- <li></li> -->
                                                     <li>Umoja High</li>
                                                     <li>Kimumu Secondary School</li>
@@ -970,7 +998,7 @@ body{
                                                     
                                                     <div class="col-md-6">
                                                         <div class="column">
-                                                        <label class="font-weight-bold" for="file-upload-field">School Fees Structure : (Limit 5Mb)</label>
+                                                        <label class="font-weight-bold" for="file-upload-field">School Fees Structure : (Max 5MB)</label>
                                                         <!-- <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="file" value="<?php echo $fee_structure;?>" onchange="validateFile(this.files[0]);"> -->
                                                         <input type="file" id="file-upload-field" class="form-control" name="fee_structure">
                                                         <span id="file-upload-error" class="text-danger font-weight-bold"></span>
@@ -983,7 +1011,7 @@ body{
 
                                                     <div class="col-md-6">
                                                         <div class="column">
-                                                        <label class="font-weight-bold" for="school_doc">School ID/School adm. letter : (Limit 5Mb)</label>
+                                                        <label class="font-weight-bold" for="school_doc">School ID/School adm. letter : (Max 5MB)</label>
                                                         <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="file-upload" value="<?php echo $name;?>">
                                                         <span class="text-danger"><?php print_r($errors);?></span>
                                                         <span id="file-error" class="text-danger font-weight-bold"></span>
@@ -1445,7 +1473,7 @@ function showHideSelectOptions() {
 }
 
 // progress bar
-  const inputFields = document.querySelectorAll('input, select, ul');
+  const inputFields = document.querySelectorAll('input, select, #soValue');
     const progressBarFillElement = document.getElementById('progress');
     const progressTextElement = document.getElementById('percentage');
 
@@ -1481,11 +1509,17 @@ function showHideSelectOptions() {
             if (phoneNumber.length > 9) {
                 phoneError.textContent = "Phone number should not exceed 9 characters.";
                 phoneInput.setCustomValidity("Phone number should not exceed 9 characters.");
-            } else {
+            } 
+            // else if(phoneNumber.length < 9) {
+            //     phoneError.textContent = "Phone number should not be less than 9 characters.";
+            //     phoneInput.setCustomValidity("Phone number should not be less than 9 characters.");
+            // }
+            else{
                 phoneError.textContent = "";
                 phoneInput.setCustomValidity("");
             }
         }
+
 
         ////////////////////////////////////////////
         //////////////    ID verification  ////////
@@ -1558,6 +1592,7 @@ function showHideSelectOptions() {
         }
         //END//
         parentId.addEventListener('input', verifyId);
+
 
     </script>
 </html>

@@ -8,10 +8,10 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 <!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="./images/nandi.png" alt="Logo">
+						<img src="./images/CDF LOGO.jpg" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<img src="./images/nandi.png" alt="Logo" width="30" height="30">
+						<img src="./images/CDF LOGO.jpg" alt="Logo" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->

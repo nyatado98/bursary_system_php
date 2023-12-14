@@ -25,10 +25,10 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="images/logo.png" alt="Logo">
+						<img src="images/CDF LOGO.jpg" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
-						<img src="images/logo.png" alt="Logo" width="30" height="30">
+						<img src="images/CDF LOGO.jpg" alt="Logo" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->
