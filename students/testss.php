@@ -7,7 +7,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 }
 
 require "../vendor/autoload.php";
-require __DIR__ . '../vendor/autoload.php';
+// require __DIR__ . '../vendor/autoload.php';
 
 use \Savannabits\Advantasms\Advantasms;
 
@@ -135,7 +135,7 @@ if(empty($_POST['sub_location'])){
     if(empty($_POST['phone'])){
         $phone_err = "Please enter phone number";
     }elseif(strlen(trim($_POST['phone'])) < 9){
-        $phone_err = "Phone number should not be less than 9 digits.";
+        $phone_err = "Phone number should not be less than 10 digits.";
     }else{
         $phone =trim($_POST['phone']);
     }
@@ -277,12 +277,12 @@ if(empty($_POST['sub_location'])){
 $apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
 $partnerId = "2832";
 $shortcode = "JOSSES";
-$mobile ='254'.$phone;
+$mobile = '254'.$phone;
 //instantiate
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Dear ".$parent_guardian_name.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+$response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
                //send sms via twilio
 //             $accountSid = getenv('TWILIO_ACCOUNT_SID');
 // $authToken = getenv('TWILIO_AUTH_TOKEN');
@@ -309,7 +309,7 @@ $response = $sms->to($mobile)->message("Dear ".$parent_guardian_name.", You have
             //send mail
             $mailto = $email;
             $mailSub = 'NANDI COUNTY';
-            $mailMsg = "Dear ".$parent_guardian_name.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+            $mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
         
             $mail ->IsSmtp();
            $mail ->SMTPDebug = 0;
@@ -344,7 +344,7 @@ $response = $sms->to($mobile)->message("Dear ".$parent_guardian_name.", You have
 $apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
 $partnerId = "2832";
 $shortcode = "JOSSES";
-$mobile ='254'.$phone;
+$mobile ='254'. $phone;
 //instantiate
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
@@ -376,7 +376,7 @@ $response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You ha
             $mailSub = 'NANDI COUNTY';
             // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
             // Thank You.\n";
-            $mailMsg = "Dear ".$parent_guardian_name.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+            $mailMsg = "You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
         
             $mail ->IsSmtp();
            $mail ->SMTPDebug = 0;
@@ -670,21 +670,21 @@ body{
                                             
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="firstname">Student First-Name :</label>
+                                                        <label class="font-weight-bold">Student First-Name :</label>
                                                         <input type="text" name="firstname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student firstname"  value="<?php echo $firstname;?>" >
                                                         
                                                         <span class="text-danger"><?php echo $firstname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="lastname">Student Last-Name :</label>
+                                                        <label class="font-weight-bold">Student Last-Name :</label>
                                                         <input type="text" name="lastname" id="last" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="Enter Student lastname" value="<?php echo $lastname;?>" >
                                                         
                                                         <span class="text-danger"><?php echo $lastname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="gender">Gender :</label>
+                                                        <label class="font-weight-bold">Gender :</label>
                                                         <select name="gender" id="gender" class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <!-- <option value = ""></option> -->
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
@@ -699,7 +699,7 @@ body{
                                                 </div>
                                                 <div class="row mt-4">
                                                 <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="date">D-O-B:</label>
+                                                        <label class="font-weight-bold">D-O-B:</label>
                                                         <input type="date" id="date" class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob" >
                                                     
                                                       
@@ -715,41 +715,41 @@ body{
                                                                 $user = $r['fullname'];
                                                             ?>
                                                             <?php if($user == ''){?>
-                                                             <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
+                                                             <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
                                                         <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $user;?>" class="form-control font-weight-bold" placeholder="Enter parent name" readonly>
                                                         <span class="text-danger">Please fill the parent name under the profile page first.</span>
                                                         <?php }else{?>
-                                                        <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
+                                                        <label class="font-weight-bold">Enter Parent/Guardian Name :</label>
                                                         <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
                                                         <?php }}?>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold">Phone No :</label>
-                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>">
-                                                    
+                                                        <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="7 1 2 3 4 - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
+                                                        
                                                         <span class="font-italic">Example:0712345678</span><br>
-                                                        <span id="phoneError" style="color: red;"></span>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
+                                                        <span id="phoneError" style="color: red;"></span>
                                                         
                                                     </div>
                                                    
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="email">Parent Email :</label>
+                                                        <label class="font-weight-bold">Parent Email :</label>
                                                         <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="id_no">Parent Id No :</label>
+                                                        <label class="font-weight-bold">Parent Id No :</label>
                                                         <input type="number" name="id_no" id="id" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="county">County :</label>
-                                                        <select name="county" id="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <label class="font-weight-bold">County :</label>
+                                                        <select name="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = "Nandi County" selected>Nandi County</option>
                                                             <!-- <option value="<?php echo $county ? $county : '';?>" selected><?php echo $county ? $county : '';?></option> -->
                                                            
@@ -762,7 +762,7 @@ body{
                                                 <div class="row mt-4">
                                                    
                                                     <div class="col-md-4" onchange="showHideSelectOptions()">
-                                                        <label class="font-weight-bold" for="opts">Ward :</label>
+                                                        <label class="font-weight-bold">Ward :</label>
                                                         <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = "">Null</option>
                                                             <option value="<?php echo $ward ? $ward : '';?>" selected><?php echo $ward ? $ward : '';?></option>
@@ -780,7 +780,7 @@ body{
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="default">Location :</label>
+                                                        <label class="font-weight-bold">Location :</label>
                                                         <select name="location" id="default" class="form-control <?php echo $location_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $location ? $location : '';?>" selected><?php echo $location ? $location : '';?></option>
@@ -800,7 +800,7 @@ body{
                                         
                                         ?></option>
                                          <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward='Kapsabet'";
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=1";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -824,7 +824,7 @@ body{
                                         
                                         ?></option>
                                          <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward='Kapkangani'";
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=2";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -848,7 +848,7 @@ body{
                                         
                                         ?></option>
                                         <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward='Chepkumia'";
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=3";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -870,7 +870,7 @@ body{
                                         
                                         ?></option>
                                         <?php 
-                                                            $sql = "SELECT * FROM locations WHERE ward='Kilibwoni'";
+                                                            $sql = "SELECT * FROM locations WHERE ward_id=4";
                                                             $q = mysqli_query($conn,$sql);
                                                             while($rows = $q->fetch_assoc()){
                                                                 ?>
@@ -884,7 +884,7 @@ body{
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="sec">Sub-Location :</label>
+                                                        <label class="font-weight-bold">Sub-Location :</label>
                                                         <select name="sub_location" id="sec"  class="form-control <?php echo $sub_location_err ? 'border border-danger' : '';?> font-weight-bold">
                                                         <option value = ""></option>
                                                              <option id="main" style="display: none;" value="<?php echo $sub_location ? $sub_location :'';?>" selected><?php echo $sub_location ? $sub_location :'';?></option>
@@ -898,8 +898,8 @@ body{
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 mt-3">
-                                                        <label class="font-weight-bold" for="year">Year :</label>
-                                                        <input type="text" name="year" id="year" value="<?php echo $year;?>"class="form-control"readonly>
+                                                        <label class="font-weight-bold">Year :</label>
+                                                        <input type="text" value="<?php echo $year;?>"class="form-control"readonly>
                                                     </div>
                                                 </div>
                                                 
@@ -911,7 +911,7 @@ body{
                                     <div class="card-body mt-4" >
                                             <div class="row">              
                                                 <div class="col-md-4">
-                                                    <label class="font-weight-bold" for="level">Institution :</label>
+                                                    <label class="font-weight-bold">Institution :</label>
                                                     <select name="school_level" id="level" class="form-control <?php echo $school_level_err ? 'border border-danger' : '';?>">
                                                     <option value = ""></option>
                                                         <option value="<?php echo $school_level;?>" selected><?php echo $school_level;?></option>
@@ -924,14 +924,14 @@ body{
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="font-weight-bold" for="reg_no">UPI/ Adm/ Reg No :</label>
-                                                    <input type="text" name="reg_no" id="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
+                                                    <label class="font-weight-bold">UPI/ Adm/ Reg No :</label>
+                                                    <input type="text" name="reg_no" id="reg" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" value="<?php echo $reg_no;?>">
                                                     
                                                     <span class="text-danger"><?php echo $reg_no_err;?></span>
                                                    
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="font-weight-bold" for="school_name">School name :</label>
+                                                    <label class="font-weight-bold">School name :</label>
                                                     <div class="select-box">
                                                     <div class="select-option">
                                                     <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
@@ -968,7 +968,7 @@ body{
                                                     
                                                     <div class="col-md-6">
                                                         <div class="column">
-                                                        <label class="font-weight-bold" for="file-upload-field">School Fees Structure : (Limit 5Mb)</label>
+                                                        <label class="font-weight-bold">School Fees Structure : (Limit 5Mb)</label>
                                                         <!-- <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="file" value="<?php echo $fee_structure;?>" onchange="validateFile(this.files[0]);"> -->
                                                         <input type="file" id="file-upload-field" class="form-control" name="fee_structure">
                                                         <span id="file-upload-error" class="text-danger font-weight-bold"></span>
@@ -981,7 +981,7 @@ body{
 
                                                     <div class="col-md-6">
                                                         <div class="column">
-                                                        <label class="font-weight-bold" for="school_doc">School ID/School adm. letter : (Limit 5Mb)</label>
+                                                        <label class="font-weight-bold">School ID/School adm. letter : (Limit 5Mb)</label>
                                                         <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="file-upload" value="<?php echo $name;?>">
                                                         <span class="text-danger"><?php print_r($errors);?></span>
                                                         <span id="file-error" class="text-danger font-weight-bold"></span>
@@ -1470,7 +1470,7 @@ function showHideSelectOptions() {
       inputField.addEventListener('input', updateProgress);
     }
 
-       function validatePhoneNumber() {
+function validatePhoneNumber() {
             var phoneInput = document.getElementById("phone");
             var phoneError = document.getElementById("phoneError");
 

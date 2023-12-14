@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="./css/fontawesome.min.css">
 <link rel="stylesheet" href="./css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
-<link rel="manifest" href="././manifest.json">
+<link rel="manifest" href="./manifest.json">
 
 <!-- Main CSS -->
 <style>
