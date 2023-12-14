@@ -1519,20 +1519,80 @@ function showHideSelectOptions() {
                 phoneInput.setCustomValidity("");
             }
         }
-// const phoneInputField = document.querySelector("#phone");
-//    const phoneInput = window.intlTelInput(phoneInputField, {
-//      utilsScript:
-//        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-//    });
-    // var input = document.querySelector("#phone");
-    // window.intlTelInput(input, {
-    //     separateDialCode: true,
-    //     customPlaceholder: function (
-    //         selectedCountryPlaceholder,
-    //         selectedCountryData
-    //     ) {
-    //         return "e.g. " + selectedCountryPlaceholder;
-    //     },
-    // });
+
+
+        ////////////////////////////////////////////
+        //////////////    ID verification  ////////
+        ///////////////////////////////////////////
+
+        
+        const parentId = document.querySelector('#id');
+        const parentIdTest = parentId.value;
+        const feedbackMessage = document.createElement('div');
+        feedbackMessage.classList.add('feedback-message');
+
+        //checking the length of the ID
+        function countIdChar(inputString) {
+            let count = 0;
+
+            for (let i = 0; i < inputString.length; i++) {
+                if (!isNaN(parseInt(inputString[i]))) {
+                    count++;
+                }
+            }
+
+            return count;
+        }   
+        //END//  
+
+        //displaying text below the input
+        function displayFeedback(message, isSuccess) {
+            feedbackMessage.innerHTML = '';
+            feedbackMessage.textContent = message;
+            feedbackMessage.style.color = isSuccess ? 'green' : 'red';
+            parentId.parentNode.appendChild(feedbackMessage);
+        }
+        //END//
+
+        //Function for verifying the User's Id//
+        function verifyId() {
+            const parentIdTest = parentId.value.trim(); 
+            if (parentIdTest !== '') {
+                const idLength = countIdChar(parentIdTest);
+                if (idLength === 8) {
+                    var url = "https://api.spinmobile.co/api/analytics/account/iprs";
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", url);
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Authorization", "Bearer YWM4NDhiMWZiNmVjMjkzNjAxNzViY2JkZjRiY2E");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            console.log(xhr.status);
+                            console.log(xhr.responseText);
+                            if (xhr.status === 200) {
+                                displayFeedback("Your ID was successfully verified with IPRS, proceed with your application.", true);
+                            } else {
+                                displayFeedback("ID verification failed. Ensure your ID is correct.", false);
+                            }
+                        }
+                    };
+
+                    var data = JSON.stringify({
+                        "search_type": "identity",
+                        "identifier": parentIdTest
+                    });
+
+                    xhr.send(data);
+                }else if(idLength > 6 ) {
+                    displayFeedback("Your ID is incorrect.", false);
+                }
+            }
+        }
+        //END//
+        parentId.addEventListener('input', verifyId);
+
+
     </script>
 </html>
