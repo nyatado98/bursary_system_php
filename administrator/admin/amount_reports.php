@@ -290,7 +290,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                     <div class="col-md-6">
                                     <h4 class="" style=""><i class="fa fa-filter"></i>&nbsp&nbspFilter By : </h4>
                                     </div>
-                                    
+                                    <!-- add -->
                                 </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -329,7 +329,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                     <div class="column">
                                         
                                         <label class="font-weight-bold" style="font-size:20px">Year :</label>
-										<select name="Year" class="form-control" id="" >
+										<select name="Year" class="form-control" id="filterOption" onchange="update()">
 											<option value="<?php 
                                         echo $Year;?>" selected><?php
                                         if(isset($_POST['filter']))
@@ -346,16 +346,16 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
 							
 												?>
 												
-												<option><?php echo $key;?></option>
+												<option value="<?php echo $key;?>"><?php echo $key;?></option>
 											<?php endforeach ?>
 										</select>
                                        
                                     </div>
                                 </div>
-                                <div class="col-md-3" onchange="showHideSelectOptions()">
+                                <div class="col-md-3" onchange="update()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control" id="opts">
+                                        <select name="ward"class="form-control" id="opts" onchange="showL(this.value)">
                                         <option value="">Null</option>
                                         <option value="<?php  if(isset($_POST['filter']))
                                         $ward = $_POST['ward'];
@@ -366,140 +366,45 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         echo $ward;
                                         
                                         ?></option>
-                                            <option value="Kapsabet">Kapsabet</option>
+                                         <?php 
+                                        $sql = "SELECT * FROM wards";
+                                        $q = mysqli_query($conn,$sql);
+                                        while($r = $q->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $r['ward'];?>"><?php echo $r['ward'];?></option>
+                                        <?php } ?>
+                                            <!-- <option value="Kapsabet">Kapsabet</option>
                                             <option value="Chepkumia">Chepkumia</option>
                                             <option value="Kapkangani">Kapkangani</option>
-                                            <option value="Kilibwoni">Kilibwoni</option>
+                                            <option value="Kilibwoni">Kilibwoni</option> -->
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" onchange="update()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select class="form-control" id="default">
+                                        <select class="form-control" id="defaults" onchange="showS(this.value)">
                                             <option value=""></option>
                                         </select>
-                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showO(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php 
-                                        $kapsabet_location ="";
-                                        if(isset($_POST['filter']))
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                    // $_SESSION['kapsabet_location'] = $kapsabet_location;
-                                        echo $kapsabet_location;?>" selected><?php
-                                        if(isset($_POST['kapsabet_location']))
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                        echo $kapsabet_location;
                                         
-                                        ?></option>
-                                            <option value ="Kamobo">Kamobo</option>
-                                            <option value ="Township">Township</option>
-                                            <option value ="Kiminda">Kiminda</option>
-                                        </select>
-                                        <div >
-                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php 
-                                        $kapkangani_location = "";
-                                        if(isset($_POST['filter']))
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
-                                        echo $kapkangani_location;?>" selected><?php
-                                        if(isset($_POST['filter']))
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                        echo $kapkangani_location;
-                                        
-                                        ?></option>
-                                            <option value ="Kapkangani">Kapkangani</option>
-                                        </select>
-                                        </div>
-                                        <div >
-                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="showChep(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php
-                                        $chepkumia_location = "";
-                                        
-                                        if(isset($_POST['filter']))
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
-                                        echo $chepkumia_location;?>" selected><?php
-                                        if(isset($_POST['filter']))
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                        echo $chepkumia_location;
-                                        
-                                        ?></option>
-                                            <option value ="Chepkumia">Chepkumia</option>
-                                        </select>
-                                        </div>
-                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php
-                                        $kilibwoni_location = "";
-                                        if(isset($_POST['filter']))
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
-                                        echo $kilibwoni_location;?>" selected><?php
-                                        if(isset($_POST['filter']))
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                        echo $kilibwoni_location;
-                                        
-                                        ?></option>
-                                            <option value ="Kilibwoni">Kilibwoni</option>
-                                            <option value ="Lolminingai">Lolminingai</option>
-                                            <option value ="Kipsigak">Kipsigak</option>
-                                            <option value ="Kipture">Kipture</option>
-                                            <option value ="Kabirirsang">Kabirirsang</option>
-                                            <option value ="Arwos">Arwos</option>
-                                            <option value ="Kaplamai">Kaplamai</option>
-                                            <option value ="Tulon">Tulon</option>
-                                            <option value ="Terige">Terige</option>
-                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" onchange="update()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-location :</label>
                                         <select name="sub_location" class="form-control" id="sec" >
                                             <option>-select sub-location-</option>
                                             <option value="<?php echo $sub_location;?>" selected><?php echo $sub_location;?></option>
-                                                            <!-- <option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option> -->
+                                                            
                                         </select>
                                     </div>
                                 </div>
                                         </div>
                                         <div class="row p-2 ">
-                                <div class="col-md-6">
-                                    
-                                        <input type="submit" class="btn btn-warning mt-1"value="Filter" name="filter" style="font-size:20px;">
-                                    
-                                </div>
+                              
                                 <div class="col-md-6">
                                    
-                                        <input type="submit" class="btn btn-danger mt-1"value="Reset" name="reset" style="font-size:20px;">
+                                        <button type="submit" class="btn btn-secondary mt-3"value="Clear Filters" name="reset" style="font-size:20px;"> <i class="fa fa-brush"></i>&nbsp&nbspClear Filters</button>
                                     
                                 </div>
                             </div>
@@ -562,273 +467,7 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                           
                         </form>
 							<!-- Revenue Chart -->
-                             <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'] ?? null;
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
                             
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
-                                $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year'";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?year=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-                            <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'] ?? null;
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year !='' && $ward != '' && $location != '' && $sub_location != ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' AND sub_location='$sub_location' AND YEAR(created_at)='$Year'";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?year=<?php echo $Year;?>&&location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-
-<?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year =='' && $ward != '' && $location == '' && $sub_location == ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward'";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?ward=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-                            <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year =='' && $ward != '' && $location != '' && $sub_location == ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' ";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?locationss=<?php echo $location;?>&&wardss=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-                                              <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year =='' && $ward != '' && $location != '' && $sub_location != ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' ";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?location=<?php echo $location;?>&&ward=<?php echo $ward;?>&&sub_location=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-                                                        <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year !='' && $ward != '' && $location == '' && $sub_location == ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND YEAR(created_at)='$Year' ";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?years=<?php echo $Year;?>&&wards=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                
-                                                <?php
-                                            }}}?>
-                                                        <?php
-                            if(isset($_POST['filter'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                            if($Year !='' && $ward != '' && $location != '' && $sub_location == ''){
-                                $sql = "SELECT * FROM reports WHERE ward='$ward' AND location='$location' AND YEAR(created_at)='$Year' ";
-                                                $q = mysqli_query($conn,$sql);
-                                                $c = mysqli_num_rows($q);
-                                                if($c > 0){
-                                            ?>
-                                        <a href="print?blocations=<?php echo $location;?>&&bwards=<?php echo $ward;?>&&byears=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                            <?php }else{
-                                                ?>
-                                                <span class="text-danger">There is no available data in the selection made</span>
-                                                <?php
-                                            }}}?>
-
                                         
                           
                             
@@ -879,348 +518,19 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
 						</div>
 							<div class="card card-chart">
 								<div class="card-body">
-                                    <h4 class="font-weight-bold">TOTAL BURSEMENT AMOUNT : <?php 
-                                    $totals = $outputs = 0;
-                                    if(isset($_POST['filter'])){
-                                        $Year = $_POST['Year'];
-                                        $ward = $_POST['ward'];
-                                        $sub_location = $_POST['sub_location'];
-                                    if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                        $location_err = "Please select location";
-                                    }else{
-                                    
-                                    $kapsabet_location = $_POST['kapsabet_location'];
-                                    $kapkangani_location = $_POST['kapkangani_location'];
-                                    $chepkumia_location = $_POST['chepkumia_location'];
-                                    $kilibwoni_location = $_POST['kilibwoni_location'];
-                                    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = '';
-                                     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = $kapsabet_location;
-                                    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = $chepkumia_location;
-                                    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                         $location = $kapkangani_location;
-                                    }else{
-                                         $location = $kilibwoni_location;
-                                     }
-                                    }
-                                    if($Year =='' && $ward =='' && $location == '' && $sub_location ==''){
-                                     $sql = "SELECT Amount_awarded FROM reports WHERE  location ='$location' AND ward='$ward' AND sub_location='$sub_location' AND YEAR(created_at)='$Year'";
-
-                                     // Execute the query and get the results.
-                                     $res = $conn->query($sql);
-                                     
-                                     // Sum the values of the price column.
-                                     $totals = 0;
-                                     while ($row = $res->fetch_assoc()) {
-                                       $totals += $row['Amount_awarded'];
-                                     }
-                                     $numbers = $totals;
-                                     $outputs = number_format($numbers, 0, ',', ',');
-                                    
-                                    echo $outputs;
-                                    }
-                                }
-                                    if(isset($_POST['filter'])){
-                                        $Year = $_POST['Year'];
-                                        $ward = $_POST['ward'];
-                                        $sub_location = $_POST['sub_location'];
-                                    // if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    //     $location_err = "Please select location";
-                                    // }else{
-                                    
-                                    $kapsabet_location = $_POST['kapsabet_location'];
-                                    $kapkangani_location = $_POST['kapkangani_location'];
-                                    $chepkumia_location = $_POST['chepkumia_location'];
-                                    $kilibwoni_location = $_POST['kilibwoni_location'];
-                                    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = '';
-                                     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = $kapsabet_location;
-                                    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                         $location = $chepkumia_location;
-                                    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                         $location = $kapkangani_location;
-                                    }else{
-                                         $location = $kilibwoni_location;
-                                     }
-                                    // }
-                                    if($Year == '' && $ward !='' && $location == '' && $sub_location ==''){
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year =='' && $ward !='' && $location != '' && $sub_location ==''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward' AND location='$location'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }}
-                                    if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year == '' && $ward !='' && $location != '' && $sub_location !=''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward' AND location='$location'AND sub_location='$sub_location'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year != '' && $ward !='' && $location != '' && $sub_location !=''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE YEAR(created_at)='$Year' AND ward='$ward' AND location='$location'AND sub_location='$sub_location'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year != '' && $ward !='' && $location != '' && $sub_location ==''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE YEAR(created_at)='$Year' AND ward='$ward' AND location='$location'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year != '' && $ward !='' && $location == '' && $sub_location ==''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE ward='$ward' AND YEAR(created_at)='$Year'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                if(isset($_POST['filter'])){
-                                    $Year = $_POST['Year'];
-                                    $ward = $_POST['ward'];
-                                    $sub_location = $_POST['sub_location'];
-                                if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                    $location_err = "Please select location";
-                                }else{
-                                
-                                $kapsabet_location = $_POST['kapsabet_location'];
-                                $kapkangani_location = $_POST['kapkangani_location'];
-                                $chepkumia_location = $_POST['chepkumia_location'];
-                                $kilibwoni_location = $_POST['kilibwoni_location'];
-                                if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = '';
-                                 }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $kapsabet_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                     $location = $chepkumia_location;
-                                }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                     $location = $kapkangani_location;
-                                }else{
-                                     $location = $kilibwoni_location;
-                                 }
-                                }
-                                if($Year != '' && $ward =='' && $location == '' && $sub_location ==''){
-                                    
-                                        $sql = "SELECT Amount_awarded FROM reports WHERE YEAR(created_at)='$Year'";
-
-                                        // Execute the query and get the results.
-                                        $res = $conn->query($sql);
-                                        
-                                        // Sum the values of the price column.
-                                        $totals = 0;
-                                        while ($row = $res->fetch_assoc()) {
-                                          $totals += $row['Amount_awarded'];
-                                        }
-                                        $numbers = $totals;
-                                        $outputs = number_format($numbers, 0, ',', ',');
-                                       
-                                       echo $outputs;
-                                    }
-                                }
-                                    ?></h4>
+                                    <h4 class="font-weight-bold" id="totalAmount">TOTAL BURSEMENT AMOUNT : 0</h4>
 									<div id="line_graph">
                                        
                                     </div>
-									<div class="table-responsive">
-                                        <table class="table table-bordered table-striped" id="sample">
-                                        <thead>
+                                     <div class="col-md-1 mb-2">
+                                <!-- Link for printing data fetched by year/ward/location/sub-location -->
+                                <a href="#" name="print" class="btn btn-warning font-weight-bold" target="_blank" id="successLink" style="display: none;color: black;"><i class="fa fa-print"></i>&nbsp&nbspPrint</a>
+                                </div>
+                                    <!-- table for displaying the filtered data -->
+                                    <div class="table-responsive">
+                                        <table class="try table table-bordered table-striped table-dark table-hover text-white" id="test">
+
+                                             <thead>
                                             <tr>
                                                 <td class="font-weight-bold text-center">#</td>
                                                 <td class="font-weight-bold text-center">Report Id</td>
@@ -1233,152 +543,9 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                             </tr>
                                         </thead>
                                         
-                                        <tbody>
-                                          <?php
-                                          if(isset($_POST["filter"])){
-                                            $Year = $_POST['Year'];
-                                            $ward = $_POST['ward'];
-                                            $sub_location = $_POST['sub_location'];
-                                        if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                            $location_err = "Please select location";
-                                        }else{
-                                        
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                        if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = '';
-                                         }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = $kapsabet_location;
-                                        }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = $chepkumia_location;
-                                        }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                             $location = $kapkangani_location;
-                                        }else{
-                                             $location = $kilibwoni_location;
-                                         }
-                                        }
-
-                                        if($Year !='' && $ward !='' && $location != '' && $sub_location !=''){
-                                            $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year' AND location='$location' AND ward='$ward' AND sub_location='$sub_location'";
-                                            $results = mysqli_query($conn, $sql);
-                                          while($val = $results->fetch_assoc()){
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['report_id'];?></td>
-                                                <td><?php echo $val['student_name'];?></td>
-                                                <td><?php echo $val['parent'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['school_name'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td><?php echo $val['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year =='' && $ward !='' && $location == '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE ward ='$ward'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year =='' && $ward !='' && $location != '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE ward='$ward' AND location ='$location'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year =='' && $ward =='' && $location == '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year' AND ward='$ward' AND location ='$location' AND sub_location ='$sub_location'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year !='' && $ward =='' && $location == '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year !='' && $ward !='' && $location == '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year' AND ward='$ward'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}elseif($Year !='' && $ward !='' && $location != '' && $sub_location ==''){
-                                            
-                                            $sql = "SELECT * FROM reports WHERE YEAR(created_at)='$Year' AND ward='$ward' AND location ='$location'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($item = $resul->fetch_assoc()){
-                                            ?>
-                                             <tr>
-                                                <td><?php echo $item['id'];?></td>
-                                                <td><?php echo $item['report_id'];?></td>
-                                                <td><?php echo $item['student_name'];?></td>
-                                                <td><?php echo $item['parent'];?></td>
-                                                <td><?php echo $item['school_level'];?></td>
-                                                <td><?php echo $item['school_name'];?></td>
-                                                <td><?php echo $item['location'];?></td>
-                                                <td><?php echo $item['Amount_awarded'];?></td>
-                                            </tr>
-                                            <?php }}}?>
-                                            
-                                            
-                                            
-                                        </tbody>
-                                        
                                         </table>
                                     </div>
+									
 								</div>
 							</div>
 							<!-- /Revenue Chart -->
@@ -1415,213 +582,165 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
     document.getElementById("sub-location").style.display = "none";
     }
    
+// show locations
+function showL(optionValue) {
+ const secondSelect = document.getElementById('defaults');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-    function showHideSelectOptions() {
-  // Get the value of the parent select option.
-  var parentSelectValue = document.getElementById("opts").value;
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-  // Show the child select option if the parent select option is set to "Option 2".
-  if (parentSelectValue === "Kapsabet") {
-    document.getElementById("kapsabet").style.display = "block";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
 
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-   
-  } else if(parentSelectValue === "Chepkumia"){
-    
-    document.getElementById("chepkumia").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
-    }else if(parentSelectValue === "Kilibwoni") {
-		document.getElementById("kilibwoni").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('chepkumia_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-
-  }else if(parentSelectValue === "Kapkangani") {
-		document.getElementById("kapkangani").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("default").style.display = "none";
-
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-       
-    document.getElementById('kapkangani_sub').style.display = 'none';
-
-        document.getElementById('lolminingai_sub').style.display = 'none';
-       
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-    
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        
-        document.getElementById('sub').style.display = 'block';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-  }
-  else if(parentSelectValue === "School") {
-		document.getElementById("year").style.display = "none";
-    document.getElementById("sub-location").style.display = "none";
-    document.getElementById("school").style.display = "block";
-    document.getElementById("location").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-  }
-  else if(parentSelectValue === "Null"){
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-    document.getElementById("default").style.display = "block";
-
-  
-  }else{
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "none";
-    document.getElementById("default").style.display = "block";
-  }
+   xhr.open('GET', 'locations.php', true);
+   xhr.send();
 }
-function showO(optionValue){
-    const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
+// show sub_locations
+function showS(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-      const optionData = {
-        Kamobo: ['','Kamobo'],
-        Township: ['','Township'],
-        Kiminda: ['','Kiminda', 'Meswo'],
-      };
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
       }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
 }
-
-function showK(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
-        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
-        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
-        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
-        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
-        Arwos: ['','Tiryo'],
-        Kaplamai: ['','Kaptangunyo'],
-        Tulon: ['','Kapchumba'],
-        Terige: ['','Song`oliet'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-    }
-function showKap(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
+function update(){
+    // calls first function
+    updateTable();
+    // calls second function
+    getTotalAmount();
 }
-function showChep(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
+// dispaly the print button and the data in the table
+        function updateTable() {
+    // Get the selected filter option
+    var selectedOption = document.getElementById("filterOption").value;
+    var ward = document.getElementById("opts").value;
+    var location = document.getElementById("defaults").value;
+    var sub_location = document.getElementById("sec").value;
 
-      const optionData = {
-        Chepkumia: ['','Chepkumia', 'Cheboite'],
-      };
 
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
+
+    // Send an AJAX request to a PHP script to fetch filtered data
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Update the table content with the fetched data
+            document.getElementById("test").innerHTML = this.responseText;
+
+
+             // Toggle link visibility based on data presence
+
+            if(selectedOption !=='' && ward !== '' && location !== '' && sub_location !==''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year=" + selectedOption + "&&ward=" +ward + "&&location=" + location + "&&sub_location=" + sub_location; // Set the link URL
+        }else if(selectedOption !=='' && ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year=" + selectedOption + "&&ward=" +ward + "&&location=" + location ;
+        }else if(sub_location !=='' && ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?sub_location=" + sub_location + "&&ward=" +ward + "&&location=" + location ;
+        }
+
+        else if(selectedOption !=='' && ward !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year=" + selectedOption + "&&ward=" +ward;
+        }
+        else if(ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?location=" + location + "&&ward=" +ward;
+        }
+
+        else if(selectedOption !=='' ){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year=" + selectedOption;
+        }else if(ward !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?ward=" +ward;
+        }else{
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?";
+        }
+             // Destroy the existing DataTable if it exists
+            if ($.fn.DataTable.isDataTable('#test')) {
+                $('#test').DataTable().destroy();
+            }
+
+            // Reinitialize DataTable after updating the content
+            $('#test').DataTable();
+
+        }
+    };
+    xhttp.open("GET", "amount_data.php?option=" + selectedOption + "&ward=" + ward + "&location=" + location + "&sub_location=" + sub_location, true);
+    xhttp.send();
+}
+$(document).ready(function() {
+    // Initial DataTable initialization
+    $('#test').DataTable();
+});
+// total amount
+function getTotalAmount() {
+    // Get the selected filter option
+    var selectedOption = document.getElementById("filterOption").value;
+    var ward = document.getElementById("opts").value;
+    var location = document.getElementById("defaults").value;
+    var sub_location = document.getElementById("sec").value;
+
+    // Send an AJAX request to the server to fetch the total amount
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Update the total amount display with the fetched data
+            document.getElementById("totalAmount").innerHTML = this.responseText;
+        }
+    };
+
+    // Make a GET request to the PHP script with the selected year as a parameter
+    xhttp.open("GET", "total.php?option=" + selectedOption + "&ward=" + ward + "&location=" + location + "&sub_location=" + sub_location, true);
+    xhttp.send();
 }
 
     </script>

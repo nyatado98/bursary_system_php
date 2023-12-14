@@ -44,8 +44,7 @@ $ward = $_POST['ward'];
 $location = $_POST['location'];
 $sub_location = $_POST['sub_location'];
 
-$sql = "UPDATE students SET student_fullname = '".$fullname."',age ='".$age."',school_level ='".$school_level."',school_name ='".$school_name."',
-county = '".$county."',ward='".$ward."',location='".$location."',sub_location='".$sub_location."',updated_at = '$current_date',year = '$year' WHERE id = '".$id."'";
+$sql = "UPDATE students SET student_fullname = '".$fullname."',age ='".$age."',school_level ='".$school_level."',school_name ='".$school_name."',county = '".$county."',ward='".$ward."',location='".$location."',sub_location='".$sub_location."',updated_at = '$current_date' WHERE id = '".$id."'";
  $query = mysqli_query($conn,$sql);
  if($query){
 	$suc = "Successfully updated the details for student ".$_POST['fullname'].".";
@@ -157,9 +156,10 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 								<div class="col-md-3" id="year">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Year :</label>
-                                        <select name="Year" class="form-control" id="year" >
+                                        <select name="Year" class="form-control"  id="filterOption" onchange="updateTable()">
                                             <!-- onchange="loadData()" -->
 											<option value="">-Select Year-</option>
+                                            
 											<option value="<?php if(isset($_POST['filter_all']))
                                         $Year = $_POST['Year'];
                                         echo $Year;
@@ -181,12 +181,12 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
 										</select>
                                     </div>
                                 </div>
-								<div class="col-md-3" id="ward"  onchange="showHideSelectOptions()">
+								<div class="col-md-3" id="ward" onchange="updateTable()" >
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Ward :</label>
-                                        <select name="ward"class="form-control" id="opts">
+                                        <select name="ward"class="form-control" id="opts"  onchange="showL(this.value)">
                                         <option value="">-select ward-</option>
-                                        <option value="Null">Null</option>
+                                        <option value="">Null</option>
                                         <option value="<?php
                                         if(isset($_POST['filter_all']))
                                         $ward = $_POST['ward'];
@@ -198,101 +198,36 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         echo $ward;
                                         
                                         ?></option>
-                                        <option value="Kapsabet">Kapsabet</option>
+                                        <?php 
+                                        $sql = "SELECT * FROM wards";
+                                        $q = mysqli_query($conn,$sql);
+                                        while($r = $q->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $r['ward'];?>"><?php echo $r['ward'];?></option>
+                                        <?php } ?>
+                                        <!-- <option value="Kapsabet">Kapsabet</option>
                                             <option value="Chepkumia">Chepkumia</option>
                                             <option value="Kapkangani">Kapkangani</option>
-                                            <option value="Kilibwoni">Kilibwoni</option>
+                                            <option value="Kilibwoni">Kilibwoni</option> -->
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3" id="location" >
+                                <div class="col-md-3" id="location" onchange="updateTable()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Location :</label>
-                                        <select name="location" id="default" class="form-control">
+                                        <select name="location" id="defaults" class="form-control" onchange="showS(this.value)">
+                                            <option value="">Null</option>
                                         <option value="">-select location-</option>
                                        
                                         </select>
-                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none" onchange="showO(this.value)">
-                                        <option value=""></option>
-                                        <option value="<?php 
-                                        $kapsabet_location ="";
-                                        if(isset($_POST['filter_all']))
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                    // $_SESSION['kapsabet_location'] = $kapsabet_location;
-                                        echo $kapsabet_location;?>" selected><?php
-                                        if(isset($_POST['kapsabet_location']))
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                        echo $kapsabet_location;
-                                        
-                                        ?></option>
-                                            <option value ="Kamobo">Kamobo</option>
-                                            <option value ="Township">Township</option>
-                                            <option value ="Kiminda">Kiminda</option>
-                                        </select>
-                                        
-                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;"  onchange="showKap(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php 
-                                        $kapkangani_location = "";
-                                        if(isset($_POST['filter_all']))
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
-                                        echo $kapkangani_location;?>" selected><?php
-                                        if(isset($_POST['filter_all']))
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                        echo $kapkangani_location;
-                                        
-                                        ?></option>
-                                            <option value ="Kapkangani">Kapkangani</option>
-                                        </select>
-                                       
-                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;" onchange="showChep(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php
-                                        $chepkumia_location = "";
-                                        
-                                        if(isset($_POST['filter_all']))
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
-                                        echo $chepkumia_location;?>" selected><?php
-                                        if(isset($_POST['filter']))
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                        echo $chepkumia_location;
-                                        
-                                        ?></option>
-                                            <option value ="Chepkumia">Chepkumia</option>
-                                        </select>
-                                        
-                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
-                                        <option value="">Null</option>
-                                        <option value="<?php
-                                        $kilibwoni_location = "";
-                                        if(isset($_POST['filter_all']))
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
-                                        echo $kilibwoni_location;?>" selected><?php
-                                        if(isset($_POST['filter_all']))
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                        echo $kilibwoni_location;
-                                        
-                                        ?></option>
-                                            <option value ="Kilibwoni">Kilibwoni</option>
-                                            <option value ="Lolminingai">Lolminingai</option>
-                                            <option value ="Kipsigak">Kipsigak</option>
-                                            <option value ="Kipture">Kipture</option>
-                                            <option value ="Kabirirsang">Kabirirsang</option>
-                                            <option value ="Arwos">Arwos</option>
-                                            <option value ="Kaplamai">Kaplamai</option>
-                                            <option value ="Tulon">Tulon</option>
-                                            <option value ="Terige">Terige</option>
-                                        </select>
-                                    </div>
+                                        </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" onchange="updateTable()">
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
                                         <select name="sub_location" class="form-control" id="sec">
                                         <option value="">-select sub-location-</option>
+                                        <option value="">Null</option>
                                         <option value="<?php if(isset($_POST['filter_all']))
                                         $sub_location = $_POST['sub_location'];
                                         echo $sub_location;
@@ -302,288 +237,30 @@ county = '".$county."',ward='".$ward."',location='".$location."',sub_location='"
                                         echo $sub_location;
                                         
                                         ?></option>
-                                        <!-- <option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option> -->
+                                        
                                         </select>
                                     </div>
                                 </div>
                                 </div>
                                 <div class="row p-2">
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="column">
                                         <input type="submit" class="btn btn-primary mt-3 text-dark "value="Filter" name="filter_all" style="font-size:20px;">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6">
                                     <div class="column">
-                                        <input type="submit" class="btn btn-secondary mt-3"value="Reset" name="reset" style="font-size:20px;">
+
+                                        <button type="submit" class="btn btn-secondary mt-3"value="Clear Filters" name="reset" style="font-size:20px;"> <i class="fa fa-brush"></i>&nbsp&nbspClear Filters</button>
+                                       
                                     </div>
                                 </div>
                             </div>
                                 </div>
                                 </div>
                                 </form>
-                            <?php if(isset($_POST['filter_all'])){
-                                                            if($_POST['ward'] == 'Kapkangani'){
-                                                            ?>
-                                                            <script>
-                                                                document.getElementById('kapkangani').style.display = 'block';
-                                                                document.getElementById('kapsabet').style.display = 'none';
-                                                                document.getElementById('kilibwoni').style.display = 'none';
-                                                                document.getElementById('chepkumia').style.display = 'none';
-                                                                document.getElementById('default').style.display = 'none';
-
-                                                                </script>
-                                                                <?php
-                                                        }elseif($_POST['ward'] == 'Kapsabet'){
-
-                                                            ?>
-                                                            <script>
-                                                                document.getElementById('kapsabet').style.display = 'block';
-                                                                document.getElementById('kapkangani').style.display = 'none';
-                                                                document.getElementById('kilibwoni').style.display = 'none';
-                                                                document.getElementById('chepkumia').style.display = 'none';
-                                                                document.getElementById('default').style.display = 'none';
-                                                                </script>
-                                                                <?php
-                                                        }elseif($_POST['ward'] == 'Kilibwoni'){
-
-                                                            ?>
-                                                            <script>
-                                                                document.getElementById('kilibwoni').style.display = 'block';
-                                                                document.getElementById('kapsabet').style.display = 'none';
-                                                                document.getElementById('kapkangani').style.display = 'none';
-                                                                document.getElementById('chepkumia').style.display = 'none';
-                                                                document.getElementById('default').style.display = 'none';
-                                                                </script>
-                                                                <?php
-                                                        }elseif($_POST['ward'] == 'Chepkumia'){
-
-                                                            ?>
-                                                            <script>
-                                                                document.getElementById('chepkumia').style.display = 'block';
-                                                                document.getElementById('kapsabet').style.display = 'none';
-                                                                document.getElementById('kilibwoni').style.display = 'none';
-                                                                document.getElementById('kapkangani').style.display = 'none';
-                                                                document.getElementById('default').style.display = 'none';
-                                                                </script>
-                                                                <?php
-                                                        }
-                                                    }
-                                                        ?>
-							 <?php
-                            $school = $location = $ward = $sub_location = $year ="";
-                            // $kapsabet_location = $kilibwoni_location = $chepkumia_location = $kapkangani_location ="";
-                            
-                           
-
-                            if(isset($_POST['filter_all'])){
-								   $Year = $_POST['Year'];
-                                   $ward = $_POST['ward'];
-                                   $sub_location = $_POST['sub_location'];
-                               if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                   $location_err = "Please select location";
-                               }else{
-                               
-                               $kapsabet_location = $_POST['kapsabet_location'];
-                               $kapkangani_location = $_POST['kapkangani_location'];
-                               $chepkumia_location = $_POST['chepkumia_location'];
-                               $kilibwoni_location = $_POST['kilibwoni_location'];
-                               if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                    $location = '';
-                                }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                    $location = $kapsabet_location;
-                               }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                    $location = $chepkumia_location;
-                               }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                    $location = $kapkangani_location;
-                               }else{
-                                    $location = $kilibwoni_location;
-                                }
-                               }
-                               if($Year !='' && $ward != '' && $location == '' && $sub_location == ''){
-                                    $sql = "SELECT * FROM students WHERE year='$Year' AND ward='$ward'";
-
-                                        // Execute the query and get the results.
-                                        $ress = $conn->query($sql);
-                                        $counts = mysqli_num_rows($ress);
-                                        if($counts > 0){
-                                            ?>
-                                            <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">P R I N T</a>
-                                            <?php }else{?>
-                                            <p class="text-danger">There is no available data from the selection</p>
-                                                
-                                                <?php
-                                            }
-                                        }}
-                
-                                        if(isset($_POST['filter_all'])){
-                                            $Year = $_POST['Year'];
-                                            $ward = $_POST['ward'];
-                                            $sub_location = $_POST['sub_location'];
-                                        if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                            $location_err = "Please select location";
-                                        }else{
-                                        
-                                        $kapsabet_location = $_POST['kapsabet_location'];
-                                        $kapkangani_location = $_POST['kapkangani_location'];
-                                        $chepkumia_location = $_POST['chepkumia_location'];
-                                        $kilibwoni_location = $_POST['kilibwoni_location'];
-                                        if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = '';
-                                         }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = $kapsabet_location;
-                                        }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                             $location = $chepkumia_location;
-                                        }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                             $location = $kapkangani_location;
-                                        }else{
-                                             $location = $kilibwoni_location;
-                                         }
-                                        }
-if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
-                                    $sql = "SELECT * FROM students WHERE year='$Year'";
-
-                                    // Execute the query and get the results.
-                                    $ress = $conn->query($sql);
-                                    $counts = mysqli_num_rows($ress);
-                                    if($counts > 0){
-                                        ?>
-                                        <a href="print?year_by=<?php echo $Year;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
-                                        <?php }else{?>
-                                            <p class="text-danger">The selected year is not available in the records.</p>
-                                            <?php
-                                        }
-                                    }
-                                }
-                                
-                            if(isset($_POST['filter_all'])){
-                                $Year = $_POST['Year'];
-                                $ward = $_POST['ward'];
-                                $sub_location = $_POST['sub_location'];
-                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                $location_err = "Please select location";
-                            }else{
-                            
-                            $kapsabet_location = $_POST['kapsabet_location'];
-                            $kapkangani_location = $_POST['kapkangani_location'];
-                            $chepkumia_location = $_POST['chepkumia_location'];
-                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = '';
-                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $kapsabet_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                 $location = $chepkumia_location;
-                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                 $location = $kapkangani_location;
-                            }else{
-                                 $location = $kilibwoni_location;
-                             }
-                            }
-                                    if($Year =='' && $ward != '' && $location != '' && $sub_location == ''){
-                                        $sql = "SELECT * FROM students WHERE  ward='$ward' AND location ='$location'";
-    
-                                        // Execute the query and get the results.
-                                        $ress = $conn->query($sql);
-                                        $counts = mysqli_num_rows($ress);
-                                        if($counts > 0){
-                                            ?>
-                                            <a href="print?ward_by=<?php echo $_POST['ward'];?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
-                                            <?php }else{?>
-                                            <p class="text-danger">There is no available data from the selection</p>
-                                                <?php
-                                            }
-                                        }
-                                             elseif($Year =='' && $ward != '' && $location != '' && $sub_location != ''){
-                                         $sql = "SELECT * FROM students WHERE  location='$location' AND ward='$ward' AND sub_location='$sub_location'";
-                                                                        
-                                         // Execute the query and get the results.
-                                         $ress = $conn->query($sql);
-                                         $counts = mysqli_num_rows($ress);
-                                         if($counts > 0){
-                                             ?>
-                                             <a href="print?ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
-                                            <?php }else{?>
-                                            <p class="text-danger">There is no available data from the selection</p>
-                                                
-                                                <?php
-                                             }
-                                         }
-                                         elseif($Year !='' && $ward != '' && $location != '' && $sub_location != ''){
-                                            $sql = "SELECT * FROM students WHERE year='$Year' AND  location='$location' AND ward='$ward' AND sub_location='$sub_location'";
-                                                                           
-                                            // Execute the query and get the results.
-                                            $ress = $conn->query($sql);
-                                            $counts = mysqli_num_rows($ress);
-                                            if($counts > 0){
-                                                ?>
-                                                <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>&&sub_location_by=<?php echo $sub_location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
-                                               <?php }else{?>
-                                            <p class="text-danger">There is no available data from the selection</p>
-                                                   
-                                                   <?php
-                                                }
-                                            }
-
-                                        
-                                            elseif($Year !='' && $ward != '' && $location != '' && $sub_location == ''){
-                                                $sql = "SELECT * FROM students WHERE year='$Year' AND  location='$location' AND ward='$ward' ";
-                                                                               
-                                                // Execute the query and get the results.
-                                                $ress = $conn->query($sql);
-                                                $counts = mysqli_num_rows($ress);
-                                                if($counts > 0){
-                                                    ?>
-                                                    <a href="print?year_by=<?php echo $Year;?>&&ward_by=<?php echo $ward;?>&&location_by=<?php echo $location;?>" name="print" class="btn btn-primary text-dark font-weight-bold" target="_blank">Print</a>
-                                                   <?php }else{?>
-                                            <p class="text-danger">There is no available data from the selection</p>
-                                                       
-                                                       <?php
-                                                    }
-                                                }
-                                                elseif($Year =='' && $ward != '' && $location == '' && $sub_location == ''){
-                                                    $sql = "SELECT * FROM students WHERE ward='$ward' ";
-                                                                                   
-                                                    // Execute the query and get the results.
-                                                    $ress = $conn->query($sql);
-                                                    $counts = mysqli_num_rows($ress);
-                                                    if($counts > 0){
-                                                        ?>
-                                                        <a href="print?ward_by=<?php echo $ward;?>" name="print" class="btn btn-primary text-dark font-weight-bold mb-3" target="_blank">Print</a>
-                                                       <?php }else{?>
-                                            <p class="text-danger">There is no available data from the ward selected.</p>
-                                                           
-                                                           <?php
-                                                        }
-                                                    }
-    
-                                            
-                                }
-                            ?>
+                          
+							
 						<!--update application success message -->
 						<?php if(isset($_GET['success'])){
 						$suc = $_SESSION['succ'];
@@ -599,907 +276,35 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
 														
 														<?php } ?>
 							<!-- Revenue Chart -->
+              
 							<div class="card card-chart">
 								<div class="card-body">
 									<div id="line_graph">
                                     </div>
+                                    <div class="col-md-1 mb-2">
+                                <!-- Link for printing data fetched by year/ward/location/sub-location -->
+                                <p  class="text-warning font-weight-bold" target="_blank" id="error" style="display: none;color: black;">no data</p>
+                                </div>
+                                 <div class="col-md-1 mb-2">
+                                <!-- Link for printing data fetched by year/ward/location/sub-location -->
+                                <a href="#" name="print" class="btn btn-warning font-weight-bold" target="_blank" id="successLink" style="display: none;color: black;"><i class="fa fa-print"></i>&nbsp&nbspPrint</a>
+                                </div>
+                                 <!-- table for displaying the filtered data -->
 									<div class="table-responsive">
-                                        <table class="table table-bordered table-striped" id="sample">
-                                        <thead>
+                                        <table class="try table table-bordered table-striped table-dark table-hover text-white" id="test">
+
+                                             <thead>
                                             <tr>
-                                                <td class="font-weight-bold text-center">#</td>
-                                                <td class="font-weight-bold text-center">Full Name</td>
-                                                <td class="font-weight-bold text-center">Age</td>
-                                                <td class="font-weight-bold text-center">School Level</td>
-                                                <td class="font-weight-bold text-center">County</td>
-                                                <td class="font-weight-bold text-center">Location</td>
-                                                <td class="font-weight-bold text-center">Sub-location</td>
-                                                <td class="font-weight-bold text-center">Actions</td>
+                                                <td class="font-weight-bold text-center text-white">#</td>
+                                                <td class="font-weight-bold text-center text-white">Full Name</td>
+                                                <td class="font-weight-bold text-center text-white">Age</td>
+                                                <td class="font-weight-bold text-center text-white">School Level</td>
+                                                <td class="font-weight-bold text-center text-white">County</td>
+                                                <td class="font-weight-bold text-center text-white">Location</td>
+                                                <td class="font-weight-bold text-center text-white">Sub-location</td>
+                                                <td class="font-weight-bold text-center text-white">Actions</td>
                                             </tr>
                                         </thead>
-                                        
-                                        <tbody>
-                                           <?php 
-											if(isset($_POST["filter_all"])){
-                                                $Year = $_POST['Year'];
-                                                $ward = $_POST['ward'];
-                                                $sub_location = $_POST['sub_location'];
-                                            if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
-                                                $location_err = "Please select location";
-                                            }else{
-                                            
-                                            $kapsabet_location = $_POST['kapsabet_location'];
-                                            $kapkangani_location = $_POST['kapkangani_location'];
-                                            $chepkumia_location = $_POST['chepkumia_location'];
-                                            $kilibwoni_location = $_POST['kilibwoni_location'];
-                                            if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                                 $location = '';
-                                             }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                                 $location = $kapsabet_location;
-                                            }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
-                                                 $location = $chepkumia_location;
-                                            }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
-                                                 $location = $kapkangani_location;
-                                            }else{
-                                                 $location = $kilibwoni_location;
-                                             }
-                                            }
-                                           if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
-                                            $sql = "SELECT * FROM students WHERE year='$Year'";
-											$result = mysqli_query($conn, $sql);
-										   while($val = $result->fetch_assoc()){
-											?>
-                                            <tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option value ="Kamobo">Kamobo</option>
-                                            <option value ="Township">Township</option>
-                                            <option value ="Kiminda">Kiminda</option>
-																		<option value ="Kapkangani">Kapkangani</option>
-																		   <option value ="Chepkumia">Chepkumia</option>
-																		<option value ="Kilibwoni">Kilibwoni</option>
-                                            <option value ="Lolminingai">Lolminingai</option>
-                                            <option value ="Kipsigak">Kipsigak</option>
-                                            <option value ="Kipture">Kipture</option>
-                                            <option value ="Kabirirsang">Kabirirsang</option>
-                                            <option value ="Arwos">Arwos</option>
-                                            <option value ="Kaplamai">Kaplamai</option>
-                                            <option value ="Tulon">Tulon</option>
-                                            <option value ="Terige">Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php }}elseif($Year =='' && $ward != '' && $location == '' && $sub_location == ''){
-											  $sql = "SELECT * FROM students WHERE ward='$ward'";
-											  $result = mysqli_query($conn, $sql);
-										   while($val = $result->fetch_assoc()){
-											?>
-                                            <tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-																	
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php }}elseif($Year !='' && $ward != '' && $location == '' && $sub_location == ''){
-                                            $sql = "SELECT * FROM students WHERE year='$Year' AND ward='$ward'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($val = $resul->fetch_assoc()){
-											?>
-											<tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-																	
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-											<?php }}
-                                           elseif($Year =='' && $ward != '' && $location != '' && $sub_location == ''){
-                                                $sql = "SELECT * FROM students WHERE location='$location' AND ward='$ward'";
-                                                $resul = mysqli_query($conn, $sql);
-                                              while($val = $resul->fetch_assoc()){
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $val['id'];?></td>
-                                                    <td><?php echo $val['student_fullname'];?></td>
-                                                    <td><?php echo $val['age'];?></td>
-                                                    <td><?php echo $val['school_level'];?></td>
-                                                    <td><?php echo $val['county'];?></td>
-                                                    <td><?php echo $val['location'];?></td>
-                                                    <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                    <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                     <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                    <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                        <div class="modal-dialog">
-                                                            <form method="post" action="">
-                                                               
-                                                                <!-- Modal content-->
-                                                                <div class="modal-content">
-                                            
-                                                                    <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                        <h4 class="modal-title">UPDATE</h4>
-                                                                    </div>
-                                            
-                                                                    <div class="modal-body">
-                                                                    <input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                        <label for="" class="font-weight-bold">Fullname :</label>
-                                                                        <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                        <label for="" class="font-weight-bold">Age :</label>
-                                                                        <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-                                                                        
-                                                                        <label for="" class="font-weight-bold">School Level :</label>
-                                                                        <select name="school_level" id="" class="form-control">
-                                                                            <option selected><?php echo $val['school_level'];?></option>
-                                                                            <option>--select school-level--</option>
-                                                                            <!-- <option>Primary School</option> -->
-                                                                            <option>Secondary School</option>
-                                                                            <option>University/TVET/College</option>
-                                                                         </select>
-                                                                        <label for="" class="font-weight-bold">School Name :</label>
-                                                                        <select name="school_name" id="" class="form-control">
-                                                                            <option selected><?php echo $val['school_name'];?></option>
-                                                                            <option>--select school--</option>
-                                                                            <option>Moi Girls High School</option>
-                                                                            <option>G.K High School</option>
-                                                                            <option>U.G High School</option>
-                                                                            <option>Umoja High School</option>
-                                                                            <option>Kapsoya Secondary School</option>
-                                                                         </select>
-                                                                        <label for="" class="font-weight-bold">County :</label>
-                                                                        <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-                                                                        <label for="" class="font-weight-bold">Ward :</label>
-                                                                        <select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-                                                                        </div>
-                                                                    </div>
-                                                            </form>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <?php }}elseif($Year =='' && $ward != '' && $location != '' && $sub_location != ''){
-                                                $sql = "SELECT * FROM students WHERE location='$location' AND ward='$ward' AND sub_location='$sub_location'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($val = $resul->fetch_assoc()){
-											?>
-											<tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-																	
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-											<?php }}elseif($Year !='' && $ward != '' && $location != '' && $sub_location != ''){
-                                                $sql = "SELECT * FROM students WHERE year='$Year' AND location='$location' AND ward='$ward' AND sub_location='$sub_location'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($val = $resul->fetch_assoc()){
-											?>
-											<tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-																	
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-											<?php }}elseif($Year !='' && $ward != '' && $location != '' && $sub_location == ''){
-                                                $sql = "SELECT * FROM students WHERE year='$Year' AND location='$location' AND ward='$ward'";
-                                            $resul = mysqli_query($conn, $sql);
-                                          while($val = $resul->fetch_assoc()){
-											?>
-											<tr>
-                                                <td><?php echo $val['id'];?></td>
-                                                <td><?php echo $val['student_fullname'];?></td>
-                                                <td><?php echo $val['age'];?></td>
-                                                <td><?php echo $val['school_level'];?></td>
-                                                <td><?php echo $val['county'];?></td>
-                                                <td><?php echo $val['location'];?></td>
-                                                <td class=" font-weight-bold"><?php echo $val['sub_location'];?></td>
-                                                <td class="text-center"><a href="#edit<?php echo $val['id'];?>"class="btn btn-primary" data-toggle="modal" data-target="#Edit<?php echo $val['id'];?>">Edit</a>
-                                                 <!-- <a href="" data-toggle="modal" data-target="#Modal<?php echo $val['id'];?>" class="btn btn-danger">Delete</a> -->
-                                                <div id="Edit<?php echo $val['id'];?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form method="post" action="">
-                                                           
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                        
-                                                                <div class="modal-header" style="background: #398AD7; color: #fff;">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">UPDATE</h4>
-                                                                </div>
-                                        
-                                                                <div class="modal-body">
-																<input type="hidden" name="id" value="<?php echo $val['id'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Fullname :</label>
-                                                                    <input type="text" name="fullname" value="<?php echo $val['student_fullname'];?>" class="form-control">
-                                                                    <label for="" class="font-weight-bold">Age :</label>
-                                                                    <input type="number" name="age" value="<?php echo $val['age'];?>" class="form-control">
-																	
-                                                                    <label for="" class="font-weight-bold">School Level :</label>
-																	<select name="school_level" id="" class="form-control">
-																		<option selected><?php echo $val['school_level'];?></option>
-																		<option>--select school-level--</option>
-																		<!-- <option>Primary School</option> -->
-																		<option>Secondary School</option>
-																		<option>University/TVET/College</option>
-																	 </select>
-																	<label for="" class="font-weight-bold">School Name :</label>
-                                                                    <select name="school_name" id="" class="form-control">
-																		<option selected><?php echo $val['school_name'];?></option>
-																		<option>--select school--</option>
-																		<option>Moi Girls High School</option>
-																		<option>G.K High School</option>
-																		<option>U.G High School</option>
-																		<option>Umoja High School</option>
-																		<option>Kapsoya Secondary School</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">County :</label>
-                                                                    <input type="text" name="county" value="<?php echo $val['county'];?>" class="form-control">
-																	<label for="" class="font-weight-bold">Ward :</label>
-																	<select name="ward" id="" class="form-control">
-																		<option selected><?php echo $val['ward'];?></option>
-																		<option>--select ward--</option>
-																		<option>Kapsabet</option>
-																		<option>Kilibwoni</option>
-																		<option>Kapkangani</option>
-                                                                        <option>Chepkumia</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Location :</label>
-                                                                    <select name="location" id="" class="form-control">
-																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
-                                                                        <option>Kamobo</option>
-                                                                        <option >Township</option>
-                                                                        <option>Kiminda</option>
-																		<option >Kapkangani</option>
-																		<option>Chepkumia</option>
-																		<option >Kilibwoni</option>
-                                                                        <option >Lolminingai</option>
-                                                                        <option>Kipsigak</option>
-                                                                        <option >Kipture</option>
-                                                                        <option>Kabirirsang</option>
-                                                                        <option >Arwos</option>
-                                                                        <option >Kaplamai</option>
-                                                                        <option >Tulon</option>
-                                                                        <option >Terige</option>
-																	 </select>
-                                                                    <label for="" class="font-weight-bold">Sub Location :</label>
-                                                                    <select name="sub_location" id="" class="form-control">
-																		<option selected><?php echo $val['sub_location'];?></option>
-																		<option>--select sub_location--</option>
-																		<option>Kilibwoni</option>
-                                                            <option>Kapnyerebai</option>
-                                                            <option>Kaplonyo</option>
-                                                            <option>Kabore</option>
-                                                            <option>Ndubeneti</option>
-                                                            <option>Kaplolok</option>
-                                                            <option>Kipsotoi</option>
-                                                            <option>Kisigak</option>
-                                                            <option>Kakeruge</option>
-                                                            <option>Kipture</option>
-                                                            <option>Kimaam</option>
-                                                            <option>Irimis</option>
-                                                            <option>Kibirirsang</option>
-                                                            <option>Underit</option>
-                                                            <option>Chesuwe</option>
-                                                            <option>Tiryo</option>
-                                                            <option>Kaptagunyo</option>
-                                                            <option>Kapchumba</option>
-                                                            <option>Song'oliet</option>
-                                                            <option>Meswo</option>
-                                                            <option>Chepsonoi</option>
-                                                            <option>Tindinyo</option>
-                                                            <option>Koborgok</option>
-                                                            <option>Cheptumia</option>
-                                                            <option>Cheboite</option>
-																	 </select>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-																	</div>
-                                                                </div>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-											<?php }}}?>
-                                        </tbody>
                                         
                                         </table>
                                     </div>
@@ -1529,548 +334,153 @@ if($Year !='' && $ward == '' && $location == '' && $sub_location == ''){
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="DataTables/DataTables-1.13.4/js/jquery.dataTables.js"></script>
     <script>
+        // bootstrap datatable
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
+
     } );
+
+   
+   
     function show() {
   // Get the value of the parent select option.
   var parentSelectValue = document.getElementById("kapsabet").value;
     }
 
-	function showHideSelectOptions() {
-  // Get the value of the parent select option.
-  var parentSelectValue = document.getElementById("opts").value;
-
-  // Show the child select option if the parent select option is set to "Option 2".
-  if (parentSelectValue === "Kapsabet") {
-    document.getElementById("kapsabet").style.display = "block";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-    
-  } else if(parentSelectValue === "Chepkumia"){
-    
-    document.getElementById("chepkumia").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
-    }else if(parentSelectValue === "Kilibwoni") {
-		document.getElementById("kilibwoni").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("default").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById('sub').style.display = 'block';
-    document.getElementById('chepkumia_sub').style.display = 'none';
-    document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
 
 
-  }else if(parentSelectValue === "Kapkangani") {
-		document.getElementById("kapkangani").style.display = "block";
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("default").style.display = "none";
+// show locations
+function showL(optionValue) {
+ const secondSelect = document.getElementById('defaults');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-       
-    document.getElementById('kapkangani_sub').style.display = 'none';
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
 
-        document.getElementById('lolminingai_sub').style.display = 'none';
-       
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-    
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        
-        document.getElementById('sub').style.display = 'block';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-  }
- 
-  else if(parentSelectValue === "Null"){
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "block";
-    document.getElementById("default").style.display = "block";
-  
-  }
-  else{
-    document.getElementById("kapsabet").style.display = "none";
-    document.getElementById("kilibwoni").style.display = "none";
-    document.getElementById("kapkangani").style.display = "none";
-    document.getElementById("chepkumia").style.display = "none";
-    document.getElementById("ward").style.display = "block";
-    document.getElementById("default").style.display = "block";
-  }
-}
-
-function showO(optionValue){
-    const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kamobo: ['','Kamobo'],
-        Township: ['','Township'],
-        Kiminda: ['','Kiminda', 'Meswo'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-}
-
-function showK(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kilibwoni: ['','Kilibwoni', 'Kapnyerebai', 'Kaplonyo'],
-        Lolminingai: ['','Kabore', 'Ndubeneti', 'Kaplolok'],
-        Kipsigak: ['','Kipsotoi', 'Kisigak','Kakeruge'],
-        Kipture: ['','Kipture', 'Kimaam', 'Irimis'],
-        Kabirirsang: ['','Kabirirsang','Underit','Chesuwe'],
-        Arwos: ['','Tiryo'],
-        Kaplamai: ['','Kaptangunyo'],
-        Tulon: ['','Kapchumba'],
-        Terige: ['','Song`oliet'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-    }
-function showKap(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Kapkangani: ['','Chepsonoi', 'Tindinyo', 'Kiborgok'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-}
-function showChep(optionValue) {
-      const secondSelect = document.getElementById('sec');
-      secondSelect.innerHTML = ''; // Clear the existing options
-
-      const optionData = {
-        Chepkumia: ['','Chepkumia', 'Cheboite'],
-      };
-
-      if (optionData[optionValue]) {
-        optionData[optionValue].forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          secondSelect.appendChild(optionElement);
-        });
-      }
-}
-
-function showOptions() {
-  
-    var parentValue = document.getElementById("kapkangani").value;
-    if(parentValue === 'Kapkangani'){
-        document.getElementById('kapkangani_sub').style.display = 'block';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-    }else if(parentValue === ''){
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
-    }
-    
-}
-
-function Options() {
-    var parentV = document.getElementById("chepkumia").value;
-if(parentV === "Chepkumia"){
-        document.getElementById('chepkumia_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-        }else if(parentV === ''){
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
-        }
-
-}
-function show() {
-    var parentVa = document.getElementById("kilibwoni").value;
-if(parentVa === "Kilibwoni"){
-        document.getElementById('kilibwoni_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-        }else if(parentVa === 'Lolminingai'){
-        document.getElementById('lolminingai_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Kipsigak'){
-        document.getElementById('kipsigak_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Kipture'){
-        document.getElementById('kipture_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }
-        else if(parentVa === 'Kabirirsang'){
-        document.getElementById('kabirirsang_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Arwos'){
-        document.getElementById('arwos_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Kaplamai'){
-        document.getElementById('kaplamai_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Tulon'){
-        document.getElementById('tulon_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }else if(parentVa === 'Terige'){
-        document.getElementById('terige_sub').style.display = 'block';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-        }
-        
-        if(parentVa === ''){
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'block';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('kilibwoni_sub').style.display = 'none';
-        }
-
-}
-
-function showOpt(){
-    var parentVa = document.getElementById("kapsabet").value;
-if(parentVa === 'Kamobo'){
-    document.getElementById('kamobo_sub').style.display = 'block';
-    document.getElementById('kiminda_sub').style.display = 'none';
-    document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-
-}else if(parentVa === 'Kiminda'){
-    document.getElementById('kiminda_sub').style.display = 'block';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('township_sub').style.display = 'none';
-
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-
-}else if(parentVa === 'Township'){
-    document.getElementById('township_sub').style.display = 'block';
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-
-    document.getElementById('kilibwoni_sub').style.display = 'none';
-        document.getElementById('sub').style.display = 'none';
-        document.getElementById('kapkangani_sub').style.display = 'none';
-        document.getElementById('lolminingai_sub').style.display = 'none';
-        document.getElementById('chepkumia_sub').style.display = 'none';
-        document.getElementById('kipsigak_sub').style.display = 'none';
-        document.getElementById('kipture_sub').style.display = 'none';
-        document.getElementById('kabirirsang_sub').style.display = 'none';
-        document.getElementById('arwos_sub').style.display = 'none';
-
-        document.getElementById('kaplamai_sub').style.display = 'none';
-        document.getElementById('tulon_sub').style.display = 'none';
-        document.getElementById('terige_sub').style.display = 'none';
-
-}else if(parentVa === ''){
-    document.getElementById('township_sub').style.display = 'none';
-    document.getElementById('sub').style.display = 'block';
-    
-    document.getElementById('kamobo_sub').style.display = 'none';
-    document.getElementById('kiminda_sub').style.display = 'none';
-}
-}
-
-// fetch data
-function loadData() {
-     const selectedOption = document.getElementById('year').value;
-            
-            if (selectedOption !== "") {
-                fetch(`applicants.php?option=${selectedOption}`)
-                    .then(response => response.json())
-                    .then(data => updateTable(data))
-                    .catch(error => console.error('Error fetching data:', error));
-            }
-        }
-
-        function updateTable(data) {
-            const dataTable = document.getElementById('sample');
-            dataTable.innerHTML = ''; // Clear existing rows
-
-            // Add table header
-            const headerRow = dataTable.insertRow();
-            for (const key in data[0]) {
-                const headerCell = document.createElement('th');
-                headerCell.textContent = key;
-                headerRow.appendChild(headerCell);
-            }
-
-            // Add data rows
-            data.forEach(row => {
-                const dataRow = dataTable.insertRow();
-                for (const key in row) {
-                    const dataCell = dataRow.insertCell();
-                    dataCell.textContent = row[key];
-                }
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
             });
+         }
+      }
+   };
+
+   xhr.open('GET', 'locations.php', true);
+   xhr.send();
+}
+// show sub_locations
+function showS(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
+}
+// dispaly the print button and the data in the table
+        function updateTable() {
+    // Get the selected filter option
+    var selectedOption = document.getElementById("filterOption").value;
+    var ward = document.getElementById("opts").value;
+    var location = document.getElementById("defaults").value;
+    var sub_location = document.getElementById("sec").value;
+
+
+
+    // Send an AJAX request to a PHP script to fetch filtered data
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Update the table content with the fetched data
+            document.getElementById("test").innerHTML = this.responseText;
+
+
+             // Toggle link visibility based on data presence
+
+            if(selectedOption !=='' && ward !== '' && location !== '' && sub_location !==''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year_by=" + selectedOption + "&&ward_by=" +ward + "&&location_by=" + location + "&&sub_location_by=" + sub_location; // Set the link URL
+        }else if(selectedOption !=='' && ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year_by=" + selectedOption + "&&ward_by=" +ward + "&&location_by=" + location ;
+        }else if(sub_location !=='' && ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?sub_location_by=" + sub_location + "&&ward_by=" +ward + "&&location_by=" + location ;
         }
+
+        else if(selectedOption !=='' && ward !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year_by=" + selectedOption + "&&ward_by=" +ward;
+        }
+        else if(ward !== '' && location !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?location_by=" + location + "&&ward_by=" +ward;
+        }
+
+        else if(selectedOption !=='' ){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?year_by=" + selectedOption;
+        }else if(ward !== ''){
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?ward_by=" +ward;
+        }else{
+            var link = document.getElementById("successLink");
+            link.style.display = ($('#test').find('tr').length > 1) ? 'block' : 'none';
+            // link.textContent = "Print"+ selectedOption; 
+            link.href = "http://localhost/nrs_projects/New%20folder/emgwen/bursary_system_php/administrator/admin/print?";
+        }
+             // Destroy the existing DataTable if it exists
+            if ($.fn.DataTable.isDataTable('#test')) {
+                $('#test').DataTable().destroy();
+            }
+
+            // Reinitialize DataTable after updating the content
+            $('#test').DataTable();
+
+        }
+    };
+    xhttp.open("GET", "data.php?option=" + selectedOption + "&ward=" + ward + "&location=" + location + "&sub_location=" + sub_location, true);
+    xhttp.send();
+}
+$(document).ready(function() {
+    // Initial DataTable initialization
+    $('#test').DataTable();
+});
     </script>
 </html>
