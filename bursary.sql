@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 08:13 AM
+-- Generation Time: Dec 14, 2023 at 07:27 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.2.0
 
@@ -112,7 +112,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `locations` (
   `location_id` int(11) NOT NULL,
-  `ward_id` int(11) DEFAULT NULL,
+  `ward` varchar(11) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -120,21 +120,21 @@ CREATE TABLE `locations` (
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`location_id`, `ward_id`, `location`) VALUES
-(1, 1, 'Kamobo'),
-(2, 1, 'Township'),
-(3, 1, 'Kiminda'),
-(4, 3, 'Chepkumia'),
-(5, 2, 'Kapkangani'),
-(6, 4, 'Kilibwoni'),
-(7, 4, 'Lolminingai'),
-(8, 4, 'Kipsigak'),
-(9, 4, 'Kipture'),
-(10, 4, 'Kabirirsang'),
-(11, 4, 'Arwos'),
-(12, 4, 'Kaplamai'),
-(13, 4, 'Tulon'),
-(14, 4, 'Terige');
+INSERT INTO `locations` (`location_id`, `ward`, `location`) VALUES
+(1, 'Kapsabet', 'Kamobo'),
+(2, 'Kapsabet', 'Township'),
+(3, 'Kapsabet', 'Kiminda'),
+(4, 'Chepkumia', 'Chepkumia'),
+(5, 'Kapkangani', 'Kapkangani'),
+(6, 'Kilibwoni', 'Kilibwoni'),
+(7, 'Kilibwoni', 'Lolminingai'),
+(8, 'Kilibwoni', 'Kipsigak'),
+(9, 'Kilibwoni', 'Kipture'),
+(10, 'Kilibwoni', 'Kabirirsang'),
+(11, 'Kilibwoni', 'Arwos'),
+(12, 'Kilibwoni', 'Kaplamai'),
+(13, 'Kilibwoni', 'Tulon'),
+(14, 'Kilibwoni', 'Terige');
 
 -- --------------------------------------------------------
 
@@ -147,6 +147,23 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2023_09_19_092615_students', 1),
+(6, '2023_09_19_092634_parents', 1),
+(7, '2023_09_19_092907_bursaries', 2),
+(8, '2023_09_19_092938_applications', 2),
+(9, '2023_09_29_095258_admins', 3),
+(10, '2023_10_06_083822_reports', 3),
+(11, '2023_10_13_083301_beneficiaries', 3);
 
 -- --------------------------------------------------------
 
@@ -491,7 +508,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `parents`
