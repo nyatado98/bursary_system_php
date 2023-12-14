@@ -72,7 +72,7 @@
 * Open your web browser.
 
 
-* Navigate to http://localhost/Emgwen-Bursary/
+* Navigate to http://localhost/bursary_system_php/
 
 
 * You should now be able to access the bursary application and management system.
