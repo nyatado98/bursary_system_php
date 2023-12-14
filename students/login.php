@@ -43,7 +43,7 @@ if(isset($_POST['login'])){
                 $_SESSION['user'] = $pass['fullname'];
                 $_SESSION['email_user'] = true;
                 
-            header("Location:dashboard");
+            header("Location:application");
             }else{
                 $mssge = "Wrong password";
             }

@@ -724,10 +724,11 @@ body{
                                                         <?php }}?>
                                                     </div>
                                                     <div class="col-md-4">
+
                                                         <label class="font-weight-bold" for="phone">Phone No :</label>
                                                         <input type="number" name="phone" id="phone" class="form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="07 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
                                                         
-                                                        <span class="font-italic">Start with 0712345678</span><br>
+                                                        <span class="font-italic">Example:0712345678</span><br>
                                                         <span id="phoneError" style="color: red;"></span>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
                                                         

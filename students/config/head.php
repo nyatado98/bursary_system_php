@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="./css/style.css">
 <link rel="manifest" href="./manifest.json">
 
-<!-- Main CSS -->
+  <!-- Main CSS -->
 <style>
 #alert-box {
   position: fixed;
