@@ -754,9 +754,9 @@ font-size: 14px;
                                                         <div class="row">
                                                         <p class="form-control col-md-2 text-center font-weight-bold" readonly>+254</p>
                                                         <!-- <p class="input-icon">254</p> -->
-                                                        <input type="number" name="phone" id="phone" class="col-md-10 input-field form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
+                                                        <input type="number" name="phone" id="phone" class="col-md-10 input-field form-control font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()">
                                                         </div>
-                                                        <span class="font-italic">Example:712345678</span><br>
+                                                        <span class="font-italic">Example:0712345678</span><br>
 
                                                         <span id="phoneError" style="color: red;"></span>
                                                         <span class="text-danger"><?php echo $phone_err;?></span>
