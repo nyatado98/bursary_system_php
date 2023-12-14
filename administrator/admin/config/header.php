@@ -1,3 +1,10 @@
+<?php
+// include 'database/connect.php';
+if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
+	header("location:login");
+	exit;
+}
+?>
 <!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
@@ -12,9 +19,7 @@
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
 				</a>
-
-				
-					<label style="font-weight: 900; margin-top: 1%; color: #0f893b; font-size: 25px; margin-left: 7%;">BURSARY MANAGEMENT SYSTEM</label>
+					<label id="none" style="font-weight: 900; margin-top: 1%; color: #0f893b; font-size: 25px; margin-left: 7%;">BURSARY MANAGEMENT SYSTEM</label>
 					&emsp;&emsp;&emsp;
 					
 				
@@ -35,7 +40,7 @@
 				<!-- /Mobile Menu Toggle -->
 				
 				<!-- Header Right Menu -->
-				<ul class="nav user-menu">
+				<ul class="nav user-menu" id="ul">
 
 					<!-- Notifications -->
 					<!--<li class="nav-item dropdown noti-dropdown">
@@ -113,7 +118,8 @@
 					<!-- User Menu -->
 					<li class="nav-item dropdown has-arrow">
 						<a href="dashboard" class="dropdown-toggle nav-link" data-toggle="dropdown" id="menu1">
-							<span class="user-img"><img class="rounded-circle" src="" width="31" alt="User Loggedin"></span>
+							<!-- <img class="rounded-circle" src="" width="31" alt="User Loggedin"> -->
+							<span class="user-img"><?php echo $_SESSION['email'];?></span>
 						</a>
 						<div class="dropdown-menu"  role="menu"  aria-labelledby="menu1">
 							<div class="user-header">
