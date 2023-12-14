@@ -658,7 +658,7 @@ body{
                                                         
                                                         <?php } ?>
                                            
-                                            <h4 class="text-center font-weight-bold color ">Applicant's Details </h4>
+                                            <h4 class="text-center font-weight-bold color ">Applicant's Details</h4>
                                             
                                         </div>
              
