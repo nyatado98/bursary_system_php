@@ -689,6 +689,7 @@ body{
                                                         <!-- <option value = ""></option> -->
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
                                                             <option> Male</option> 
+                                                            <option> Rather Not Say</option> 
                                                             <option>Female</option>
                                                         </select>
                                                         
