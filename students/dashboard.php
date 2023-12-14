@@ -59,7 +59,7 @@ if(isset($_POST['edit'])){
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="dashboard" class="logo">
-						<img src="./images/nandi.png" alt="Logo">
+						<img src="./images/CDF LOGO.jpg" alt="Logo">
 					</a>
 					<a href="dashboard" class="logo logo-small">
 					<label style="font-weight: 900; color: #0f893b; font-size: 15px;margin-left:-130px">BURSARY APPLICATION SYSTEM</label>
