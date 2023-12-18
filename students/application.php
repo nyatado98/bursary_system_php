@@ -505,7 +505,10 @@ if(empty($_POST['sub_location'])){
         $id_no_err = "Please enter id number";
     }elseif(strlen(trim($_POST['id_no'])) < 8){
         $id_no_err = "ID number should not be less than 8 characters.";
-    }else{
+    }elseif(strlen(trim($_POST['id_no'])) > 8){
+        $id_no_err = "ID number should not be more than 8 characters.";
+    }
+    else{
         $id_no = trim($_POST['id_no']);
     }
     if(empty($_POST['county'])){
@@ -874,7 +877,7 @@ font-size: 14px;
 </div>
             <div class="card px-0 pt-4 pb-0  mb-3">  
                 <div id="msform">   
-                    <ul class="progressbar">  
+                    <ul class="progressbar" style="">  
                         <li class="active" id="account"><strong> Applicant Information </strong></li>  
                         <li id="personal"><strong> School Information </strong></li>  
                         <li id="payment"><strong> Upload Documents </strong></li>  
@@ -906,6 +909,19 @@ font-size: 14px;
                         ?>
                         <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
                                                 <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
+                                                        <?php if(isset($_GET['success'])){
+                        $mssg = $_SESSION['message'];
+                        // $message = $fullname.", Application made successfully and mail has been sent to you.";
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $mssg;?></span>
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                      <span aria-hidden="true">&times;</span>
                                                      </button>
@@ -1027,7 +1043,7 @@ font-size: 14px;
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold" for="id_no">ID Number :*</label>
-                                                        <input type="number" name="id_no" id="id" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php if (isset($_SESSION['user_data'])) {
+                                                        <input type="text" name="id_no" id="id"  class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php if (isset($_SESSION['user_data'])) {
                                                             echo $data['id_no'];}else{ echo $id_no;}?>">
                                                         
                                                         <span class="text-danger"><?php echo $id_no_err;?></span>

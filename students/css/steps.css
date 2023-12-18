@@ -150,6 +150,7 @@ text-transform: uppercase;
 .progressbar {  
     margin-bottom: 20px;  
     overflow: hidden;  
+    margin-left: 20px;
     color: lightgrey  
 }  
 .progressbar .active {  

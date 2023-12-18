@@ -481,8 +481,9 @@ if(isset($_POST['pre'])){
 /*    padding:20px;*/
 }
 .contents{
+    left: 0px;
     position:absolute;
-    background-color:white;
+    background-color:whitesmoke;
     z-index: 99;
     display:none;
 }
@@ -789,12 +790,12 @@ font-size: 14px;
                                                     <div class="select-option">
                                                     <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php if (isset($_SESSION['school'])) {
                                                         echo $school['school_name'];
-                                                    }else{ echo $school_name;}?>" id="soValue" placeholder="-select school-" readonly>
+                                                    }else{ echo $school_name;}?>" id="soValue" placeholder="-select school-" >
                                                     </div>
                                                     <div class="contents col-md-12" id="contents">
-                                                        <div class="search">
+                                                        <!-- <div class="search">
                                                             <input type="text" name="" placeholder="Search.." class="form-control" id="optionSearch">
-                                                        </div>
+                                                        </div> -->
                                                         <ul class="options" id="schools">
                                                             <!-- <li></li> -->
                                                     <li>Umoja High</li>
@@ -825,7 +826,7 @@ font-size: 14px;
                                                 </div>
                                                 
                                             </div> 
-                        </div> <input type="submit" name="next" class="mt-5 next action-button" value="Next" /> <input type="submit" name="pre" class="mt-5 pre action-button-pre" value="Pre" /> 
+                        </div> <input type="submit" name="next" class="mt-5 next action-button" value="Next" /> <input type="submit" name="pre" class="mt-5 pre action-button-pre" value="Previous" /> 
                         </form> 
                     </fieldset>  
                     <div class="card-footer">
@@ -863,7 +864,8 @@ font-size: 14px;
     const selectBox = document.querySelector('.select-box');
     const selectOption = document.querySelector('.select-option');
     const soValue = document.querySelector('#soValue');
-    const optionSearch = document.querySelector('#optionSearch');
+    const optionSearch = document.querySelector('#soValue');
+    // const optionSearch = document.querySelector('#optionSearch');
     const options = document.querySelector('.options');
     const optionsList = document.querySelectorAll('.options li');
    

@@ -2329,3 +2329,268 @@ if(parent === 'Kamobo'){
                                                             echo $data['Phone'];
                                                         }else{ echo $phone;}?>" oninput="validatePhoneNumber()" />  -->
                                                         <!-- </div> -->
+
+
+
+                                                        <!-- submit -->
+                                                 <?php       if(isset($_POST['next'])){
+    $fullname = $_POST['fullname'];
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $parent = $_POST['parent_guardian_name'];
+    $phone = $_POST['phone'];
+    $id_no = $_POST['id_no'];
+    $county = $_POST['county'];
+    $ward = $_POST['ward'];
+    $location = $_POST['location'];
+    $sub_location = $_POST['sub_location'];
+    $year = $_POST['year'];
+    $school_level = $_POST['school_level'];
+    $school_name = $_POST['school_name'];
+    $reg_no = $_POST['reg_no'];
+
+    $name = $_FILES['school_doc']['name'];
+    if(empty($name)){
+        $school_doc_err = "Please choose a document";
+    }else{
+        
+             //insert uploads/school doc
+             
+
+             $target = "students_upload/";
+             $target_file1 =$target . basename($_FILES["school_doc"]["name"]);
+             $fileName = basename($_FILES["school_doc"]["name"]);
+             $file_size = $_FILES["school_doc"]["size"];
+             $file_type = $_FILES["school_doc"]["type"];
+             $tmp_name = $_FILES['school_doc']['tmp_name'];
+            
+             $file_ext = strtolower(pathinfo($target_file1,PATHINFO_EXTENSION));
+         
+             $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
+             if (!in_array($file_ext, $extensions)) {
+                 $school_doc_err = "The file type is not allowed...Please choose another file";
+             }
+             elseif ($file_size > 5242880 || $file_size <= 0) {
+                 $school_doc_err = "The file size is too large....choose another file which is 5MB or less";
+             }
+    }
+    $fee_name = $_FILES['fee_structure']['name'];
+
+    if(empty($fee_name)){
+        $fee_structure_err = "Please select fee structure document";
+    }
+    if (empty($school_doc_err) && empty($fee_structure_err)) {
+        $sql = "SELECT * FROM applications WHERE student_fullname ='$fullname' AND year = '$year'";
+    $result = mysqli_query($conn,$sql);
+    $count = mysqli_num_rows($result);
+    if($count >0){
+        $message = $fullname." You already made an application!. You cannot make more than one application.";
+        $_SESSION['mssg'] = $message;
+            session_start();        
+         unset($_SESSION['user_data']);
+         unset($_SESSION['school']);
+        header("location:application?mssg=");
+    }else{
+        $sql = "SELECT * FROM students WHERE student_fullname = '$fullname' AND parent_email = '$email'";
+        $results = mysqli_query($conn,$sql);
+        $count = mysqli_num_rows($results);
+        if($count <= 0){
+            
+            $sql = "INSERT INTO students (student_fullname,age,gender,parent_guardian_name,phone,parent_email,
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$age','$gender','$parent','$phone','$email',
+            '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
+            $res = mysqli_query($conn,$sql);
+
+            $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
+            $re = mysqli_query($conn,$sql1);
+
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            '$current_date','$current_date','$today','$year')";
+            $ress = mysqli_query($conn,$sql2);
+
+       move_uploaded_file($tmp_name,$target_file1);
+        // move_uploaded_file($tmp_name,$target_file2);
+
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
+    $query = mysqli_query($conn,$sql);
+    if($query){
+        
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file2 =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
+    
+
+        $sql = "UPDATE students_uploads SET fee_structure = '$fee_fileName' WHERE reference_number = '$app_ref'";
+        $r = mysqli_query($conn,$sql);
+        if($r){
+        move_uploaded_file($tmp_name,$target_file2);
+        }
+        
+    }
+// send sms using advantasms
+// Check if the phone number starts with a zero
+if (substr($phone, 0, 1) === '0') {
+    // Remove the leading zero
+    $phoneNumber = substr($phone, 1);
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$phoneNumber;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+}
+               //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
+
+
+            //send mail
+            $mailto = $email;
+            $mailSub = 'NANDI COUNTY';
+            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
+           $mssg = $fullname." Application made successfully and mail has been sent to you.";
+           $_SESSION['message'] = $mssg;
+           $message = "Application made successfully and mail has been sent to you.";
+            session_start();
+            unset($_SESSION['user_data']);
+            unset($_SESSION['school']);
+            header("location:end");
+            
+
+        }else{
+            $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            '$current_date','$current_date','$today','$year')";
+            $rs = mysqli_query($conn,$sql);
+
+
+            // send sms using advantasms
+// Check if the phone number starts with a zero
+if (substr($phone, 0, 1) === '0') {
+    // Remove the leading zero
+    $phoneNumber = substr($phone, 1);
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$phoneNumber;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+}
+       //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
+            //send mail
+            $mailto = $email;
+            $mailSub = 'NANDI COUNTY';
+            // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
+            // Thank You.\n";
+            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
+           $mssg = $fullname.", Application made successfully and mail has been sent to you.";
+            $_SESSION['message'] = $mssg;
+            $message = "Application made successfully and mail has been sent to you.";
+            session_start();
+            unset($_SESSION['user_data']);
+            unset($_SESSION['school']);
+            header("location:end");
+            
+        }
+    }
+    }
+}
+?>

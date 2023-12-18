@@ -6,9 +6,10 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
     exit;
 }
 $mssg = $_SESSION['message'];
+$data = $_SESSION['user_data'];
 
 require "../vendor/autoload.php";
-require __DIR__ . '../vendor/autoload.php';
+// require __DIR__ . '../vendor/autoload.php';
 
 use \Savannabits\Advantasms\Advantasms;
 
@@ -415,9 +416,269 @@ $response = $sms->to($mobile)->message("Dear ".$parent_guardian_name.", You have
 }
 
 if(isset($_POST['pre'])){
-    header("location:application");
+    header("location:uploads");
 }
+// submit applocation
+if(isset($_POST['next'])){
+    $fullname = $_POST['fullname'];
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $parent = $_POST['parent_guardian_name'];
+    $phone = $_POST['phone'];
+    $id_no = $_POST['id_no'];
+    $county = $_POST['county'];
+    $ward = $_POST['ward'];
+    $location = $_POST['location'];
+    $sub_location = $_POST['sub_location'];
+    $year = $_POST['year'];
+    $school_level = $_POST['school_level'];
+    $school_name = $_POST['school_name'];
+    $reg_no = $_POST['reg_no'];
 
+    $name = $_FILES['school_doc']['name'];
+    if(empty($name)){
+        $school_doc_err = "Please choose a document";
+    }else{
+        
+             //insert uploads/school doc
+             
+
+             $target = "students_upload/";
+             $target_file1 =$target . basename($_FILES["school_doc"]["name"]);
+             $fileName = basename($_FILES["school_doc"]["name"]);
+             $file_size = $_FILES["school_doc"]["size"];
+             $file_type = $_FILES["school_doc"]["type"];
+             $tmp_name = $_FILES['school_doc']['tmp_name'];
+            
+             $file_ext = strtolower(pathinfo($target_file1,PATHINFO_EXTENSION));
+         
+             $extensions = array("jpeg","jpg","png","pdf","txt","doc","jfif","docx");
+             if (!in_array($file_ext, $extensions)) {
+                 $school_doc_err = "The file type is not allowed...Please choose another file";
+             }
+             elseif ($file_size > 5242880 || $file_size <= 0) {
+                 $school_doc_err = "The file size is too large....choose another file which is 5MB or less";
+             }
+    }
+    $fee_name = $_FILES['fee_structure']['name'];
+
+    if(empty($fee_name)){
+        $fee_structure_err = "Please select fee structure document";
+    }
+    if (empty($school_doc_err) && empty($fee_structure_err)) {
+        $sql = "SELECT * FROM applications WHERE student_fullname ='$fullname' AND year = '$year'";
+    $result = mysqli_query($conn,$sql);
+    $count = mysqli_num_rows($result);
+    if($count >0){
+        $message = $fullname." You already made an application!. You cannot make more than one application.";
+        $_SESSION['mssg'] = $message;
+            session_start();        
+         unset($_SESSION['user_data']);
+         unset($_SESSION['school']);
+        header("location:application?mssg=");
+    }else{
+        $sql = "SELECT * FROM students WHERE student_fullname = '$fullname' AND parent_email = '$email'";
+        $results = mysqli_query($conn,$sql);
+        $count = mysqli_num_rows($results);
+        if($count <= 0){
+            
+            $sql = "INSERT INTO students (student_fullname,age,gender,parent_guardian_name,phone,parent_email,
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$age','$gender','$parent','$phone','$email',
+            '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
+            $res = mysqli_query($conn,$sql);
+
+            $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
+            $re = mysqli_query($conn,$sql1);
+
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            '$current_date','$current_date','$today','$year')";
+            $ress = mysqli_query($conn,$sql2);
+
+       move_uploaded_file($tmp_name,$target_file1);
+        // move_uploaded_file($tmp_name,$target_file2);
+
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
+    $query = mysqli_query($conn,$sql);
+    if($query){
+        
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file2 =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
+    
+
+        $sql = "UPDATE students_uploads SET fee_structure = '$fee_fileName' WHERE reference_number = '$app_ref'";
+        $r = mysqli_query($conn,$sql);
+        if($r){
+        move_uploaded_file($tmp_name,$target_file2);
+        }
+        
+    }
+// send sms using advantasms
+// Check if the phone number starts with a zero
+if (substr($phone, 0, 1) === '0') {
+    // Remove the leading zero
+    $phoneNumber = substr($phone, 1);
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$phoneNumber;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+}
+               //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
+
+
+            //send mail
+            $mailto = $email;
+            $mailSub = 'NANDI COUNTY';
+            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
+           $mssg = $fullname." Application made successfully and mail has been sent to you.";
+           $_SESSION['message'] = $mssg;
+           $message = "Application made successfully and mail has been sent to you.";
+            session_start();
+            unset($_SESSION['user_data']);
+            unset($_SESSION['school']);
+            header("location:application");
+            
+
+        }else{
+            $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            '$current_date','$current_date','$today','$year')";
+            $rs = mysqli_query($conn,$sql);
+
+
+            // send sms using advantasms
+// Check if the phone number starts with a zero
+if (substr($phone, 0, 1) === '0') {
+    // Remove the leading zero
+    $phoneNumber = substr($phone, 1);
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$phoneNumber;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+}
+       //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }
+            //send mail
+            $mailto = $email;
+            $mailSub = 'NANDI COUNTY';
+            // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
+            // Thank You.\n";
+            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
+           $mssg = $fullname.", Application made successfully and mail has been sent to you.";
+            $_SESSION['message'] = $mssg;
+            $message = "Application made successfully and mail has been sent to you.";
+            session_start();
+            unset($_SESSION['user_data']);
+            unset($_SESSION['school']);
+            header("location:application");
+            
+        }
+    }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -719,25 +980,111 @@ font-size: 14px;
                         <div class="form-card">  
                             <div class="row">  
                                 <div class="col-7">  
-                                    <h2 class="fs-title"> E N D: </h2>  
+                                    <h2 class="fs-title" style="text-decoration:underline;">Applicant Summary Details : </h2>  
                                 </div>  
                                 <div class="col-5">  
                                     <h2 class="steps"> Step 4 - 4 </h2>  
                                 </div>  
-                            </div> <br> <br>  
-                            <h2 class="purple-text text-center"><strong> SUCCESS ! </strong></h2> <br>    
-                            <div class="row justify-content-center">  
-                                <div class="col-7 text-center">  
-                                     <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
-                                                <span class="font-weight-bold"><?php echo $mssg;?></span>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                     <span aria-hidden="true">&times;</span>
-                                                     </button>
-                                                     </div>  
-                                </div>  
-                            </div> 
-                            <input type="submit" name="pre" class="btn btn-secondary" value="Back to Home">  
-                        </div>    
+                            </div>
+                             <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="font-weight-bold" for="firstname">Student First-Name :*</label>
+                                                        <input type="text" name="firstname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student firstname-"  value="<?php echo $data['fullname'];?>" >
+                                                        
+                                                        <span class="text-danger"><?php echo $firstname_err;?></span>
+                                                       
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="font-weight-bold" for="gender">Gender :*</label>
+                                                        <select name="gender" id="gender" class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                            <option selected value="<?php echo $data['gender'];?>"><?php echo $data['gender'];?></option>
+                                                            
+                                                            <option> Male</option> 
+                                                            <option>Female</option>
+                                                            <option>Rather Not say</option>
+                                                        </select>
+                                                        
+                                                        <span class="text-danger"><?php echo $gender_err;?></span>
+                                                        
+                                                    </div>
+                                                      <div class="col-md-3">
+                                                        <label class="font-weight-bold" for="date">D-O-B:*</label>
+                                                        <input type="date" id="date" class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob" value="<?php if (isset($_SESSION['user_data'])) {
+                                                            echo $data['dob'];
+                                                        }else{ echo $dob;}?>" >
+                                                    
+                                                      
+                                                        <span class="text-danger"><?php echo $age_err;?></span>
+                                                        <input type="text" name="age" value="<?php echo $data['age'];?>">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                  <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
+                                                        
+                                                </div>
+                             
+                        </div> 
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Phone Number : *</label>
+                                <input type="text" name="phone" class="form-control  font-weight-bold" value="<?php echo $data['Phone'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Email : *</label>
+                                <input type="text" name="email" class="form-control  font-weight-bold" value="<?php echo $data['email'];?>" readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">ID Number : *</label>
+                                <input type="text" name="id_no" class="form-control  font-weight-bold" value="<?php echo $data['id_no'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">County : *</label>
+                                <input type="text" name="county" class="form-control  font-weight-bold" value="<?php echo $data['county'];?>">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Ward : *</label>
+                                <input type="text" name="ward" class="form-control  font-weight-bold" value="<?php echo $data['ward'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Location : *</label>
+                                <input type="text" name="location" class="form-control  font-weight-bold" value="<?php echo $data['location'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Sub-location : *</label>
+                                <input type="text" name="sub_location" class="form-control  font-weight-bold" value="<?php echo $data['sub_location'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Year : *</label>
+                                <input type="text" name="year" class="form-control  font-weight-bold" value="<?php echo $data['year'];?>" readonly>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">School Level : *</label>
+                                <input type="text" name="school_level" class="form-control  font-weight-bold" value="<?php echo $data['level'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">School Name : *</label>
+                                <input type="text" name="school_name" class="form-control  font-weight-bold" value="<?php echo $data['school_name'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Reg/ADM Number : *</label>
+                                <input type="text" name="reg_no" class="form-control  font-weight-bold" value="<?php echo $data['reg'];?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">Fee Structure : *</label>
+                                <input type="text" name="fee_structure" class="form-control  font-weight-bold" value="<?php echo $data['fee'];?>">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">School ADM letter/School ID : *</label>
+                                <input type="text" name="school_doc" class="form-control  font-weight-bold" value="<?php echo $data['doc'];?>">
+                            </div>
+                        </div>
+                        <input type="submit" name="next" class="next action-button" value="Submit" /> <input type="submit" name="pre" class="pre action-button-pre" value="Previous" />   
                     </fieldset>   
                     </form> 
                 </div>  
