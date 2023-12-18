@@ -1584,3 +1584,748 @@ if(parent === 'Kamobo'){
   document.getElementById('kiminda_sub').style.display = 'none';
 }
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="shortcut icon" type="text/css" href="{{asset('images/logo.png')}}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
+    <script src="{{asset('bootstrap/jquery/jquery-3.5.1.min.js')}}"></script>
+    <link href="{{asset('css/text.css')}}" rel="stylesheet">
+    <title>Institution page</title>
+</head>
+<body style="background-image: url('images/back.jpg');background-repeat:no-repeat;background-size:cover;background-position:center;background-attachment:fixed;">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <img src="{{asset('images/logo.png')}}" class="img-fluid" alt="" srcset="" width="10%">
+            </div>
+            <div class="row justify-content-center">
+            <h5 class="mt-5 mx-5 font-weight-bold text-white" style="font-size: 40px;text-transform:uppercase">Bursary Management System</h5>
+            </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 bg-light mt-5  py-2">
+                <ul class="progressbar">
+                  <li class="active font-weight-bold" style="color:green">Stu-Details</li>
+                  <li  class="active font-weight-bold" style="color:green">School-Information</li>
+                  <li  class="active font-weight-bold" style="color:green">Bursary-details</li>
+                  <li class="font-weight-bold" style="color:green">Summary-Details</li>
+        </ul>
+        </div>
+    </div>
+</div>
+<div class=" mt-5">
+    <div class="card-header" style="background-color: #166659">
+                {{-- <input type="text" name="bursary_name" class="form-control" placeholder="Bursary name" id="" value="{{$data['reg_no']}}">
+                <input type="text" name="bursary_name" class="form-control" placeholder="Bursary name" id="" value="{{$data['second_name']}}"> --}}
+
+        <h4 class="text-center font-weight-bold text-white">Bursary Details </h4>
+    </div>
+    <div class="card-body" style="background-color: rgb(206, 176, 138)">
+        <form action="{{route('summary')}}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="font-weight-bold">Bursary Name :</label>
+                    <input type="text" name="bursary_name" class="form-control font-weight-bold" placeholder="Bursary name" id="" value="CDF Bursary" readonly>
+                    @if($errors->has('bursary_name'))
+                    <span class="text-danger">{{$errors->first('bursary_name')}}</span>
+                    @endif
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold">Bursary Type :</label>
+                    <select name="bursary_type" id="" class="form-control font-weight-bold">
+                        <option value="" selected><?php echo (old('bursary_type')) ? (old('bursary_type')) : '-Select Type Below-';?></option>
+                        <option>NC NCDF</option>
+                        <option>Elimu Fund</option>
+                        <option>KCB Scholarship</option>
+                        <option>ISK Scholarship Program</option>
+                    </select>
+                    @if($errors->has('bursary_type'))
+                    <span class="text-danger">{{$errors->first('bursary_type')}}</span>
+                    @endif
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold">Disburser :</label>
+                    <input type="text" class="form-control font-weight-bold"name="disburser" value="County Government" readonly>
+                    @if($errors->has('disburser'))
+                    <span class="text-danger">{{$errors->first('disburser')}}</span>
+                    @endif
+                </div>
+            </div>
+            <input type="hidden" name="first_name" class="form-control" placeholder="" id="" value="{{$data['first_name']}}">
+            <input type="hidden" name="second_name" class="form-control" placeholder="" id="" value="{{$data['second_name']}}">
+            <input type="hidden" name="age" class="form-control" placeholder="" id="" value="{{$data['age']}}">
+            <input type="hidden" name="gender" class="form-control" placeholder="" id="" value="{{$data['gender']}}">
+            <input type="hidden" name="parent_guardian_name" class="form-control" placeholder="" id="" value="{{$data['parent_guardian_name']}}">
+            <input type="hidden" name="family_status" class="form-control" placeholder="" id="" value="{{$data['family_status']}}">
+            <input type="hidden" name="phone" class="form-control" placeholder="" id="" value="{{$data['phone']}}">
+            <input type="hidden" name="occupation" class="form-control" placeholder="" id="" value="{{$data['occupation']}}">
+            <input type="hidden" name="email" class="form-control" placeholder="" id="" value="{{$data['email']}}">
+            <input type="hidden" name="id_no" class="form-control" placeholder="" id="" value="{{$data['id_no']}}">
+            <input type="hidden" name="county" class="form-control" placeholder="" id="" value="{{$data['county']}}">
+            <input type="hidden" name="ward" class="form-control" placeholder="" id="" value="{{$data['ward']}}">
+            <input type="hidden" name="location" class="form-control" placeholder="" id="" value="{{$data['location']}}">
+            <input type="hidden" name="sub_location" class="form-control" placeholder="" id="" value="{{$data['sub_location']}}">
+            <input type="hidden" name="fullname" class="form-control" placeholder="" id="" value="{{$data['fullname']}}">
+            <input type="hidden" name="ward" class="form-control" placeholder="" id="" value="{{$data['ward']}}">
+            <input type="hidden" name="location" class="form-control" placeholder="" id="" value="{{$data['location']}}">
+            <input type="hidden" name="school_type" class="form-control" placeholder="" id="" value="{{$data['school_type']}}">
+            <input type="hidden" name="reg_no" class="form-control" placeholder="" id="" value="{{$data['reg_no']}}">
+            <input type="hidden" name="school_name" class="form-control" placeholder="" id="" value="{{$data['school_name']}}">
+            <input type="hidden" name="bank_name" class="form-control" placeholder="" id="" value="{{$data['bank_name']}}">
+            <input type="hidden" name="account_no" class="form-control" placeholder="" id="" value="{{$data['account_no']}}">
+
+        
+            <div class="row justify-content-between">
+                <a href="{{route('school_details')}}" class="btn btn-success mt-5 font-weight-bold">
+            PREVIOUS
+        </a>
+            <input type="submit" name="continue" class="btn btn-primary mt-5 font-weight-bold" style="" value="CONTINUE TO SUMMARY">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('bootstrap/popper/popper.min.js')}}"></script>
+<script src="{{asset('bootstrap/js/bootstrap.js')}}"></script>
+</html>
+
+
+  <div class="row">
+                        <div class="col-md-12">
+                        
+                            <!-- Revenue Chart -->
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-12">
+                                            <h5 class="font-weight-bold text-center" style="font-size: 30px"><span style="color: #0f893b">New</span> - <span style="color: orange">Application</span></h5>
+                                        </div>
+                                        <div class="col-6">
+                                                                                    
+                                        </div>
+                                    </div>                      
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="card-header" id="head" >
+                                        <?php if(isset($_GET['mssg'])){
+                        $mssg = $_SESSION['mssg'];
+                        $message = $mssg;
+                        ?>
+                        <div class="alert alert-danger alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
+                                                        <?php if(isset($_GET['message'])){
+                        $mssg = $_SESSION['message'];
+                        $message = $mssg;
+                        ?>
+                        <div class="alert alert-success alert-dismissible fade show text-center"  role="alert" style="position:sticky">
+                                                <span class="font-weight-bold"><?php echo $message;?></span>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                     </button>
+                                                     </div>
+                                                     <?php }else{ ?>
+                                                        
+                                                        <?php } ?>
+                                                        <!-- progressbar -->
+                    <!-- <ul id="progressbar">
+                        <li class="active" id="personal"><strong>Personal</strong></li>
+                        <li id="school"><strong>School</strong></li>
+                        <li id="upload"><strong>Uploads</strong></li>
+                       
+                    </ul> -->
+                                           
+                                            <h4 class="text-center font-weight-bold color ">Applicants' Details </h4>
+                                            
+                                        </div>
+             
+<div class="progress-bar mx-2 sticky-top col-md-9">
+    <div class="progress " id="progress"></div>
+    <span class="percentage" id="percentage">0%</span>
+</div>
+                                        <div class="card-body mt-2">
+                                            
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="firstname">Student First-Name :</label>
+                                                        <input type="text" name="firstname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student firstname-"  value="<?php echo $firstname;?>" >
+                                                        
+                                                        <span class="text-danger"><?php echo $firstname_err;?></span>
+                                                       
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="lastname">Student Last-Name :</label>
+                                                        <input type="text" name="lastname" id="last" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student lastname-" value="<?php echo $lastname;?>" >
+                                                        
+                                                        <span class="text-danger"><?php echo $lastname_err;?></span>
+                                                       
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="gender">Gender :</label>
+                                                        <select name="gender" id="gender" class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = ""></option>
+                                                        <?php 
+                                                        if($gender != ''){
+                                                            ?>
+                                                            <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
+                                                        <?php }else{?>
+                                                            <option selected value="">-select gender-</option>
+                                                        <?php } ?>
+                                                            <option> Male</option> 
+                                                            <option>Female</option>
+                                                            <option>Rather Not say</option>
+                                                        </select>
+                                                        
+                                                        <span class="text-danger"><?php echo $gender_err;?></span>
+                                                        
+                                                    </div>
+                                                  
+                                                </div>
+                                                <div class="row mt-4">
+                                                <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="date">D-O-B:</label>
+                                                        <input type="date" id="date" class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob" >
+                                                    
+                                                      
+                                                        <span class="text-danger"><?php echo $age_err;?></span>
+                                                        
+                                                    </div>
+                                                <div class="col-md-4">
+                        
+                                                        <?php
+                                                            $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($r = $q->fetch_assoc()){
+                                                                $user = $r['fullname'];
+                                                            ?>
+                                                            <?php if($user == ''){?>
+                                                             <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $user;?>" class="form-control font-weight-bold" placeholder="Enter parent name" readonly>
+                                                        <span class="text-danger">Please fill the parent name under the profile page first.</span>
+                                                        <?php }else{?>
+                                                        <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
+                                                        <?php }}?>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="column mx-3">
+                                                        <label class="font-weight-bold" for="phone">Phone Number :</label>
+                                                        <!-- <div class="row"> -->
+                                                            <div class="row">
+                                                        <!--  <div class="form-group  d-inline-block <?php echo $phone_err ? 'border border-danger' : '';?> ">
+                                                            <div class="row">
+                                                            <span class="border-end country-code mx-1">+254</span>
+                                                            
+                                                            <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="emailHelp" placeholder="7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()"/>
+                                                        </div>
+                                                        </div> -->
+                                                        
+                                                        <!-- <p class="form-control col-md-2 text-center font-weight-bold" readonly>+254</p> -->
+                                                        <!-- <p id="input">254</p> -->
+                                                        <input type="text" name="phone" id="phone" class="link font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()" />
+                                                        </div>
+                                                        <span class="font-italic" >Example : 0712345678</span><br>
+                                                        <span id="phoneError" style="color: red;"></span>
+                                                        <span class="text-danger"><?php echo $phone_err;?></span>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="email">Parent Email :</label>
+                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php echo $_SESSION['user_email'];?>">
+                                                     
+                                                        <span class="text-danger"><?php echo $email_err;?></span>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="id_no">ID Number :</label>
+                                                        <input type="number" name="id_no" id="id" class="form-control font-weight-bold <?php echo $id_no_err ? 'border border-danger' : '';?>" placeholder="Enter id number" id="" value="<?php echo $id_no;?>">
+                                                        
+                                                        <span class="text-danger"><?php echo $id_no_err;?></span>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="county">County :</label>
+                                                        <select name="county" id="county" readonly class="form-control <?php echo $county_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = "Nandi County" selected>Nandi County</option>
+                                                            <!-- <option value="<?php echo $county ? $county : '';?>" selected><?php echo $county ? $county : '';?></option> -->
+                                                           
+                                                        </select>
+                                                        
+                                                        <span class="text-danger"><?php echo $county_err;?></span>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4">
+                                                   
+                                                    <div class="col-md-4" onchange="showHideSelectOptions()">
+                                                        <label class="font-weight-bold" for="opts">Ward :</label>
+                                                        <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = ""></option>
+                                                            
+                                                            <?php if($ward !=''){?>
+                                                            <option value="<?php echo $ward ? $ward : '';?>" selected><?php echo $ward ? $ward : '';?></option>
+                                                    <?php }else{?>
+                                                        <option selected value="">-select ward-</option>
+                                                            <?php } ?>
+                                                            <!-- fetch ward from db -->
+                                                            <?php 
+                                                            $sql = "SELECT * FROM wards";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                                            <option value="<?php echo $rows['ward'];?>"><?php echo $rows['ward'];?></option>
+                                                        <?php }?>
+                                                        </select>
+                                                      
+                                                        <span class="text-danger"><?php echo $ward_err;?></span>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="default">Location :</label>
+                                                        <select name="location" id="default" class="form-control <?php echo $location_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = ""></option>
+                                                        <?php if($location !=''){?>
+                                                            <option value="<?php echo $location ? $location : '';?>" selected><?php echo $location ? $location : '';?></option>
+                                                           <?php }else{?>
+                                                        <option selected value="">-select Location-</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                        <!-- onchange="showOpt()" -->
+                                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showO(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapsabet_location ="";
+                                        if(isset($_POST['apply']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;?>" selected><?php
+                                        if(isset($_POST['kapsabet_location']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;
+                                        
+                                        ?></option>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapsabet'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                            <!-- <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option> -->
+                                        </select>
+                                        <!-- onchange="showOptions()" -->
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapkangani_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
+                                        echo $kapkangani_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                        echo $kapkangani_location;
+                                        
+                                        ?></option>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapkangani'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        </select>
+                                        
+                                        <!-- onchange="Options()" -->
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;"  onchange="showChep(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $chepkumia_location = "";
+                                        
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
+                                        echo $chepkumia_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                        echo $chepkumia_location;
+                                        
+                                        ?></option>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Chepkumia'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        </select>
+                                        
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $kilibwoni_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
+                                        echo $kilibwoni_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                        echo $kilibwoni_location;
+                                        
+                                        ?></option>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kilibwoni'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option  value ="<?php echo $rows['location'];?>" id="kili"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        
+                                        </select>
+                                       
+                                             
+                                                        <span class="text-danger"><?php echo $location_err;?></span>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="font-weight-bold" for="sec">Sub-Location :</label>
+                                                        <select name="sub_location" id="sec"  class="form-control <?php echo $sub_location_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <option value = ""></option>
+                                                        <?php if($sub_ocation !=''){?>
+                                                             <option id="main"  value="<?php echo $sub_location ? $sub_location :'';?>" selected><?php echo $sub_location ? $sub_location :'';?></option>
+                                                         <?php }else{?>
+                                                            <option value="" selected>-select sub_location-</option>
+                                                          <?php } ?>
+                                                        </select>
+                                                       
+                                                     
+                                                        <span class="text-danger"><?php echo $sub_location_err;?></span>
+                                                      
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 mt-3">
+                                                        <label class="font-weight-bold" for="year">Year :</label>
+                                                        <input type="text" name="year" id="year" value="<?php echo $year;?>"class="form-control"readonly>
+                                                    </div>
+                                                </div>
+                                                
+                                    </div>
+                                    <hr>
+                                    <div class="card-header" id="head" >
+                                        <h4 class="text-center font-weight-bold color">School Details</h4>
+                                    </div>
+                                    <div class="card-body mt-4" >
+                                            <div class="row">              
+                                                <div class="col-md-4">
+                                                    <label class="font-weight-bold" for="level">Institution :</label>
+                                                    <select name="school_level" id="level" class="form-control <?php echo $school_level_err ? 'border border-danger' : '';?>">
+                                                    <option value = ""></option>
+                                                    <?php if($school_level !=''){?>
+                                                        <option value="<?php echo $school_level;?>" selected><?php echo $school_level;?></option>
+                                                    <?php }else{?>
+                                                        <option value="" selected>-select school level-</option>
+                                                    <?php } ?>
+                                                        <option>Secondary School</option>
+                                                        <option>University/College/TVET</option>
+                                                    </select>
+                                                    
+                                                    <span class="text-danger"><?php echo $school_level_err;?></span>
+                                                    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="font-weight-bold" for="reg_no">UPI/ Adm/ Reg Number :</label>
+                                                    <input type="text" name="reg_no" id="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" placeholder="-enter admission number-" value="<?php echo $reg_no;?>">
+                                                    
+                                                    <span class="text-danger"><?php echo $reg_no_err;?></span>
+                                                   
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="font-weight-bold" for="school_name">School name :</label>
+                                                    <div class="select-box">
+                                                    <div class="select-option">
+                                                    <input type="text" name="school_name" class="form-control <?php echo $school_name_err ? 'border border-danger' : '';?>" value="<?php echo $school_name;?>" id="soValue" placeholder="-select school-" readonly>
+                                                    </div>
+                                                    <div class="contents col-md-12" id="contents">
+                                                        <div class="search">
+                                                            <input type="text" name="" placeholder="Search.." class="form-control" id="optionSearch">
+                                                        </div>
+                                                        <ul class="options" id="schools">
+                                                            <!-- <li></li> -->
+                                                    <li>Umoja High</li>
+                                                    <li>Kimumu Secondary School</li>
+                                                    <li>UG High School</li>
+                                                    <li>64 Secondary School</li>
+                                                    <li>Central Secondary School</li>
+                                                    <li>Segero Girls</li>
+                                                    <li>Alliance Girls</li>
+                                                    <li>Alliance Boys</li>
+                                                    <li>Kapsabet Boys</li>
+
+                                                    </ul>
+                                                    </div>
+                                                    </div>
+                                                   
+                                                    <span class="text-danger"><?php echo $school_name_err;?></span>
+                                                   
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="card-header" id="head" >
+                                                <h4 class="text-center font-weight-bold color">Upload Section</h4>
+                                            </div>
+                                                <div class="row mt-4">
+                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="column">
+                                                        <label class="font-weight-bold" for="file-upload-field">School Fees Structure : (Max 5MB)</label>
+                                                        <!-- <input type="file" name="fee_structure" class="form-control <?php echo $fee_structure_err ? 'border border-danger' : '';?>" placeholder="Choose a file" id="file" value="<?php echo $fee_structure;?>" onchange="validateFile(this.files[0]);"> -->
+                                                        <input type="file" id="file-upload-field" class="form-control" name="fee_structure">
+                                                        <span id="file-upload-error" class="text-danger font-weight-bold"></span>
+                                                    <!-- <span class="text-danger"><?php echo $fee_structure_err;?></span> -->
+                                                    <!-- <div class="preview-card mt-2">
+                                                     <iframe id="preview-image" src="" alt="Selected document preview"></iframe>
+                                                    </div> -->
+                                                    </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="column">
+                                                        <label class="font-weight-bold" for="school_doc">School ID/School adm. letter : (Max 5MB)</label>
+                                                        <input type="file" name="school_doc" class="form-control" placeholder="Choose a file" id="file-upload" value="<?php echo $name;?>">
+                                                        <span class="text-danger"><?php print_r($errors);?></span>
+                                                        <span id="file-error" class="text-danger font-weight-bold"></span>
+                                                    <!-- <span class="text-danger"><?php echo $school_doc_err;?></span><br> -->
+                                                    <!-- <div class="preview-card mt-2">
+                                                     <iframe id="preview" src="" alt="Selected document preview"></iframe>
+                                                    </div> -->
+                                                    </div>
+                                                    </div>
+                                                    
+
+
+                                                </div>
+                                             
+                                                <input type="submit" name="apply" class="btn application mt-5 font-weight-bold mb-4 " style="float: right;color:white;background-color:#166651" onmouseover="this.style.backgroundColor='orange'" onmouseout="this.style.backgroundColor='#166651'" value="SUBMIT APPLICATION">
+                                    </div>
+                                </form>
+                                </div>
+                                <?php if(isset($_POST['apply'])){
+                                                            if($_POST['ward'] == 'Kapkangani'){
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapkangani').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kapsabet'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kapsabet').style.display = 'block';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Kilibwoni'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('kilibwoni').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('chepkumia').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }elseif($_POST['ward'] == 'Chepkumia'){
+
+                                                            ?>
+                                                            <script>
+                                                                document.getElementById('chepkumia').style.display = 'block';
+                                                                document.getElementById('kapsabet').style.display = 'none';
+                                                                document.getElementById('kilibwoni').style.display = 'none';
+                                                                document.getElementById('kapkangani').style.display = 'none';
+                                                                document.getElementById('default').style.display = 'none';
+                                                                </script>
+                                                                <?php
+                                                        }
+                                                        
+                                                        if($_POST['kapsabet_location'] || $_POST['chepkumia_location'] || $_POST['kapkangani_location'] || $_POST['kilibwoni_location']){
+                                                            ?>
+                                                            <script>
+                                                                // document.getElementById('kamobo_sub').style.display = 'block';
+                                                                document.getElementById('sub').style.display = 'block';
+                                                                </script>
+                                                    
+                                                    <?php
+                                        }}
+                                            ?>
+                                                        
+                            </div>
+                            <!-- /Revenue Chart -->
+                            
+                        </div>
+                    </div>
+<!--show loactions -->
+<!-- onchange="showOpt()" -->
+                                                        <select name="kapsabet_location"class="form-control" id="kapsabet" style="display:none;" onchange="showO(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapsabet_location ="";
+                                        if(isset($_POST['apply']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;?>" selected><?php
+                                        if(isset($_POST['kapsabet_location']))
+                                        $kapsabet_location = $_POST['kapsabet_location'];
+                                        echo $kapsabet_location;
+                                        
+                                        ?></option>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapsabet'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                            <!-- <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option> -->
+                                        </select>
+                                        <!-- onchange="showOptions()" -->
+                                        <select name="kapkangani_location"class="form-control" id="kapkangani" style="display:none;" onchange="showKap(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php 
+                                        $kapkangani_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                    // $_SESSION['kapkangani_location'] = $kapkangani_location;
+                                        echo $kapkangani_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kapkangani_location = $_POST['kapkangani_location'];
+                                        echo $kapkangani_location;
+                                        
+                                        ?></option>
+                                         <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kapkangani'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        </select>
+                                        
+                                        <!-- onchange="Options()" -->
+                                        <select name="chepkumia_location"class="form-control" id="chepkumia" style="display:none;"  onchange="showChep(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $chepkumia_location = "";
+                                        
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                    // $_SESSION['chepkumia_location'] = $chepkumia_location;
+                                        echo $chepkumia_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $chepkumia_location = $_POST['chepkumia_location'];
+                                        echo $chepkumia_location;
+                                        
+                                        ?></option>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Chepkumia'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option value ="<?php echo $rows['location'];?>" ><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        </select>
+                                        
+                                        <select name="kilibwoni_location"class="form-control" id="kilibwoni" style="display:none;" onchange="showK(this.value)">
+                                        <option value="">Null</option>
+                                        <option value="<?php
+                                        $kilibwoni_location = "";
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                    // $_SESSION['kilibwoni_location'] = $kilibwoni_location;
+                                        echo $kilibwoni_location;?>" selected><?php
+                                        if(isset($_POST['apply']))
+                                        $kilibwoni_location = $_POST['kilibwoni_location'];
+                                        echo $kilibwoni_location;
+                                        
+                                        ?></option>
+                                        <?php 
+                                                            $sql = "SELECT * FROM locations WHERE ward='Kilibwoni'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($rows = $q->fetch_assoc()){
+                                                                ?>
+                                            <option  value ="<?php echo $rows['location'];?>" id="kili"><?php echo $rows['location'];?></option>
+                                        <?php }?>
+                                        
+                                        </select>
+                                        <!-- post location -->
+                                         <?php if(empty($_POST['kapsabet_location'])&&empty($_POST['kapkangani_location'])&&empty($_POST['kilibwoni_location'])&&empty($_POST['chepkumia_location'])){
+        $location_err = "Please select location";
+    }else{
+    
+    $kapsabet_location = $_POST['kapsabet_location'];
+    $kapkangani_location = $_POST['kapkangani_location'];
+    $chepkumia_location = $_POST['chepkumia_location'];
+    $kilibwoni_location = $_POST['kilibwoni_location'];
+    if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = '';
+     }elseif($kapsabet_location != '' && $chepkumia_location == '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = $kapsabet_location;
+    }elseif($kapsabet_location == '' && $chepkumia_location != '' && $kapkangani_location == '' && $kilibwoni_location == ''){
+         $location = $chepkumia_location;
+    }elseif($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location != '' && $kilibwoni_location == ''){
+         $location = $kapkangani_location;
+    }else{
+         $location = $kilibwoni_location;
+     }
+    
+    
+}
+?>
+
+
+<!-- <div class="row"> -->
+                                                            <!-- <div class="row"> -->
+                                                                <!--  -->
+                                                         <!-- <div class="form-group  d-inline-block <?php echo $phone_err ? 'border border-danger' : '';?> "> -->
+                                                            <!-- <div class="row">
+                                                                <div class="col-md-2">
+                                                            <span class="border-end country-code mx-1">254</span>
+                                                        </div>
+                                                            <div class="col-md-5 mr-1">
+                                                            <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="emailHelp" placeholder="7 - - - - - -" value="<?php echo $phone;?>" oninput="validatePhoneNumber()"/>
+                                                        </div>
+                                                        </div> -->
+                                                        <!--  -->
+                                                        
+                                                        <!-- <p class="form-control col-md-2 text-center font-weight-bold" readonly>+254</p> -->
+                                                        <!-- <p id="input">254</p> -->
+                                                        
+                                                        <!-- <input type="text" name="phone" id="phone" class="form-control link font-weight-bold <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 - - - - - -" value="<?php if(isset($_SESSION['user_data'])) {
+                                                            echo $data['Phone'];
+                                                        }else{ echo $phone;}?>" oninput="validatePhoneNumber()" />  -->
+                                                        <!-- </div> -->
