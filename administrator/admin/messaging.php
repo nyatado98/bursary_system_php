@@ -1,4 +1,4 @@
-<!-- <?php 
+<?php 
 include 'database/connect.php';
 if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
@@ -270,4 +270,4 @@ while ($rows = $result->fetch_assoc()) {
         $('#sample').DataTable();
     } );
     </script>
-</html> -->
+</html>
