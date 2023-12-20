@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2023 at 07:27 AM
+-- Generation Time: Dec 20, 2023 at 04:56 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.2.0
 
@@ -57,6 +57,7 @@ CREATE TABLE `applications` (
   `parent_email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `student_fullname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `student_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adm_upi_reg_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `school_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `school_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -245,6 +246,7 @@ CREATE TABLE `reports` (
 CREATE TABLE `students` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `student_fullname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `student_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` int(11) NOT NULL,
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_guardian_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
