@@ -123,7 +123,7 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
         <h5 class="text-center" id="h3" style="color: orange;text-decoration: underline;">Welcome To Emgwen Bursary System.</h5>
         <ol>
             <p style="color:white">1. Create a student account.</p>
-            <p style="color:white">2. Login the account created.</p>
+            <p style="color:white">2. Login the student account created.</p>
             <p style="color:white">3. Fill all the required fields when making an application.</p>
             <p style="color:white">4. Upload the necessary documents and track your application progress.</p>
             <p style="color:white">5. Applicants awarded the bursary will be sent an sms confirmation.</p>
