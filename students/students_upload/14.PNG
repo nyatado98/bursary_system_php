@@ -1,5 +1,5 @@
 <br />
-<b>Warning</b>:  file_get_contents(10.PNG): Failed to open stream: No such file or directory in <b>E:\xampp\htdocs\nrs_projects\New folder\bursary-ms\administrator\admin\beneficiaries.php</b> on line <b>89</b><br />
+<b>Warning</b>:  readfile(14.PNG): Failed to open stream: No such file or directory in <b>E:\xampp\htdocs\nrs_projects\New folder\bursary-ms\administrator\admin\beneficiaries.php</b> on line <b>122</b><br />
 <!DOCTYPE html>
 <html lang="en">
     <head>

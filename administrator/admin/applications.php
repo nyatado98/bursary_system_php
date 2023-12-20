@@ -209,7 +209,7 @@ unset($_SESSION['m']);
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
 							<li> 
-								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
+								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
 							</li>
 							<li> 
 								<a href="logout"><i class="fa fa-arrow-left"></i> <span>Logout</span></a>

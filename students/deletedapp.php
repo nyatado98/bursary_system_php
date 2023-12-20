@@ -2594,3 +2594,82 @@ $response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully 
     }
 }
 ?>
+
+<!-- application -->
+}else{
+//             $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+//             created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+//             '$current_date','$current_date','$today','$year')";
+//             $rs = mysqli_query($conn,$sql);
+
+
+//             // send sms using advantasms
+// // Check if the phone number starts with a zero
+// if (substr($phone, 0, 1) === '0') {
+//     // Remove the leading zero
+//     $phoneNumber = substr($phone, 1);
+
+
+// $apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+// $partnerId = "2832";
+// $shortcode = "JOSSES";
+// $mobile ='254'.$phoneNumber;
+// //instantiate
+// $sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+// //Send and receive response
+// $response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+// }
+//        //send sms via twilio
+// //             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// // $authToken = getenv('TWILIO_AUTH_TOKEN');
+// // $twilioNumber = "+17124300592"; // Your Twilio phone number
+// // $recipientNumber = $phone; // Recipient's phone number
+// // $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// // $client = new Client($accountSid, $authToken);
+
+// // try {
+// //   $message = $client->messages->create(
+// //     $recipientNumber,
+// //     array(
+// //       'from' => $twilioNumber,
+// //       'body' => $message
+// //     )
+// //   );
+// //   echo "SMS message sent successfully!";
+// // } catch (Exception $e) {
+// //   echo "Error sending SMS: " . $e->getMessage();
+// // }
+//             //send mail
+//             $mailto = $email;
+//             $mailSub = 'NANDI COUNTY';
+//             // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
+//             // Thank You.\n";
+//             $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+//             $mail ->IsSmtp();
+//            $mail ->SMTPDebug = 0;
+//            $mail ->SMTPAuth = true;
+//            $mail ->SMTPSecure = 'ssl';
+//            //$mail ->SMTPSecure = 'tsl';
+//            $mail ->Host = "smtp.gmail.com";
+//            $mail ->Port = 465; // or 587 or 465
+//            //$mail ->IsHTML(true);
+//            $mail ->Username = "danndong080@gmail.com";
+//            $mail ->Password = "okzumpamraiksdcq";
+//            $mail ->SetFrom("ict@nandicounty.com");
+//            $mail ->Subject = $mailSub;
+//            $mail ->Body = $mailMsg;
+//            $mail ->AddAddress($mailto);
+        
+//            $mail->Send();
+//            $mssg = $fullname.", Application made successfully and mail has been sent to you.";
+//             $_SESSION['message'] = $mssg;
+//             $message = "Application made successfully and mail has been sent to you.";
+//             session_start();
+//             unset($_SESSION['user_data']);
+//             unset($_SESSION['school']);
+//             header("location:application?success");
+            
+//         }

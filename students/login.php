@@ -194,9 +194,10 @@ body{
                 <span class="text-danger font-weight-bold"><?php echo $email_err;?></span><br>
                
                 <label class="font-weight-bold" style="color: white;">Enter Password :</label>
-                <input type="password" name="password" class="form-control <?php echo ($password_err) ? 'border border-danger' : '';?>" placeholder="********">
+                <input type="password" name="password" id="password" class="form-control <?php echo ($password_err) ? 'border border-danger' : '';?>" placeholder="********">
                 
                 <span class="text-danger font-weight-bold"><?php echo $password_err;?></span><br>
+                <input type="checkbox" id="showPassword" > <span class="text-white">Show Password</span>
                 
                 <input type="submit" class="btn btn-primary mt-2 form-control font-weight-bold" style="font-size:17px" name="login" value="L O G I N">
                 </form>
@@ -234,4 +235,10 @@ body{
 <script src='bootstrap/js/bootstrap.min.js'></script>
 <script src='bootstrap/popper/popper.min.js'></script>
 <script src='bootstrap/js/bootstrap.js'></script>
+<script type="text/javascript">
+    document.getElementById('showPassword').addEventListener('change', function() {
+            var passwordInput = document.getElementById('password');
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
+</script>
 </html>

@@ -7,7 +7,7 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 // $sql = "SELECT * FROM parents WHERE parent_email = '".$_SESSION['user_email']."'";
 // $result = mysqli_query($conn,$sql);
 // while($row = $result->fetch_assoc())
-	$sql = "SELECT * FROM applications WHERE parent_email = '".$_SESSION['user_email']."'";
+	$sql = "SELECT * FROM applications WHERE student_email = '".$_SESSION['user_email']."'";
 	$re = mysqli_query($conn,$sql);
 
 ?>

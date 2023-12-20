@@ -9,7 +9,7 @@ $school = $_SESSION['school'];
 $data = $_SESSION['user_data'];
 
 require "../vendor/autoload.php";
-require __DIR__ . '../vendor/autoload.php';
+// require __DIR__ . '../vendor/autoload.php';
 
 use \Savannabits\Advantasms\Advantasms;
 
@@ -422,10 +422,10 @@ if(isset($_POST['next'])){
      $fullname = $_POST['fullname'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
-    $email = $_POST['email'];
+    $email = $_POST['email']; //parent email address
     $parent = $_POST['parent_guardian_name'];
-    $phone = $_POST['phone'];
-    $id_no = $_POST['id_no'];
+    $phone = $_POST['phone']; //parent phone number
+    $id_no = $_POST['id_no']; //parent id_no
     $county = $_POST['county'];
     $ward = $_POST['ward'];
     $location = $_POST['location'];
@@ -481,17 +481,18 @@ if(isset($_POST['next'])){
         $results = mysqli_query($conn,$sql);
         $count = mysqli_num_rows($results);
         if($count <= 0){
+        	$student_email = $_SESSION['user_email'];
             
-            $sql = "INSERT INTO students (student_fullname,age,gender,parent_guardian_name,phone,parent_email,
-            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$age','$gender','$parent','$phone','$email',
+            $sql = "INSERT INTO students (student_fullname,student_email,age,gender,parent_guardian_name,phone,parent_email,
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$student_email','$age','$gender','$parent','$phone','$email',
             '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
             $res = mysqli_query($conn,$sql);
 
             $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
             $re = mysqli_query($conn,$sql1);
 
-            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,student_email,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$student_email','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -545,27 +546,6 @@ $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 //Send and receive response
 $response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
 }
-               //send sms via twilio
-//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
-// $authToken = getenv('TWILIO_AUTH_TOKEN');
-// $twilioNumber = "+17124300592"; // Your Twilio phone number
-// $recipientNumber = $phone; // Recipient's phone number
-// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
-
-// $client = new Client($accountSid, $authToken);
-
-// try {
-//   $message = $client->messages->create(
-//     $recipientNumber,
-//     array(
-//       'from' => $twilioNumber,
-//       'body' => $message
-//     )
-//   );
-//   echo "SMS message sent successfully!";
-// } catch (Exception $e) {
-//   echo "Error sending SMS: " . $e->getMessage();
-// }
 
 
             //send mail
@@ -597,87 +577,13 @@ $response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully 
             unset($_SESSION['school']);
             header("location:application?success");
             
+            // 
 
-        }else{
-            $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
-            '$current_date','$current_date','$today','$year')";
-            $rs = mysqli_query($conn,$sql);
-
-
-            // send sms using advantasms
-// Check if the phone number starts with a zero
-if (substr($phone, 0, 1) === '0') {
-    // Remove the leading zero
-    $phoneNumber = substr($phone, 1);
-
-
-$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
-$partnerId = "2832";
-$shortcode = "JOSSES";
-$mobile ='254'.$phoneNumber;
-//instantiate
-$sms = new Advantasms($apiKey,$partnerId,$shortcode);
-
-//Send and receive response
-$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+//     
 }
-       //send sms via twilio
-//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
-// $authToken = getenv('TWILIO_AUTH_TOKEN');
-// $twilioNumber = "+17124300592"; // Your Twilio phone number
-// $recipientNumber = $phone; // Recipient's phone number
-// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
-
-// $client = new Client($accountSid, $authToken);
-
-// try {
-//   $message = $client->messages->create(
-//     $recipientNumber,
-//     array(
-//       'from' => $twilioNumber,
-//       'body' => $message
-//     )
-//   );
-//   echo "SMS message sent successfully!";
-// } catch (Exception $e) {
-//   echo "Error sending SMS: " . $e->getMessage();
-// }
-            //send mail
-            $mailto = $email;
-            $mailSub = 'NANDI COUNTY';
-            // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
-            // Thank You.\n";
-            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
-        
-            $mail ->IsSmtp();
-           $mail ->SMTPDebug = 0;
-           $mail ->SMTPAuth = true;
-           $mail ->SMTPSecure = 'ssl';
-           //$mail ->SMTPSecure = 'tsl';
-           $mail ->Host = "smtp.gmail.com";
-           $mail ->Port = 465; // or 587 or 465
-           //$mail ->IsHTML(true);
-           $mail ->Username = "danndong080@gmail.com";
-           $mail ->Password = "okzumpamraiksdcq";
-           $mail ->SetFrom("ict@nandicounty.com");
-           $mail ->Subject = $mailSub;
-           $mail ->Body = $mailMsg;
-           $mail ->AddAddress($mailto);
-        
-           $mail->Send();
-           $mssg = $fullname.", Application made successfully and mail has been sent to you.";
-            $_SESSION['message'] = $mssg;
-            $message = "Application made successfully and mail has been sent to you.";
-            session_start();
-            unset($_SESSION['user_data']);
-            unset($_SESSION['school']);
-            header("location:application?success");
-            
-        }
+}    
     }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -964,12 +870,12 @@ font-size: 14px;
                     </div>   
             <div class="card px-0 pt-4 pb-0  mb-3">  
                 <div id="msform">   
-                    <ul class="progressbar">  
-                        <li class="active" id="account"><strong> Applicant Information </strong></li>  
-                        <li class="active" id="personal"><strong> School Information </strong></li>  
-                        <li class="active" id="payment"><strong> Upload Documents </strong></li>  
-                        <li id="confirm"><strong> Finish </strong></li>  
-                    </ul>  
+                    <ul class="progressbar row mx-auto" id style="">  
+                        <li class="active col-md-4" id="account"><strong> Applicant Information </strong></li>  
+                        <li class="active col-md-4" id="personal"><strong> School Information </strong></li>  
+                        <li class="active col-md-4" id="payment"><strong> Upload Documents & Summary Details </strong></li>  
+                        <!-- <li id="confirm"><strong> Finish </strong></li>   -->
+                    </ul>   
                     <div class="progress">  
                         <div class="pbar pbar-striped pbar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"> </div>  
                     </div> <br>  
@@ -978,10 +884,10 @@ font-size: 14px;
                     <fieldset>  
                         <div class="form-card">  
                             <div class="row">  
-                                <div class="col-7">  
+                                <div class="col-md-9">  
                                     <h2 class="fs-title" style="text-decoration: underline;"> Documents Upload: </h2>  
                                 </div>  
-                                <div class="col-5">  
+                                <div class="col-md-3">  
                                     <h2 class="steps"> Step 3 - 4 </h2>  
                                 </div>  
                             </div>
@@ -1018,6 +924,7 @@ font-size: 14px;
 
 
                                                 </div>
+                            
                                                 <hr>
                                                  <div class="row mt-5">  
                                 <div class="col-7">  
@@ -1029,8 +936,8 @@ font-size: 14px;
                             </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <label class="font-weight-bold" for="firstname">Student First-Name :*</label>
-                                                        <input type="text" name="fullname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student firstname-"  value="<?php if (isset($_SESSION['user_data'])) {
+                                                        <label class="font-weight-bold" for="firstname">Student FullName :*</label>
+                                                        <input type="text" name="fullname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student firstname-" readonly  value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['fullname'];}else{ echo '';}?>" >
                                                         
@@ -1066,7 +973,9 @@ font-size: 14px;
                                                     </div>
                                                     <div class="col-md-3">
                                                   <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php if (isset($_SESSION['user_data'])) {
+                                                            echo $data['parent'];
+                                                        }else{ echo $parent_guardian_name;}?>" class="form-control font-weight-bold" placeholder="Enter parent name">
                                                         
                                                 </div>
                              
@@ -1082,7 +991,7 @@ font-size: 14px;
                                 <label class="font-weight-bold">Email : *</label>
                                 <input type="text" name="email" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
-                                                         echo $data['email'];}else{ echo '';}?>" readonly>
+                                                         echo $data['email'];}else{ echo '';}?>" >
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">ID Number : *</label>
@@ -1319,5 +1228,38 @@ fileInputElement.addEventListener('change', function(event) {
 
   });
 });
+/*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(function () {
+    $('#upload').on('change', function () {
+        readURL(input);
+    });
+});
+
+/*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+var input = document.getElementById( 'upload' );
+var infoArea = document.getElementById( 'upload-label' );
+
+input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  var input = event.srcElement;
+  var fileName = input.files[0].name;
+  infoArea.textContent = 'File name: ' + fileName;
+}
     </script>
 </html>

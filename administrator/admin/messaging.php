@@ -1,71 +1,95 @@
-<?php 
+<!-- <?php 
 include 'database/connect.php';
 if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
 }
-$sql = "SELECT * FROM admins";
-$result = mysqli_query($conn, $sql);
-$name = $email = $phone = $password = "";
-$message = "";
-if(isset($_POST['edit'])){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $sql = "UPDATE admins SET fullname ='".$name."', email = '".$email."', phone = '".$phone."' WHERE id='".$_POST['id'] ."'";
-    $res = mysqli_query($conn, $sql);
-    if($res){
-    $message = "Users details updated successfully";
-    // header("location:users");
-    }
-    
-}
-if(isset($_POST['add'])){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = random_int(100000,999999);
 
-    date_default_timezone_set('Africa/Nairobi');
-	$today=strtotime("current");
-    $today = date('Y-m_d H:m:s');
+require "../../vendor/autoload.php";
+// require __DIR__ . '../vendor/autoload.php';
 
-    $sql = "INSERT INTO admins (fullname,email,phone,password,created_at,updated_at)VALUES('$name','$email','$phone','$password','$today','$today')";
-    $ress = mysqli_query($conn,$sql);
-    if($ress){
-        $message = "Users successfully added";
-        // header("Location:users");
-    }
-}
+use \Savannabits\Advantasms\Advantasms;
 
-$current_pass = $new_pass = $re_pass = "";
+$current = date('Y');
+$message = $fullname = "";
 $err = "";
-if(isset($_POST['reset'])){
-    $id = $_POST['id'];
-    $current_pass = $_POST['current_pass'];
-    $new_pass = $_POST['new_pass'];
-    $re_pass = $_POST['re_pass'];
 
-$sql = "SELECT password FROM admins WHERE id = '".$_POST['id']."'";
-$r = mysqli_query($conn,$sql);
-while($rows = $r->fetch_assoc()){
-    if($current_pass != $rows['password']){
-    $err = "The current password doesn't match the original password";
-}elseif($re_pass != $new_pass){
-    $err = "The confirm password doesn't match new password";
-}else{
-    $sql = "UPDATE admins SET password = '".$new_pass."' WHERE id ='".$_POST['id']."'";
-    $query = mysqli_query($conn,$sql);
-    if($query){
-        $message = "User password reset successfully";
-    }
+// befor cheque distribution
+if(isset($_POST['send'])){
+	if (empty($_POST['message'])) {
+		$err = "Please enter a message";
+
+	}else{
+		$message = trim($_POST['message']);
+	}
+ if (empty($err)) {
+ 	$sql = "SELECT * FROM applications WHERE status = 'Awarded' AND year = '$current'";
+ 	$result = mysqli_query($conn,$sql);
+ 	while($rows = $result->fetch_assoc()){
+ 		$name = $rows['student_fullname'];
+ 		$sql = "SELECT phone, student_fullname FROM students WHERE student_fullname = '$name' AND year = '$current'";
+ 		$query = mysqli_query($conn,$sql);
+ 		
+
+foreach ($query as $key) {
+ 			// send sms
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$key['phone'];
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$key['student_fullname'].", We will let you know when the cheque is ready. Thank You.")->send();
+
+	header("location:messaging?success");
+
+		}
+ 	}
+
+ }
+
 }
-}
+
+
+// after cheque distribution
+if(isset($_POST['send_sms'])){
+	if (empty($_POST['message'])) {
+		$err = "Please enter a message";
+
+	}else{
+		$message = trim($_POST['message']);
+	}
+ if (empty($err)) {
+ 	$sql = "SELECT * FROM applications WHERE status = 'Awarded' AND year = '$current'";
+ 	$result = mysqli_query($conn,$sql);
+ 	while($rows = $result->fetch_assoc()){
+ 		$name = $rows['student_fullname'];
+ 		$sql = "SELECT phone, student_fullname FROM students WHERE student_fullname = '$name' AND year = '$current'";
+ 		$query = mysqli_query($conn,$sql);
+ 		
+
+foreach ($query as $key) {
+ 			// send sms
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$key['phone'];
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$key['student_fullname'].", Your cheque has been delivered to your school. Lias with your schools' burser or accounts office. Thank You.")->send();
+
+	header("location:messaging?success");
+
+		}
+ 	}
+
+ }
 
 }
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -155,35 +179,74 @@ while($rows = $r->fetch_assoc()){
 							</div>
 						</div>
 					</div>
+					<hr>
 					
+<?php 
+$sql = "SELECT * FROM applications WHERE status = 'Awarded' AND year = '$current'";
+ 	$result = mysqli_query($conn,$sql);
+while ($rows = $result->fetch_assoc()) {
+	$name = $rows['student_fullname'];
+	$sql = "SELECT phone,student_fullname FROM students WHERE student_fullname = '$name' AND year = '$current'";
+ 		$query = mysqli_query($conn,$sql);
+ // while ($row = $query->fetch_assoc()) {
+ 	foreach ($query as $key) {
 
+ 		
+ 	?>
+ 	<!-- <td><?php print_r($key['phone']);?></td>
+ 	<td><?php print_r($key['student_fullname']);?></td> -->
+
+ <?php } } ?>
 					<div class="row">
-						<div class="container col-md-10">
+						<!-- <div class="container col-md-10"> -->
 							<!-- Revenue Chart -->
 							
 								<div class="card-body">
 									<div id="line_graph">
 									</div>
-                                    <div class="col-md-7">
+									<div class="row">
+                                    <div class="col-md-6">
 									<form method="post" action="">
                                         <div class="card-header">
                                         <h4 class="text-center">Send Message</h4>
                                         </div>
-                                        <label class="font-weight-bold mt-3">Select Here.</label>
+                                       <!--  <label class="font-weight-bold mt-3">Select Here.</label>
                                         <select class="form-control"name="users">
                                             <option>All</option>
                                             <option>Select Users</option>
-                                        </select>
+                                        </select> -->
                                         <label class="font-weight-bold mt-3">Message Here.</label>
-                                        <textarea name="message" class="form-control mb-3"></textarea>
-                                        <input type="submit" name="send" class="btn btn-info form-control" value="Send">
+                                        <textarea name="message" style="height: 10em; font-size:17px" class="form-control mb-3 <?php echo $err ? 'border border-danger' : '';?>" placeholder="Enter message here......" readonly>Dear Student, We will let you know when the cheque is ready. Thank You.</textarea>
+                                        <span class="text-danger"><?php echo $err;?></span>
+                                        <!-- <input type="submit" name="send" class="btn btn-info form-control" value="Send"> -->
+                                        <button type="submit" name="send" class="btn btn-info form-control" style="font-size:17px"><i class="fa fa-paper-plane"></i> Send Message.</button>
                                     </form>
                                     </div>
+
+                                    <div class="col-md-6">
+									<form method="post" action="">
+                                        <div class="card-header">
+                                        <h4 class="text-center">Send Message</h4>
+                                        </div>
+                                       <!--  <label class="font-weight-bold mt-3">Select Here.</label>
+                                        <select class="form-control"name="users">
+                                            <option>All</option>
+                                            <option>Select Users</option>
+                                        </select> -->
+                                        <label class="font-weight-bold mt-3">Message Here.</label>
+                                        <textarea name="message" style="height: 10em; font-size:17px" class="form-control mb-3 <?php echo $err ? 'border border-danger' : '';?>" placeholder="Enter message here......" readonly>Dear Student, Your cheque has been delivered to your school. Lias with your schools' burser or accounts office. Thank You.</textarea>
+                                        <span class="text-danger"><?php echo $err;?></span>
+                                        <!-- <input type="submit" name="send_sms" class="btn btn-info form-control" value="Send">
+                                         -->
+                                         <button type="submit" name="send_sms" class="btn btn-info form-control" style="font-size:17px"><i class="fa fa-paper-plane"></i> Send Message.</button>
+                                    </form>
+                                    </div>
+                                </div>
 								</div>
 							
 							<!-- /Revenue Chart -->
 							
-						</div>
+						<!-- </div> -->
 					</div>
 
 				</div>
@@ -197,7 +260,7 @@ while($rows = $r->fetch_assoc()){
 		<?php include('config/scripts.php');?>
     </body>
 	
-    {{-- <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script> --}}
+    <!-- <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script> -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -207,4 +270,4 @@ while($rows = $r->fetch_assoc()){
         $('#sample').DataTable();
     } );
     </script>
-</html>
+</html> -->

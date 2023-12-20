@@ -734,19 +734,19 @@ font-size: 14px;
                     <div class="container-fluid">  
  
     <div class="row justify-content-center">  
-        <div class="col-md-12 text-center p-0 ">
+        <div class="col-md-12 text-center p-0 mb-3">
         <div class="card-header">  
                         <h5 class="font-weight-bold text-center" style="font-size: 30px"><span style="color: #0f893b">New</span> - <span style="color: orange">Application</span></h5>
                     </div>  
             <div class="card px-0 pt-4 pb-0  ">  
                 <div id="msform" > 
 
-                    <ul class="progressbar">  
-                        <li class="active" id="account"><strong> Applicant Information </strong></li>  
-                        <li class="active" id="personal"><strong> School Information </strong></li>  
-                        <li id="payment"><strong> Upload Documents </strong></li>  
-                        <li id="confirm"><strong> Finish </strong></li>  
-                    </ul>  
+                    <ul class="progressbar row mx-auto" id style="">  
+                        <li class="active col-md-4" id="account"><strong> Applicant Information </strong></li>  
+                        <li class="active col-md-4" id="personal"><strong> School Information </strong></li>  
+                        <li id="payment" class="col-md-4"><strong> Upload Documents & Summary Details </strong></li>  
+                        <!-- <li id="confirm"><strong> Finish </strong></li>   -->
+                    </ul>   
                     <div class="progress">  
                         <div class="pbar pbar-striped pbar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"> </div>  
                     </div> <br>
@@ -755,10 +755,10 @@ font-size: 14px;
                     <fieldset>  
                         <div class="form-card">  
                             <div class="row">  
-                                <div class="col-7">  
+                                <div class="col-md-9">  
                                     <h2 class="fs-title" style="text-decoration: underline;"> School Details: </h2>  
                                 </div>  
-                                <div class="col-5">  
+                                <div class="col-md-3">  
                                     <h2 class="steps"> Step 2 - 4 </h2>  
                                 </div>  
                             </div> 

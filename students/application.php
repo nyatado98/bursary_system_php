@@ -497,7 +497,7 @@ if(empty($_POST['sub_location'])){
     }
    
     if(empty($_POST['email'])){
-        $email_err = "Please enter email";
+        $email_err = "Please enter parent email";
     }else{
         $email = trim($_POST['email']);
     }
@@ -877,11 +877,11 @@ font-size: 14px;
 </div>
             <div class="card px-0 pt-4 pb-0  mb-3">  
                 <div id="msform">   
-                    <ul class="progressbar" style="">  
-                        <li class="active" id="account"><strong> Applicant Information </strong></li>  
-                        <li id="personal"><strong> School Information </strong></li>  
-                        <li id="payment"><strong> Upload Documents </strong></li>  
-                        <li id="confirm"><strong> Finish </strong></li>  
+                    <ul class="progressbar row mx-auto" style="">  
+                        <li class="active col-md-4" id="account"><strong> Applicant Information </strong></li>  
+                        <li id="personal" class="col-md-4"><strong> School Information </strong></li>  
+                        <li id="payment" class="col-md-4"><strong> Upload Documents & Summary Details </strong></li>  
+                        <!-- <li id="confirm"><strong> Finish </strong></li>   -->
                     </ul>  
                     <div class="progress">  
                         <div class="pbar pbar-striped pbar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"> </div>  
@@ -930,36 +930,68 @@ font-size: 14px;
                                                         
                                                         <?php } ?>
                             <div class="row">  
-                                <div class="col-7">  
+                                <div class="col-md-9">  
                                     <h2 class="fs-title" style="text-decoration: underline;"> Applicants' Details: </h2>  
         <p class="text-danger"> All Fields marked * are Required </p>  
                                 </div>  
-                                <div class="col-5">  
+                                <div class="col-md-3">  
                                     <h2 class="steps"> Step 1 - 4 </h2>  
                                 </div>  
                             </div> 
                             <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="firstname">Student First-Name :*</label>
+                                                        <!-- <label class="font-weight-bold" for="firstname">Student First-Name :*</label>
                                                         <input type="text" name="firstname" id="first" class="form-control <?php echo $firstname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student firstname-"  value="<?php if(isset($_SESSION['user_data'])) {
                                                             $spacePos = strpos($data['fullname'], ' ');
                                                             $firstname = substr($data['fullname'], 0, $spacePos);
                                                             echo $firstname;
 
-                                                        }else{ echo $firstname;}?>" >
+                                                        }else{ echo $firstname;}?>" > -->
                                                         
+                                                         <?php
+                                                            $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($r = $q->fetch_assoc()){
+                                                                $user = strpos($r['fullname'], ' ');
+                                                                $fname = substr($r['fullname'], 0, $user);
+
+                                                            ?>
+                                                            <?php if($fname == ''){?>
+                                                             <label class="font-weight-bold" for="parent_guardian_name">Enter Student FirstName : *</label>
+                                                        <input type="text" id="first" name="firstname" value="<?php echo $fname;?>" class="form-control font-weight-bold" placeholder="Enter student firstname" readonly>
+                                                        <span class="text-danger">Please fill the student name under the profile page first.</span>
+                                                        <?php }else{?>
+                                                            <label class="font-weight-bold" for="parent_guardian_name">Enter Student FirstName : *</label>
+                                                        <input type="text" id="first"  name="firstname" value="<?php echo $fname;?>" readonly class="form-control font-weight-bold" placeholder="Enter student  firstname">
+                                                        <?php }}?>
                                                         <span class="text-danger"><?php echo $firstname_err;?></span>
                                                        
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="lastname">Student Last-Name :*</label>
+                                                       <!--  <label class="font-weight-bold" for="lastname">Student Last-Name :*</label>
                                                         <input type="text" name="lastname" id="last" class="form-control <?php echo $lastname_err ? 'border border-danger' : '';?> font-weight-bold" placeholder="-Enter Student lastname-" value="<?php if(isset($_SESSION['user_data'])) {
                                                             $spacePos = strpos($data['fullname'], ' ');
                                                             $lastname = substr($data['fullname'], $spacePos + 1);
                                                             echo $lastname;
 
-                                                        }else{ echo $lastname;}?>" >
+                                                        }else{ echo $lastname;}?>" > -->
                                                         
+                                                        <?php
+                                                            $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
+                                                            $q = mysqli_query($conn,$sql);
+                                                            while($r = $q->fetch_assoc()){
+                                                                $user = strpos($r['fullname'], ' ');
+                                                                $fname = substr($r['fullname'], $user + 1);
+
+                                                            ?>
+                                                            <?php if($fname == ''){?>
+                                                             <label class="font-weight-bold" for="last">Enter Student LastName : *</label>
+                                                        <input type="text" id="last" name="lastname" value="<?php echo $fname;?>" class="form-control font-weight-bold" placeholder="Enter student lastname" readonly>
+                                                        <span class="text-danger">Please fill the student name under the profile page first.</span>
+                                                        <?php }else{?>
+                                                            <label class="font-weight-bold" for="last">Enter Student LastName : *</label>
+                                                        <input type="text" id="last"  name="lastname" value="<?php echo $fname;?>" readonly class="form-control font-weight-bold" placeholder="Enter student  lastname">
+                                                        <?php }}?>
                                                         <span class="text-danger"><?php echo $lastname_err;?></span>
                                                        
                                                     </div>
@@ -1002,21 +1034,11 @@ font-size: 14px;
                                                         
                                                     </div>
                                                 <div class="col-md-4">
-                        
-                                                        <?php
-                                                            $sql = "SELECT fullname FROM users WHERE email = '".$_SESSION['user_email']."'";
-                                                            $q = mysqli_query($conn,$sql);
-                                                            while($r = $q->fetch_assoc()){
-                                                                $user = $r['fullname'];
-                                                            ?>
-                                                            <?php if($user == ''){?>
-                                                             <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent" name="parent_guardian_name" value="<?php echo $user;?>" class="form-control font-weight-bold" placeholder="Enter parent name" readonly>
-                                                        <span class="text-danger">Please fill the parent name under the profile page first.</span>
-                                                        <?php }else{?>
-                                                        <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php echo $user;?>" readonly class="form-control font-weight-bold" placeholder="Enter parent name">
-                                                        <?php }}?>
+                                                        <label class="font-weight-bold" for="parent">Enter Parent/Guardian Name :</label>
+                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php if (isset($_SESSION['user_data'])) {
+                                                            echo $data['parent'];}else{ echo $parent_guardian_name;}?>"  class="form-control font-weight-bold <?php echo $parent_guardian_name_err ? 'border border-danger' : '';?>" placeholder="Enter parent name">
+                                                        <span class="text-danger"><?php echo $parent_guardian_name_err;?></span>
+                                                        
                                                     </div>
                                                     <div class="col-md-4">
                                                         <!-- <div class="column mx-3"> -->
@@ -1035,8 +1057,9 @@ font-size: 14px;
                                                     </div>
                                                    
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="email">Parent Email :</label>
-                                                        <input type="email" readonly name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php  echo $_SESSION['user_email'];?>">
+                                                        <label class="font-weight-bold" for="email">Parent Email : *</label>
+                                                        <input type="email"  name="email" class="form-control font-weight-bold <?php echo $email_err ? 'border border-danger' : '';?>" placeholder="Enter parent email address" id="" value="<?php if (isset($_SESSION['user_data'])) {
+                                                            echo $data['email'];}else{ echo $email;}?>">
                                                      
                                                         <span class="text-danger"><?php echo $email_err;?></span>
                                                         
