@@ -249,8 +249,13 @@ while($data = $re->fetch_assoc()){
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Year :</label>
                                         <select name="year" class="form-control" id="filterOption" onchange="update()">
-											<option value="">-Select Year-</option>
-											<option value="<?php if(isset($_POST['filter_all']))
+                                        	<option value=""></option>
+                                        	<?php if ($year == '') {
+                                        	?>
+											<option value="" selected>-Select Year-</option>
+										<?php }else{ ?>
+										<option value="<?php if(isset($_POST['filter_all']))
+										
                                         $year = $_POST['year'];
                                         echo $year;
                                         
@@ -259,6 +264,7 @@ while($data = $re->fetch_assoc()){
                                         echo $year;
                                         
                                         ?></option>
+                                    <?php } ?>
 											<?php 
 											
 											$years = range(2020, strftime("%Y",time()));
@@ -275,7 +281,11 @@ while($data = $re->fetch_assoc()){
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Ward :</label>
                                         <select name="ward"class="form-control" id="opts" onchange="showL(this.value)">
-                                        <option >-select ward-</option>
+                                        	<option value=""></option>
+                                        	<?php if ($ward == '') {
+                                        	?>
+                                        <option value="" selected>-select ward-</option>
+                                    <?php }else{?>
                                         <option value="<?php
                                         if(isset($_POST['filter_all']))
                                         $ward = $_POST['ward'];
@@ -287,6 +297,7 @@ while($data = $re->fetch_assoc()){
                                         echo $ward;
                                         
                                         ?></option>
+                                    <?php } ?>
                                         <?php 
                                         $sql = "SELECT * FROM wards";
                                         $q = mysqli_query($conn,$sql);
@@ -301,7 +312,15 @@ while($data = $re->fetch_assoc()){
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Location :</label>
                                         <select name="location" id="defaults" class="form-control" onchange="showS(this.value)">
-                                        <option value="">-select location-</option>
+                                     
+                                         <option value=""></option>
+
+                                             <?php if($location == ''){?>
+
+                                            <option value="" selected>-select location-</option>
+                                        <?php }else{?>
+                                            <option value="<?php echo $location;?>" selected><?php echo $location;?></option>
+                                       <?php } ?>
                                         </select>
                                         
                                         </div>
@@ -311,7 +330,11 @@ while($data = $re->fetch_assoc()){
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-Location :</label>
                                         <select name="sub_location"class="form-control" id="sec">
-                                        <option value="">-select sub-location-</option>
+                                        	<option value=""></option>
+                                        	<?php if ($sub_location == '') {
+                                        	?>
+                                        <option value="" selected>-select sub-location-</option>
+                                    <?php }else{ ?>
                                         <option value="<?php if(isset($_POST['filter_all']))
                                         $sub_location = $_POST['sub_location'];
                                         echo $sub_location;
@@ -321,6 +344,7 @@ while($data = $re->fetch_assoc()){
                                         echo $sub_location;
                                         
                                         ?></option>
+                                    <?php } ?>
                                       
                                         </select>
                                     </div>

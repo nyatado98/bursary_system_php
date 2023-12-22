@@ -1038,7 +1038,6 @@ if ($result->num_rows > 0) {?>
 } else {?>
 	
        <thead>
-
 	<tr>
 	<td class='font-weight-bold text-center'>#</td>
 	<td class='font-weight-bold text-center'>Fullname</td>
@@ -1048,9 +1047,7 @@ if ($result->num_rows > 0) {?>
 	<td class='font-weight-bold text-center'>Location</td>
 	<td class='font-weight-bold text-center'>Sub-location</td>
 	<td class='font-weight-bold text-center'>Actions</td>
-</tr>
-
-		</thead>
+</tr></thead>
 		
 		<?php }
 }elseif($opts != ''){
