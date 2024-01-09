@@ -111,7 +111,7 @@ while($rows = $r->fetch_assoc()){
 								<a href="amount_reports"><i class="fa fa-money-bill"></i> <span>Amount Reports</span></a>
 							</li>
 							<li> 
-								<a href="reports"><i class="fa fa-shopping-cart"></i> <span>Bursary Reports</span></a>
+								<a href="reports"><i class="fa fa-list"></i> <span>Bursary Reports</span></a>
 							</li>
 						
 							<!-- <li class="submenu">
@@ -125,6 +125,9 @@ while($rows = $r->fetch_assoc()){
 							<li class="active"> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
+                            <li> 
+                                <a href="logs"><i class="fa fa-file"></i> <span>Logs</span></a>
+                            </li>
                             <li> 
 								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
 							</li>
@@ -158,10 +161,10 @@ while($rows = $r->fetch_assoc()){
 					
 
 					<div class="row">
-						<div class="container col-md-10">
+						<div class="container col-md-12">
                             <span class="text-success font-weight-bold"><?php echo $message ?></span><br>
                             <span class="text-danger font-weight-bold"><?php echo $err ?></span><br>
-                            <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#New">Add New User</a>
+                            <a href="" class="btn btn-secondary mx-4" data-toggle="modal" data-target="#New">Add New User</a>
                             <div class="modal fade" id="New" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog" role="document">

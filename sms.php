@@ -39,3 +39,26 @@ try {
   // return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
 }  
 ?>
+
+
+            //send sms via twilio
+//             $accountSid = getenv('TWILIO_ACCOUNT_SID');
+// $authToken = getenv('TWILIO_AUTH_TOKEN');
+// $twilioNumber = "+17124300592"; // Your Twilio phone number
+// $recipientNumber = $phone; // Recipient's phone number
+// $message = "You have Successfully Applied for Emgwen NGCDF Student Bursary for financial Year 2023 - 2024.";
+
+// $client = new Client($accountSid, $authToken);
+
+// try {
+//   $message = $client->messages->create(
+//     $recipientNumber,
+//     array(
+//       'from' => $twilioNumber,
+//       'body' => $message
+//     )
+//   );
+//   echo "SMS message sent successfully!";
+// } catch (Exception $e) {
+//   echo "Error sending SMS: " . $e->getMessage();
+// }

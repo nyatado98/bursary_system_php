@@ -254,6 +254,9 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
+                            <li > 
+                                <a href="logs"><i class="fa fa-file"></i> <span>Logs</span></a>
+                            </li>
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
 							</li>
@@ -330,15 +333,20 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         
                                         <label class="font-weight-bold" style="font-size:20px">Year :</label>
 										<select name="Year" class="form-control" id="filterOption" onchange="update()">
-											<option value="<?php 
-                                        echo $Year;?>" selected><?php
-                                        if(isset($_POST['filter']))
+											<?php if ($Year != '') {
+                                             ?>
+                                            <option value="<?php if(isset($_POST['filter']))
                                         $Year = $_POST['Year'];
-                                    // $_SESSION['Year'] = $Year;
+                                        echo $Year;
+                                        
+                                        ?>" selected><?php if(isset($_POST['filter']))
+                                        $Year = $_POST['Year'];
                                         echo $Year;
                                         
                                         ?></option>
-											<option value=""></option>
+                                    <?php }else{?>
+                                        <option value="" selected>-Select Year-</option>
+                                    <?php } ?>
 											<?php 
 											
 											$years = range(2020, strftime("%Y",time()));
@@ -357,15 +365,23 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         <label class="font-weight-bold" style="font-size:20px">Ward :</label>
                                         <select name="ward"class="form-control" id="opts" onchange="showL(this.value)">
                                         <option value="">Null</option>
-                                        <option value="<?php  if(isset($_POST['filter']))
+                                        
+                                         <?php if ($ward != '') {
+                                             ?>
+                                        <option value="<?php
+                                        if(isset($_POST['filter']))
                                         $ward = $_POST['ward'];
-                                    // $_SESSION['ward'] = $ward;
-                                        echo $ward;?>" selected><?php
+                                        echo $ward;
+                                        
+                                        ?>" selected><?php
                                         if(isset($_POST['filter']))
                                         $ward = $_POST['ward'];
                                         echo $ward;
                                         
                                         ?></option>
+                                    <?php }else{?>
+                                        <option value="" selected>-select ward-</option>
+                                    <?php } ?>
                                          <?php 
                                         $sql = "SELECT * FROM wards";
                                         $q = mysqli_query($conn,$sql);
@@ -385,6 +401,11 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                         <label class="font-weight-bold" style="font-size:20px">Location :</label>
                                         <select class="form-control" id="defaults" onchange="showS(this.value)">
                                             <option value=""></option>
+                                             <?php if($location == ''){?>
+                                        <option value="" selected>-select location-</option>
+                                    <?php }else{?>
+
+                                    <?php }?>
                                         </select>
                                         
                                     </div>
@@ -393,8 +414,14 @@ if($kapsabet_location == '' && $chepkumia_location == '' && $kapkangani_location
                                     <div class="column">
                                         <label class="font-weight-bold" style="font-size:20px">Sub-location :</label>
                                         <select name="sub_location" class="form-control" id="sec" >
-                                            <option>-select sub-location-</option>
+                                            <option value=""></option>
+
+                                             <?php if($sub_location == ''){?>
+
+                                            <option value="" selected>-select sub-location-</option>
+                                        <?php }else{?>
                                             <option value="<?php echo $sub_location;?>" selected><?php echo $sub_location;?></option>
+                                       <?php } ?>
                                                             
                                         </select>
                                     </div>

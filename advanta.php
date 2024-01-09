@@ -6,7 +6,7 @@ use \Savannabits\Advantasms\Advantasms;
 $apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
 $partnerId = "2832";
 $shortcode = "JOSSES";
-$mobile = "254721437489";
+$mobile = "254726585782";
 //instantiate
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 

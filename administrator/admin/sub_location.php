@@ -1,6 +1,6 @@
 <?php
 include 'database/connect.php';
-if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset($_SESSION['user'])){
+if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
     header("location:login");
     exit;
 }
