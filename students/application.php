@@ -1,4 +1,21 @@
 <?php
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
+// Your PHP code here
+
+// Simulate an error for demonstration purposes
+// trigger_error("This is a sample error message", E_USER_ERROR);
+
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 include 'database/connect.php';
 if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset($_SESSION['user'])){
@@ -492,7 +509,9 @@ if(empty($_POST['sub_location'])){
         $phone_err = "Please enter phone number";
     }elseif(strlen(trim($_POST['phone'])) < 10){
         $phone_err = "Phone number should not be less than 10 digits.";
-    }else{
+    }elseif(strlen(trim($_POST['phone'])) > 10){
+        $phone_err = "Phone number should not be more than 10 digits.";
+}else{
         $phone =trim($_POST['phone']);
     }
    
@@ -764,7 +783,7 @@ font-size: 14px;
 }
 @media screen and (min-width:801px){
     .phone-prefix{
-            padding: 7px;
+            padding: 6.7px;
         /* width:85vw; */
     }
 }
@@ -779,7 +798,58 @@ font-size: 14px;
 
 </style>
 <script>
+    // console.log('hello');
+    // show locations
+function showL(optionValue) {
+ const secondSelect = document.getElementById('defaults');
+   secondSelect.innerHTML = ''; // Clear the existing options
 
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'locations.php', true);
+   xhr.send();
+}
+
+// show sub_locations
+function showS(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
+}
 
     </script>
     <body>
@@ -1003,7 +1073,7 @@ font-size: 14px;
                                                         if($gender != ''){
                                                             ?>
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
-                                                        <?php }elseif ($_SESSION['user_data']) {
+                                                        <?php }elseif (isset($_SESSION['user_data'])) {
                                                             ?>
                                                             <option selected value="<?php echo $data['gender'];?>"><?php echo $data['gender'];?></option>
                                                             <?php
@@ -1013,7 +1083,7 @@ font-size: 14px;
                                                             <option selected value="">-select gender-</option>
                                                         <?php } ?>
                                                             <option> Male</option> 
-                                                            <option> Rather Not Say</option> 
+                                                             
                                                             <option>Female</option>
                                                             <option>Rather Not say</option>
                                                         </select>
@@ -1047,9 +1117,9 @@ font-size: 14px;
                                                         
                                                         <div class="phone-container">
                                                          <div class="phone-prefix">+254</div>
-                                                         <input type="text" name="phone" id="number" style="border-left: none;" class="phone-input font-weight-bold form-control <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 XXXXXXXX" value="<?php if(isset($_SESSION['user_data'])) {
+                                                         <input type="text" name="phone" oninput="validatePhoneNumber()" id="number" style="border-left: none;" class="phone-input font-weight-bold form-control <?php echo $phone_err ? 'border border-danger' : '';?>" placeholder="0 7 XXXXXXXX" value="<?php if(isset($_SESSION['user_data'])) {
                                                             echo $data['Phone'];
-                                                        }else{ echo $phone;}?>" oninput="validatePhoneNumber()" />
+                                                        }else{ echo $phone;}?>"  />
                                                         </div>
                                                         <span class="font-italic" >Example : 0712345678</span><br>
                                                         <span id="phoneError" style="color: red;"></span>
@@ -1090,17 +1160,17 @@ font-size: 14px;
                                                    <!-- onchange="showHideSelectOptions()" -->
                                                     <div class="col-md-4">
                                                         <label class="font-weight-bold" for="opts">Ward :*</label>
-                                                        <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold"  onchange="showL(this.value)">
+                                            <select name="ward" id="opts" class="form-control <?php echo $ward_err ? 'border border-danger' : '';?> font-weight-bold" onchange="showL(this.value)">
                                                         <option value = ""></option>
                                                             
-                                                            <?php if($ward !=''){?>
+                                                            <?php if($ward !=''){ ?>
                                                             <option value="<?php echo $ward;?>" selected><?php echo $ward;?></option>
-                                                    <?php }elseif ($_SESSION['user_data']) {
+                                                    <?php }elseif (isset($_SESSION['user_data'])) {
                                                         ?>
                                                         <option selected value="<?php echo $data['ward'];?>"><?php echo $data['ward'];?></option>
                                                         <?php
                                                 
-                                                    }else{?>
+                                                    }else{ ?>
                                                         <option selected value="">-select ward-</option>
                                                             <?php } ?>
                                                             <!-- fetch ward from db -->
@@ -1117,12 +1187,12 @@ font-size: 14px;
                                                         
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="font-weight-bold" for="default">Location :*</label>
+                                                        <label class="font-weight-bold" for="defaults">Location :*</label>
                                                         <select name="location" id="defaults" class="form-control <?php echo $location_err ? 'border border-danger' : '';?> font-weight-bold" onchange="showS(this.value)">
                                                         <option value = ""></option>
                                                         <?php if($location !=''){?>
                                                             <option value="<?php echo $location ? $location : '';?>" selected><?php echo $location ? $location : '';?></option>
-                                                           <?php }elseif ($_SESSION['user_data']) {
+                                                           <?php }elseif (isset($_SESSION['user_data'])) {
                                                         ?>
                                                         <option selected value="<?php echo $data['location'];?>"><?php echo $data['location'];?></option>
                                                         <?php
@@ -1141,7 +1211,7 @@ font-size: 14px;
                                                         <option value = ""></option>
                                                         <?php if($sub_location !=''){?>
                                                              <option id="main"  value="<?php echo $sub_location ? $sub_location :'';?>" selected><?php echo $sub_location ? $sub_location :'';?></option>
-                                                         <?php }elseif ($_SESSION['user_data']) {
+                                                         <?php }elseif (isset($_SESSION['user_data'])) {
                                                         ?>
                                                         <option selected value="<?php echo $data['sub_location'];?>"><?php echo $data['sub_location'];?></option>
                                                         <?php
@@ -1441,10 +1511,11 @@ function showHideSelectOptions() {
                 phoneError.textContent = "";
                 phoneInput.setCustomValidity("");
             }
+        }
 const phoneInputField = document.querySelector("#phone");
     phoneInputField.classList.add("form-control");
 
-   const phoneInput = window.intlTelInput(phoneInputField, {
+   const phoneInputs = window.intlTelInput(phoneInputField, {
     onlyCountries:["ke"],
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
@@ -1467,7 +1538,7 @@ const phoneInputField = document.querySelector("#phone");
         ////////////////////////////////////////////
         //////////////    ID verification  ////////
         ///////////////////////////////////////////
-
+// start
         
         const parentId = document.querySelector('#id');
         const parentIdTest = parentId.value;
@@ -1535,6 +1606,8 @@ const phoneInputField = document.querySelector("#phone");
         }
         //END//
         parentId.addEventListener('input', verifyId);
+
+        // stop
 
     </script>
 </html>

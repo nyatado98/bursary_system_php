@@ -798,16 +798,28 @@ font-size: 14px;
                                                         </div> -->
                                                         <ul class="options" id="schools">
                                                             <!-- <li></li> -->
-                                                    <li>Umoja High</li>
-                                                    <li>Kimumu Secondary School</li>
-                                                    <li>UG High School</li>
-                                                    <li>64 Secondary School</li>
-                                                    <li>Central Secondary School</li>
-                                                    <li>Segero Girls</li>
-                                                    <li>Alliance Girls</li>
-                                                    <li>Alliance Boys</li>
-                                                    <li>Kapsabet Boys</li>
-
+                                                            <?php 
+                                                            $sql = "SELECT * FROM secondary_schools";
+                                                            $query = mysqli_query($conn,$sql);
+                                                            while($row = $query->fetch_assoc()){
+                                                                ?>
+                                                                <li><?php echo $row['name'];?></li>
+                                                            <?php } ?>
+                                                    
+                                                        <?php 
+                                                            $sql = "SELECT * FROM universities";
+                                                            $query = mysqli_query($conn,$sql);
+                                                            while($row = $query->fetch_assoc()){
+                                                                ?>
+                                                                <li><?php echo $row['institution'];?></li>
+                                                            <?php } ?>
+                                                            <?php 
+                                                            $sql = "SELECT * FROM tvets";
+                                                            $query = mysqli_query($conn,$sql);
+                                                            while($row = $query->fetch_assoc()){
+                                                                ?>
+                                                                <li><?php echo $row['name'];?></li>
+                                                            <?php } ?>
                                                     </ul>
                                                     </div>
                                                     </div>

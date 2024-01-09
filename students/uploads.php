@@ -1,4 +1,21 @@
 <?php
+
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
+// Your PHP code here
+
+// Simulate an error for demonstration purposes
+// trigger_error("This is a sample error message", E_USER_ERROR);
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 include 'database/connect.php';
 if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset($_SESSION['user'])){
@@ -235,8 +252,8 @@ if(empty($_POST['sub_location'])){
             $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent_guardian_name','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
             $re = mysqli_query($conn,$sql1);
 
-            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$phone','$fullname','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -339,8 +356,8 @@ $response = $sms->to($mobile)->message("Dear ".$parent_guardian_name.", You have
            $message = "Application made successfully and mail has been sent to applicant.";
             header("location:application?message=");
         }else{
-            $sql = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            $sql = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent_guardian_name','$phone','$fullname','$adm_upi_reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $rs = mysqli_query($conn,$sql);
 
@@ -415,6 +432,9 @@ $response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You ha
 }
 }
 
+// session student email
+ $student_email = $_SESSION['user_email'];
+
 if(isset($_POST['pre'])){
     header("location:school");
 }
@@ -466,7 +486,12 @@ if(isset($_POST['next'])){
         $fee_structure_err = "Please select fee structure document";
     }
     if (empty($school_doc_err) && empty($fee_structure_err)) {
-        $sql = "SELECT * FROM applications WHERE student_fullname ='$fullname' AND year = '$year'";
+    	$sql = "SELECT * FROM users WHERE email = '$student_email'";
+    	$request = mysqli_query($conn,$sql);
+    	while ($qest = $request->fetch_assoc()) {
+    		$stu_id = $qest['student_id'];
+    	
+        $sql = "SELECT * FROM applications WHERE student_id ='$stu_id' AND year = '$year'";
     $result = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($result);
     if($count >0){
@@ -477,22 +502,22 @@ if(isset($_POST['next'])){
          unset($_SESSION['school']);
         header("location:application?mssg=");
     }else{
-        $sql = "SELECT * FROM students WHERE student_fullname = '$fullname' AND parent_email = '$email'";
+        $sql = "SELECT * FROM students WHERE student_id = '$stu_id'";
         $results = mysqli_query($conn,$sql);
         $count = mysqli_num_rows($results);
         if($count <= 0){
         	$student_email = $_SESSION['user_email'];
             
-            $sql = "INSERT INTO students (student_fullname,student_email,age,gender,parent_guardian_name,phone,parent_email,
-            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$student_email','$age','$gender','$parent','$phone','$email',
+            $sql = "INSERT INTO students (student_fullname,student_email,student_id,age,gender,parent_guardian_name,phone,parent_email,
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$student_email','$stu_id','$age','$gender','$parent','$phone','$email',
             '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
             $res = mysqli_query($conn,$sql);
 
             $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
             $re = mysqli_query($conn,$sql1);
 
-            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,student_fullname,student_email,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$fullname','$student_email','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -580,6 +605,95 @@ $response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully 
             // 
 
 //     
+}else{
+	$student_email = $_SESSION['user_email'];
+
+	$sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            '$current_date','$current_date','$today','$year')";
+            $ress = mysqli_query($conn,$sql2);
+
+       move_uploaded_file($tmp_name,$target_file1);
+        // move_uploaded_file($tmp_name,$target_file2);
+
+    $sql = "INSERT INTO students_uploads (reference_number,student_fullname,school_id_letter,fee_structure,created_at,updated_at)VALUES('$app_ref','$fullname','$fileName','','$current_date','$current_date')";
+    $query = mysqli_query($conn,$sql);
+    if($query){
+        
+          //insert uploads/school fee_structure
+          $target = "students_upload/";
+          $target_file2 =$target . basename($_FILES["fee_structure"]["name"]);
+          $fee_fileName = basename($_FILES["fee_structure"]["name"]);
+          $file_size = $_FILES["fee_structure"]["size"];
+          $file_type = $_FILES["fee_structure"]["type"];
+          $tmp_name = $_FILES['fee_structure']['tmp_name'];
+         
+          $file_ext = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+      
+          $extensions = array("jpeg","jpg","png","PNG","pdf","txt","doc","jfif","docx");
+          if (!in_array($file_ext, $extensions)) {
+              $fee_structure_err = "The file type is not allowed...Please choose another file";
+          }
+          elseif ($file_size > 5242880 || $file_size <= 0) {
+              $fee_structure_err = "The file size is too large....choose another file which is 5MB or less";
+          }
+    
+
+        $sql = "UPDATE students_uploads SET fee_structure = '$fee_fileName' WHERE reference_number = '$app_ref'";
+        $r = mysqli_query($conn,$sql);
+        if($r){
+        move_uploaded_file($tmp_name,$target_file2);
+        }
+        
+    }
+// send sms using advantasms
+// Check if the phone number starts with a zero
+if (substr($phone, 0, 1) === '0') {
+    // Remove the leading zero
+    $phoneNumber = substr($phone, 1);
+
+
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$phoneNumber;
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+}
+
+
+            //send mail
+            $mailto = $email;
+            $mailSub = 'NANDI COUNTY';
+            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+        
+            $mail ->IsSmtp();
+           $mail ->SMTPDebug = 0;
+           $mail ->SMTPAuth = true;
+           $mail ->SMTPSecure = 'ssl';
+           //$mail ->SMTPSecure = 'tsl';
+           $mail ->Host = "smtp.gmail.com";
+           $mail ->Port = 465; // or 587 or 465
+           //$mail ->IsHTML(true);
+           $mail ->Username = "danndong080@gmail.com";
+           $mail ->Password = "okzumpamraiksdcq";
+           $mail ->SetFrom("ict@nandicounty.com");
+           $mail ->Subject = $mailSub;
+           $mail ->Body = $mailMsg;
+           $mail ->AddAddress($mailto);
+        
+           $mail->Send();
+           $mssg = $fullname." Application made successfully and mail has been sent to you.";
+           $_SESSION['message'] = $mssg;
+           $message = "Application made successfully and mail has been sent to you.";
+            session_start();
+            unset($_SESSION['user_data']);
+            unset($_SESSION['school']);
+            header("location:application?success");
+}
 }
 }    
     }

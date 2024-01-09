@@ -66,6 +66,9 @@ $year = date('Y');
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
+							<li > 
+                                <a href="logs"><i class="fa fa-file"></i> <span>Logs</span></a>
+                            </li>
 							<li> 
 								<a href="settings"><i class="fa fa-cog"></i> <span>settings</span></a>
 							</li>

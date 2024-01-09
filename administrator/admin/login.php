@@ -3,7 +3,11 @@ include 'database/connect.php';
 
 $email = $password = "";
 $email_err = $password_err = $message = $email_reset = "";
-
+date_default_timezone_set('Africa/Nairobi');
+$current_date=strtotime("current");
+$current_date = date('Y/m/d  H:i:s');
+$time = date('H:i:s');
+$today = date('Y/m/d');
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(empty(trim($_POST["email"]))){
         $email_err = "Enter email address";
@@ -23,10 +27,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $password = trim($_POST["password"]);
     }
     if(empty($email_err) && empty($password_err)){
-        $query = "SELECT password FROM admins WHERE email = '".$email."'";
+        $query = "SELECT * FROM admins WHERE email = '".$email."'";
         $result = mysqli_query($conn, $query);
         while($pass = $result->fetch_assoc()){
             if($password == $pass['password']){
+
+                $log_id ='BUR' .rand(1000,9999);
+
+
+                // insert data into logs table
+                $sql = "INSERT INTO logs (log_id,email,fullname,status,login_time,login_date) VALUES ('$log_id','".$pass['email']."','".$pass['fullname']."','Loggedin','$time','$today')";
+                $q = mysqli_query($conn, $sql);
+
+                $_SESSION['log_id'] = $log_id;
                 $_SESSION['email'] = $email;
                 $_SESSION['email_admin'] = true;
                 

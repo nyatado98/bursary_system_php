@@ -5,7 +5,10 @@ if(!isset($_SESSION["email_admin"]) || $_SESSION["email_admin"] !== true){
 	header("location:login");
 	exit;
 }
+require "../../vendor/autoload.php";
+// require __DIR__ . '../vendor/autoload.php';
 
+use \Savannabits\Advantasms\Advantasms;
 //load composer autoloader
 require 'vendor/autoload.php';
  require 'vendor/phpmailer/phpmailer/src/Exception.php';
@@ -78,6 +81,17 @@ if(isset($_POST["approve"])){
 					'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total')";
 					mysqli_query($conn,$sql);
 
+									// message
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$qs['phone'];
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.")->send();
+
 					$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';
 			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgen CDF Bursary 2024.\n We will let you know when the cheque is ready.
@@ -109,6 +123,17 @@ if(isset($_POST["approve"])){
 				$sql = "INSERT INTO reports (report_id,student_name,parent,school_level,school_name,ward,location,sub_location,Amount_awarded)VALUES(
 				'$rad','".$row['student_fullname']."','".$qs['parent_guardian_name']."','".$r['school_type']."','".$r['school_name']."','$ward','".$r['location']."','$sub_location','$total')";
 				mysqli_query($conn,$sql);
+
+								// message
+$apiKey = "bd3ef4f7a573e95e2eac35309dc0f8ca";
+$partnerId = "2832";
+$shortcode = "JOSSES";
+$mobile ='254'.$qs['phone'];
+//instantiate
+$sms = new Advantasms($apiKey,$partnerId,$shortcode);
+
+//Send and receive response
+$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.")->send();
 
 			$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';

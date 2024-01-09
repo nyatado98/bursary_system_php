@@ -4,6 +4,16 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 	header("location:students/login");
 	exit;
 }
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
 // $_SESSION['mssg'] = "";
 //edit
 
@@ -36,12 +46,15 @@ if(isset($_POST['edit'])){
 	}
 	
 }
-// $sql = "SELECT * FROM parents WHERE parent_email = '".$_SESSION['user_email']."'";
+// $sql = "SELECT * FROM users WHERE email = '".$_SESSION['user_email']."'";
 // $result = mysqli_query($conn,$sql);
-// while($row = $result->fetch_assoc())
+// while($row = $result->fetch_assoc()){
+
+
 	$sql = "SELECT * FROM applications WHERE student_email = '".$_SESSION['user_email']."'";
-	$re = mysqli_query($conn,$sql);										
-						
+	$re = mysqli_query($conn,$sql);	
+	// print_r($re)									;
+					
 
 ?>
 
@@ -237,34 +250,40 @@ if(isset($_POST['edit'])){
 											<label class="font-weight-bold">Location :</label> 
                                             <select name="location" id="" class="form-control" required>
 												<option selected><?php echo $item['location'];?></option>
-                                                <option>--select role--</option>
-                                                <option>Jerusalem</option>
-                                                <option>Munyaka</option>
-												<option>Ziwa</option>
-												<option>Ilula</option>
-												<option>Block10</option>
-												<option>Subaru</option>
-												<option>Vet</option>
-												<option class="">Langas</option>
+                                                <option>--select location--</option>
+                                                <?php 
+                                                $sql = "SELECT * FROM locations";
+                                                $r = mysqli_query($conn,$sql);
+                                                while ($row=$r->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row['location']?>"><?php echo $row['location']?></option>
+                                            <?php } ?>
+                                                
                                              </select>
 											 <label class="font-weight-bold">Ward :</label> 
 											 <select name="ward" class="form-control  font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $item['ward'];?>" selected><?php echo $item['ward'];?></option>
-                                                            <option>Kapsabet</option>
-                                                            <option>Chepkumia</option>
-                                                            <option>Kiibwoni</option>
-                                                            <option>Kapkangani</option>
+                                                            <?php 
+                                                $sql = "SELECT * FROM wards";
+                                                $r = mysqli_query($conn,$sql);
+                                                while ($row=$r->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row['ward']?>"><?php echo $row['ward']?></option>
+                                            <?php } ?>
                                                             
                                                         </select>
 											<label class="font-weight-bold">Sub-location :</label> 
                                             <select name="sub_location" class="form-control font-weight-bold">
                                                         <option value = ""></option>
                                                             <option value="<?php echo $item['sub_location'];?>" selected><?php echo $item['sub_location'];?></option>
-                                                            <option>Subaru</option>
-                                                            <option>Bondeni</option>
-                                                            <option>Kamkunji</option>
-                                                            <option>Airstrip</option>
+                                                            <?php 
+                                                $sql = "SELECT * FROM sub_locations";
+                                                $r = mysqli_query($conn,$sql);
+                                                while ($row=$r->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row['sub_location']?>"><?php echo $row['sub_location']?></option>
+                                            <?php } ?>
                                                         </select>
 											<!-- <label class="font-weight-bold">Fee Structure:</label> 
                                             <input type="file" name="fee_structure" class="form-control" id="" required value="<?php echo $rows['fee_structure'];?>">

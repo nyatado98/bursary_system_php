@@ -149,6 +149,9 @@ $response = $sms->to($mobile)->message("Dear ".$key['student_fullname'].", Your 
 							<li> 
 								<a href="users"><i class="fa fa-user"></i> <span>Users</span></a>
 							</li>
+							<li > 
+                                <a href="logs"><i class="fa fa-file"></i> <span>Logs</span></a>
+                            </li>
                             <li class="active"> 
 								<a href="messaging"><i class="fa fa-message"></i> <span>Messages</span></a>
 							</li>

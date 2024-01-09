@@ -3,6 +3,7 @@ include 'database/connect.php';
 
 $firstname = $lastname = $fullname = $email = $password = $re_password = "";
 $firstname_err = $lastname_err = $email_err = $password_err = $mssg = $re_pass_err = "";
+$student_id ='BUR' .rand(1000,9999);
 
 if(isset($_POST['register'])){
     if(empty($_POST['firstname'])){
@@ -47,7 +48,7 @@ $year = date('Y');
 
 if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
     $fullname = $_POST['firstname'].' '.$_POST['lastname'];
-    $sql = "INSERT INTO users (fullname,email,password,created_at,updated_at)VALUES('$fullname','$email','$password','$today','$today')";
+    $sql = "INSERT INTO users (student_id,fullname,email,password,created_at,updated_at)VALUES('$student_id','$fullname','$email','$password','$today','$today')";
     $query = mysqli_query($conn,$sql);
     if($query){
         $mssgs = "You have successfully register login here";
