@@ -68,7 +68,7 @@ if(isset($_POST['add'])){
 								<!--<span>Main Menu</span>-->
 							</li>
 							<li > 
-								<a href="dashboard"><i class="fa fa-th-large"></i> <span>Dashboard</span></a>
+								<a href="dashboard"><i class="fa fa-home"></i> <span>Dashboard</span></a>
 							</li>
 							<li > 
 								<a href="applications"><i class="fa fa-file"></i> <span>Applications</span></a>
