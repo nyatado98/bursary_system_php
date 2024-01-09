@@ -377,7 +377,7 @@ $mobile ='254'.$phoneNumber;
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+$response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You have successfully Applied for the Emgwen NG-CDF Student Bursary for financial year 2023-2024.")->send();
 }
        //send sms via twilio
 //             $accountSid = getenv('TWILIO_ACCOUNT_SID');
@@ -405,7 +405,7 @@ $response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You ha
             $mailSub = 'NANDI COUNTY';
             // $mailMsg = "Your application for ".$app_ref." reference number has been received successfully. Use the reference number to track your application process.
             // Thank You.\n";
-            $mailMsg = "Dear ".$parent_guardian_name.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+            $mailMsg = "Dear ".$parent_guardian_name.", You have successfully Applied for the Emgwen NG-CDF Student Bursary for financial year 2023-2024.";
         
             $mail ->IsSmtp();
            $mail ->SMTPDebug = 0;
@@ -569,14 +569,14 @@ $mobile ='254'.$phoneNumber;
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+$response = $sms->to($mobile)->message("Dear ".$fullname.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
 }
 
 
             //send mail
             $mailto = $email;
             $mailSub = 'NANDI COUNTY';
-            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+            $mailMsg = "Dear ".$fullname.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
         
             $mail ->IsSmtp();
            $mail ->SMTPDebug = 0;
@@ -661,14 +661,14 @@ $mobile ='254'.$phoneNumber;
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.")->send();
+$response = $sms->to($mobile)->message("Dear ".$fullname.", You have successfully Applied for the Emgwen NNC-DF Student Bursary for financial year 2023-2024.")->send();
 }
 
 
             //send mail
             $mailto = $email;
             $mailSub = 'NANDI COUNTY';
-            $mailMsg = "Dear ".$parent.", You have successfully Applied for the Emgwen NCDF Student Bursary for financial year 2023-2024.";
+            $mailMsg = "Dear ".$fullname.", You have successfully Applied for the Emgwen NC-CDF Student Bursary for financial year 2023-2024.";
         
             $mail ->IsSmtp();
            $mail ->SMTPDebug = 0;

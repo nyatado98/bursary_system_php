@@ -149,3 +149,175 @@ Stack trace:
 [08-Jan-2024 19:02:26 Africa/Nairobi] PHP Warning:  Trying to access array offset on value of type null in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 289
 [08-Jan-2024 19:02:26 Africa/Nairobi] PHP Warning:  Undefined variable $rows in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 291
 [08-Jan-2024 19:02:26 Africa/Nairobi] PHP Warning:  Trying to access array offset on value of type null in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 291
+[09-Jan-2024 09:53:38 Africa/Nairobi] PHP Warning:  Undefined variable $rows in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 289
+[09-Jan-2024 09:53:39 Africa/Nairobi] PHP Warning:  Trying to access array offset on value of type null in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 289
+[09-Jan-2024 09:53:39 Africa/Nairobi] PHP Warning:  Undefined variable $rows in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 291
+[09-Jan-2024 09:53:39 Africa/Nairobi] PHP Warning:  Trying to access array offset on value of type null in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\dashboard.php on line 291
+[09-Jan-2024 08:13:54 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 10:13:54 Africa/Nairobi] PHP Warning:  Undefined array key "school" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 784
+[09-Jan-2024 08:16:06 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 08:16:09 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 08:16:10 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 08:16:11 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 10:18:04 Africa/Nairobi] PHP Warning:  Undefined variable $data in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 460
+[09-Jan-2024 10:18:04 Africa/Nairobi] PHP Fatal error:  Uncaught TypeError: array_merge(): Argument #1 must be of type array, null given in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php:460
+Stack trace:
+#0 E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php(460): array_merge(NULL, Array)
+#1 {main}
+  thrown in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 460
+[09-Jan-2024 10:19:27 Africa/Nairobi] PHP Warning:  Undefined variable $data in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 460
+[09-Jan-2024 10:19:27 Africa/Nairobi] PHP Fatal error:  Uncaught TypeError: array_merge(): Argument #1 must be of type array, null given in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php:460
+Stack trace:
+#0 E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php(460): array_merge(NULL, Array)
+#1 {main}
+  thrown in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 460
+[09-Jan-2024 08:19:42 Europe/Berlin] PHP Warning:  Undefined array key "user_data" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 20
+[09-Jan-2024 10:19:42 Africa/Nairobi] PHP Fatal error:  Uncaught TypeError: array_merge(): Argument #1 must be of type array, null given in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php:460
+Stack trace:
+#0 E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php(460): array_merge(NULL, Array)
+#1 {main}
+  thrown in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 460
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1056
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1066
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1081
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1086
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1091
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1102
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1108
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1128
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1134
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:20:38 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1039
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1078
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1080
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1093
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1098
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1103
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1126
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1132
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1152
+[09-Jan-2024 10:22:31 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1158
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1039
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1078
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1080
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1093
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1098
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1103
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1126
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1132
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1152
+[09-Jan-2024 10:22:40 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1158
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1039
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1078
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1080
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1093
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1098
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1103
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1126
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1132
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1152
+[09-Jan-2024 10:22:42 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1158
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1039
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1078
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1080
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1093
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1098
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1103
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1126
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1132
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1152
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1158
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "level" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1166
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "school_name" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1172
+[09-Jan-2024 10:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "reg" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1178
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1039
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1078
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1080
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1093
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1098
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1103
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1126
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1132
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1152
+[09-Jan-2024 10:28:21 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1158
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1056
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1066
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1081
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1086
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1091
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1102
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1108
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1128
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1134
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:29:39 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1056
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1066
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1068
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1081
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "age" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1086
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1091
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1102
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1108
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1114
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "county" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1120
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1128
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1134
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1140
+[09-Jan-2024 10:29:42 Africa/Nairobi] PHP Warning:  Undefined array key "year" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1146
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216

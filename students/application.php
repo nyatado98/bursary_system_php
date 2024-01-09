@@ -948,8 +948,8 @@ function showS(optionValue) {
             <div class="card px-0 pt-4 pb-0  mb-3">  
                 <div id="msform">   
                     <ul class="progressbar row mx-auto" style="">  
-                        <li class="active col-md-4" id="account"><strong> Applicant Information </strong></li>  
-                        <li id="personal" class="col-md-4"><strong> School Information </strong></li>  
+                        <li class="active col-md-4" id="account"><strong> <a href="" class="text-success">Applicant Information</a> </strong></li>  
+                        <li id="personal" class="col-md-4"><strong><a href="school" class="text-secondary"> School Information</a> </strong></li>  
                         <li id="payment" class="col-md-4"><strong> Upload Documents & Summary Details </strong></li>  
                         <!-- <li id="confirm"><strong> Finish </strong></li>   -->
                     </ul>  

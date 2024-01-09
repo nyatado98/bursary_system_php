@@ -4,6 +4,16 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
 	header("location:login");
 	exit;
 }
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
 
 date_default_timezone_set('Africa/Nairobi');
 $current_date=strtotime("current");

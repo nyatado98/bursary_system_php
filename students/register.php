@@ -1,6 +1,17 @@
 <?php 
 include 'database/connect.php';
 
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
+
 $firstname = $lastname = $fullname = $email = $password = $re_password = "";
 $firstname_err = $lastname_err = $email_err = $password_err = $mssg = $re_pass_err = "";
 $student_id ='BUR' .rand(1000,9999);

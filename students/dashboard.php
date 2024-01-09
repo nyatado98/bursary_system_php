@@ -285,11 +285,6 @@ if(isset($_POST['edit'])){
                                                 <option value="<?php echo $row['sub_location']?>"><?php echo $row['sub_location']?></option>
                                             <?php } ?>
                                                         </select>
-											<!-- <label class="font-weight-bold">Fee Structure:</label> 
-                                            <input type="file" name="fee_structure" class="form-control" id="" required value="<?php echo $rows['fee_structure'];?>">
-											<label class="font-weight-bold">School ID/ ADM letter:</label> 
-                                            <input type="file" name="school_doc" class="form-control" id="" required value="<?php echo $rows['school_id_letter'];?>"> -->
-											<!-- <a href="dashboard?edit=<?php echo $item['reference_number'];?>" class="btn btn-warning">edit</a> -->
                                             <input type="submit" value="E D I T" name="edit" class="btn btn-success form-control mt-2">
                                            </form>
                                         </div>

@@ -6,7 +6,24 @@ if(!isset($_SESSION["user_email"]) || $_SESSION["email_user"] !== true || !isset
     exit;
 }
 
+// Set the path to your log file
+$logFilePath = '../logs.txt';
+
+// Enable error reporting
+error_reporting(E_ALL);
+
+// Set error logging to file
+ini_set('log_errors', 1);
+ini_set('error_log', $logFilePath);
+
+// was this
+// $data = $_SESSION['user_data'];
+// now this
+if (isset($_SESSION['user_data'])) {
 $data = $_SESSION['user_data'];
+}else{
+    $data = [];
+}
 require "../vendor/autoload.php";
 require __DIR__ . '../vendor/autoload.php';
 
@@ -770,7 +787,7 @@ font-size: 14px;
                                                     <option value = ""></option>
                                                     <?php if($school_level !=''){?>
                                                         <option value="<?php echo $school_level;?>" selected><?php echo $school_level;?></option>
-                                                    <?php }elseif ($_SESSION['school']) {
+                                                    <?php }elseif (isset($_SESSION['school'])) {
                                                         ?>
                                                         <option value="<?php echo $school['level'];?>" selected><?php echo $school['level'];?></option>
                                                         <?php
