@@ -454,6 +454,8 @@ if(isset($_POST['next'])){
     $school_level = $_POST['school_level'];
     $school_name = $_POST['school_name'];
     $reg_no = $_POST['reg_no'];
+    $year_of_study = $_POST['year_of_study'];
+    $address = $_POST['address'];
 
     $name = $_FILES['school_doc']['name'];
     if(empty($name)){
@@ -509,15 +511,15 @@ if(isset($_POST['next'])){
         	$student_email = $_SESSION['user_email'];
             
             $sql = "INSERT INTO students (student_fullname,student_email,student_id,age,gender,parent_guardian_name,phone,parent_email,
-            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,created_at,updated_at,year)VALUES('$fullname','$student_email','$stu_id','$age','$gender','$parent','$phone','$email',
-            '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$current_date','$current_date','$year')";
+            parent_id_no,county,ward,location,sub_location,school_level,adm_upi_reg_no,school_name,year_of_study,school_address,created_at,updated_at,year)VALUES('$fullname','$student_email','$stu_id','$age','$gender','$parent','$phone','$email',
+            '$id_no','$county','$ward','$location','$sub_location','$school_level','$reg_no','$school_name','$year_of_study','$address','$current_date','$current_date','$year')";
             $res = mysqli_query($conn,$sql);
 
             $sql1 = "INSERT INTO parents (parent_guardian_name,student_fullname,phone,parent_email,parent_id_no,created_at,updated_at)VALUES('$parent','$fullname','$phone','$email','$id_no','$current_date','$current_date')";
             $re = mysqli_query($conn,$sql1);
 
-            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+            $sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,year_of_study,school_address,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$year_of_study','$address','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -608,8 +610,8 @@ $response = $sms->to($mobile)->message("Dear ".$fullname.", You have successfull
 }else{
 	$student_email = $_SESSION['user_email'];
 
-	$sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,ward,sub_location,location,status,
-            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$ward','$sub_location','$location','Pending...',
+	$sql2 = "INSERT INTO applications (reference_number,parent_email,parent,phone,student_fullname,student_email,student_id,adm_upi_reg_no,school_type,school_name,year_of_study,school_address,ward,sub_location,location,status,
+            created_at,updated_at,today_date,year)VALUES('$app_ref','$email','$parent','$phone','$fullname','$student_email','$stu_id','$reg_no','$school_level','$school_name','$year_of_study','$address','$ward','$sub_location','$location','Pending...',
             '$current_date','$current_date','$today','$year')";
             $ress = mysqli_query($conn,$sql2);
 
@@ -1044,9 +1046,13 @@ font-size: 14px;
                                 <div class="col-7">  
                                     <h2 class="fs-title" style="text-decoration:underline;">Applicant Summary Details : </h2>  
                                 </div>  
+
                                 <div class="col-5">  
                                     <h2 class="steps"> Step 4 - 4 </h2>  
-                                </div>  
+                                </div> 
+                                <div class="row"> 
+                                	<span class="text-danger mx-4 mb-3">* Incase of any incorrect data, go back to the previous pages to make corrections.</span>
+                                </div>
                             </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
@@ -1060,7 +1066,7 @@ font-size: 14px;
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="font-weight-bold" for="gender">Gender :*</label>
-                                                        <select name="gender" id="gender" class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
+                                                        <select name="gender" id="gender" readonly class="form-control  <?php echo $gender_err ? 'border border-danger' : '';?> font-weight-bold">
                                                             <option selected value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['gender'];}else{ echo '';}?>"><?php if (isset($_SESSION['user_data'])) {
@@ -1077,7 +1083,7 @@ font-size: 14px;
                                                     </div>
                                                       <div class="col-md-3">
                                                         <label class="font-weight-bold" for="date">D-O-B:*</label>
-                                                        <input type="date" id="date" class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob" value="<?php if (isset($_SESSION['user_data'])) {
+                                                        <input type="date" id="date" readonly class="form-control <?php echo $age_err ? 'border border-danger' : '';?>" name="dob" value="<?php if (isset($_SESSION['user_data'])) {
                                                             echo $data['dob'];
                                                         }else{ echo $dob;}?>" >
                                                     
@@ -1087,7 +1093,7 @@ font-size: 14px;
                                                     </div>
                                                     <div class="col-md-3">
                                                   <label class="font-weight-bold" for="parent_guardian_name">Enter Parent/Guardian Name :</label>
-                                                        <input type="text" id="parent"  name="parent_guardian_name" value="<?php if (isset($_SESSION['user_data'])) {
+                                                        <input type="text" id="parent" readonly name="parent_guardian_name" value="<?php if (isset($_SESSION['user_data'])) {
                                                             echo $data['parent'];
                                                         }else{ echo $parent_guardian_name;}?>" class="form-control font-weight-bold" placeholder="Enter parent name">
                                                         
@@ -1097,25 +1103,25 @@ font-size: 14px;
                         <div class="row mt-3">
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Phone Number : *</label>
-                                <input type="text" name="phone" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="phone" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['Phone'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Email : *</label>
-                                <input type="text" name="email" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="email" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['email'];}else{ echo '';}?>" >
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">ID Number : *</label>
-                                <input type="text" name="id_no" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="id_no" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['id_no'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">County : *</label>
-                                <input type="text" name="county" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="county" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['county'];}else{ echo '';}?>">
                             </div>
@@ -1123,45 +1129,60 @@ font-size: 14px;
                         <div class="row mt-3">
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Ward : *</label>
-                                <input type="text" name="ward" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="ward" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['ward'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Location : *</label>
-                                <input type="text" name="location" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="location" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['location'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Sub-location : *</label>
-                                <input type="text" name="sub_location" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="sub_location" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['sub_location'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Year : *</label>
-                                <input type="text" name="year" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="year" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['year'];}else{ echo '';}?>" readonly>
                             </div>
                         </div>
                         <div class="row mt-3">
+                        	<div class="col-md-3">
+                                <label class="font-weight-bold">Year of study : *</label>
+                                <input type="text" name="year_of_study" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                                        	
+                                                         echo $data['year_of_study'];}else{ echo '';}?>">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="font-weight-bold">School Address : *</label>
+                                <input type="text" name="address" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                                        	
+                                                         echo $data['address'];}else{ echo '';}?>">
+                            </div>
+                        
                             <div class="col-md-3">
                                 <label class="font-weight-bold">School Level : *</label>
-                                <input type="text" name="school_level" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="school_level" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['level'];}else{ echo '';}?>">
                             </div>
                             <div class="col-md-3">
                                 <label class="font-weight-bold">School Name : *</label>
-                                <input type="text" name="school_name" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="school_name" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['school_name'];}else{ echo '';}?>">
                             </div>
+                        </div>
+                        <div class="row mt-3">
                             <div class="col-md-3">
                                 <label class="font-weight-bold">Reg/ADM Number : *</label>
-                                <input type="text" name="reg_no" class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
+                                <input type="text" name="reg_no" readonly class="form-control  font-weight-bold" value="<?php if (isset($_SESSION['user_data'])) {
                                                         	
                                                          echo $data['reg'];}else{ echo '';}?>">
                             </div>

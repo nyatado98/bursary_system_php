@@ -359,7 +359,7 @@ unset($_SESSION['m']);
 													<div class="modal fade" id="Edit<?php echo $val['reference_number'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 														aria-hidden="true">
 														<div class="modal-dialog" role="document">
-															<div class="modal-content">
+															<div class="modal-content" id="modalContent">
 																<div class="modal-header">
 																   <h4 class="text-center">EDIT APPLICATION</h4>
 																</div>
@@ -376,17 +376,30 @@ unset($_SESSION['m']);
 																	<label class="font-weight-bold">School type :</label> 
 																	<select name="school_type" id="" class="form-control">
 																		<option selected><?php echo $val['school_type'];?></option>
-																		<option>--select role--</option>
+																		<option>--select school-level--</option>
 																		
 																		<option>Secondary School</option>
 																		<option>University/College/TVET</option>
 																	 </select>
 																	 <label class="font-weight-bold">School name :</label> 
 																	<input type="text" name="school_name" class="form-control" id="" required value="<?php echo $val['school_name'];?>">
-																	<label class="font-weight-bold">Location :</label> 
-																	<select name="location" id="" class="form-control" required>
+																	
+											<label class="font-weight-bold">Ward :</label> 
+											<div onchange="update()">
+																	 <select name="ward" class="form-control  font-weight-bold" onchange="showL(this.value)">
+                                                        <option value = ""></option>
+                                                            <option value="<?php echo $val['ward'];?>" selected><?php echo $val['ward'];?></option>
+                                                            <option value="Kapsabet">Kapsabet</option>
+                                                            <option>Chepkumia</option>
+                                                            <option>Kilibwoni</option>
+                                                            <option>Kapkangani</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                    <label class="font-weight-bold">Location :</label> 
+																	<select name="location" id="second" class="form-control"  >
 																		<option selected><?php echo $val['location'];?></option>
-																		<option>--select location--</option>
+																		<option>--select location--</option> 
 																		<option value ="Kamobo">Kamobo</option>
                                             <option value ="Township">Township</option>
                                             <option value ="Kiminda">Kiminda</option>
@@ -401,18 +414,7 @@ unset($_SESSION['m']);
                                             <option value ="Kaplamai">Kaplamai</option>
                                             <option value ="Tulon">Tulon</option>
                                             <option value ="Terige">Terige</option>
-																	 </select>
-											<label class="font-weight-bold">Ward :</label> 
-
-																	 <select name="ward" class="form-control  font-weight-bold">
-                                                        <option value = ""></option>
-                                                            <option value="<?php echo $val['ward'];?>" selected><?php echo $val['ward'];?></option>
-                                                            <option>Kapsabet</option>
-                                                            <option>Chepkumia</option>
-                                                            <option>Kilibwoni</option>
-                                                            <option>Kapkangani</option>
-                                                            
-                                                        </select>
+ 												 </select>
 											<label class="font-weight-bold">Sub-location :</label> 
                                             <select name="sub_location" class="form-control font-weight-bold">
                                                         <option value = ""></option>
@@ -528,6 +530,14 @@ unset($_SESSION['m']);
 		<!-- /Main Wrapper -->
 		<?php include('config/scripts.php');?>
     </body>
+    <select id="op" class="form-control">
+    	<option></option>
+    	<option value="Kapsabet">Kapsabet</option>
+    	
+    </select>
+    <select id="defaults" class="form-control">
+    	
+    </select>
 	
     <!--  <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script> -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -538,5 +548,103 @@ unset($_SESSION['m']);
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
     } );
+    function update(){
+    	updateModalContent();
+    }
+  function updateModalContent(loctaion) {
+  	// console.log("Updating modal content:", location);
+    // Manipulate the DOM to update modal content
+    $('#modalContent').html(loctaion); // Replace 'propertyName' with the actual property from your JSON data
+  }
+  // show locations
+function showL(optionValue) {
+ const secondSelect = document.getElementById('second');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+         // console.log(xhr.responseText);
+
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+                              console.log(option);
+            });
+            updateModalContent(optionData[optionValue][0]); 
+
+         }
+      }
+   };
+
+   xhr.open('GET', 'locations.php', true);
+   xhr.send();
+}
+$(document).ready(function(){
+    // Event handler for the change event on opts
+    $('#op').change(function(){
+        // Get the selected value from opts
+        var ward = $(this).val();
+
+        // Make an AJAX request to fetch data based on the selected value
+        $.ajax({
+            type: 'GET',
+            url: `location.php`, // Use template literal
+            data: { ward: ward },
+            success: function(response) {
+                // Clear previous options in defaults
+                $('#defaults').empty();
+
+                // Populate options in defaults based on the response
+                // $.each(response, function(key, value) {
+                //     $('#defaults').append('<option value="' + value + '">' + value + '</option>');
+                //     console.log(value);
+                // });
+//                 response.forEach(function(value) {
+//     $('#defaults').append('<option value="' + value + '">' + value + '</option>');
+//     console.log(value);
+// });
+
+for (var i = 0; i < response.length; i++) {
+    var value = response[i];
+    $('#defaults').append('<option value="' + value + '">' + value + '</option>');
+    console.log(value);
+}
+
+            }
+        });
+    });
+});
+// show sub_locations
+function showS(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
+}
     </script>
 </html>

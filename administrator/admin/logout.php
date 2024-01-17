@@ -13,7 +13,7 @@ $current_date = date('Y/m/d  H:i:s');
 $time = date('H:i:s');
 $today = date('Y/m/d');
 
-$sql = "UPDATE logs SET status ='logged Out', logout_time = '$time' WHERE log_id = '".$_SESSION['log_id']."'";
+$sql = "UPDATE logs SET status ='logged Out', logout_time = '$time', logout_date = '$today' WHERE log_id = '".$_SESSION['log_id']."'";
 $result = mysqli_query($conn,$sql);
 
 unset($_SESSION["log_id"]);

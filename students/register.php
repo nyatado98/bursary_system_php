@@ -79,7 +79,7 @@ if(empty($email_err)&&empty($re_pass_err)&&empty($password_err)){
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon"href="images/nandi.png">
+    <link rel="shortcut icon"href="images/CDF LOGO.png">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src='bootstrap/jquery/jquery-3.5.1.min.js'></script>
     <title>Register page-students:</title>

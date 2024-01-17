@@ -54,9 +54,9 @@ $current_date = date('Y/m/d  H:i:s');
 $year = date('Y');
 $today = date('Y/m/d');
 $app_ref ='BUR' .rand(1000,9999);
-$firstname = $lastname = $fullname = $gender = $age = $reg_no = $parent_guardian_name = $phone = $occupation = $family_status = $email = $id_no = $county = $ward = $location = $sub_location = $school_level = $school_name = $bank_name = $account_no = $school_doc = $fee_structure = "";
+$firstname = $lastname = $fullname = $gender = $age = $reg_no = $parent_guardian_name = $phone = $occupation = $family_status = $email = $id_no = $county = $ward = $location = $sub_location = $school_level = $school_name = $bank_name = $account_no = $school_doc = $fee_structure = $year_of_study = $address = "";
 
-$firstname_err = $lastname_err = $fullname_err = $gender_err = $age_err = $reg_no_err = $parent_guardian_name_err = $phone_err = $occupation_err = $family_status_err = $email_err = $id_no_err = $county_err = $ward_err = $location_err = $sub_location_err = $school_level_err = $school_name_err = $reg_no_err = $account_no_err = $school_doc_err = $fee_structure_err = "";
+$firstname_err = $lastname_err = $fullname_err = $gender_err = $age_err = $reg_no_err = $parent_guardian_name_err = $phone_err = $occupation_err = $family_status_err = $email_err = $id_no_err = $county_err = $ward_err = $location_err = $sub_location_err = $school_level_err = $school_name_err = $reg_no_err = $account_no_err = $school_doc_err = $fee_structure_err = $year_of_study_err = $address_err = "";
 $errors = $dob = "";
 $kapsabet_location = $kapkangani_location ='';
 
@@ -441,11 +441,23 @@ if(empty($_POST['school_level'])){
     }else{
         $school_level = trim($_POST['school_level']);
     }
+    if(empty($_POST['year_of_study'])){
+        $year_of_study_err = "Please select year of study";
+    }else{
+        $year_of_study = trim($_POST['year_of_study']);
+    }
     if(empty($_POST['school_name'])){
         $school_name_err = "Please select school  name ";
     }else{
         $school_name = trim($_POST['school_name']);
-    }if(empty($_POST['reg_no'])){
+    }
+    if(empty($_POST['address'])){
+        $address_err = "Please enter school address";
+    }else{
+        $address = trim($_POST['address']);
+    }
+
+    if(empty($_POST['reg_no'])){
         $reg_no_err = "Please enter registration number/admission ";
     }else{
         $reg_no = trim($_POST['reg_no']);
@@ -455,7 +467,9 @@ if(empty($_POST['school_level'])){
         $school = [
             "level"=>$school_level,
             "school_name" =>$school_name,
-            "reg"=>$reg_no
+            "reg"=>$reg_no,
+            "year_of_study"=>$year_of_study,
+            "address"=>$address
         ];
         $_SESSION['school'] = $school;
         // Add new values to the existing data
@@ -781,7 +795,7 @@ font-size: 14px;
                             </div> 
                             <form method="post" action="">
                             <div class="row">              
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <label class="font-weight-bold" for="level">Institution :</label>
                                                     <select name="school_level" id="level" class="form-control <?php echo $school_level_err ? 'border border-danger' : '';?>">
                                                     <option value = ""></option>
@@ -795,13 +809,44 @@ font-size: 14px;
                                                         <option value="" selected>-select school level-</option>
                                                     <?php } ?>
                                                         <option>Secondary School</option>
-                                                        <option>University/College/TVET</option>
+                                                        <option>University</option>
+                                                        <option>College</option>
+                                                        <option>TVET</option>
+
                                                     </select>
                                                     
                                                     <span class="text-danger"><?php echo $school_level_err;?></span>
                                                     
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
+                                                    <label class="font-weight-bold" for="year_of_study">Year of study :</label>
+                                                    <select name="year_of_study" id="year_of_study" class="form-control <?php echo $year_of_study_err ? 'border border-danger' : '';?>">
+                                                    <option value = ""></option>
+                                                    <?php if($year_of_study !=''){?>
+                                                        <option value="<?php echo $year_of_study;?>" selected><?php echo $year_of_study;?></option>
+                                                    <?php }elseif (isset($_SESSION['school'])) {
+                                                        ?>
+                                                        <option value="<?php echo $school['year_of_study'];?>" selected><?php echo $school['year_of_study'];?></option>
+                                                        <?php
+                                                    }else{?>
+                                                        <option value="" selected>-select year of study-</option>
+                                                    <?php } ?>
+                                                        <?php 
+                                            
+                                            $years = range(2015, strftime("%Y",time()));
+                                            foreach ($years as $key) :
+                            
+                                                ?>
+                                                
+                                                <option><?php echo $key;?></option>
+                                            <?php endforeach ?>
+
+                                                    </select>
+                                                    
+                                                    <span class="text-danger"><?php echo $year_of_study_err;?></span>
+                                                    
+                                                </div>
+                                                <div class="col-md-3">
                                                     <label class="font-weight-bold" for="school_name">School name :</label>
                                                     <div class="select-box">
                                                     <div class="select-option">
@@ -815,7 +860,7 @@ font-size: 14px;
                                                         </div> -->
                                                         <ul class="options" id="schools">
                                                             <!-- <li></li> -->
-                                                            <?php 
+                                                            <!-- <?php 
                                                             $sql = "SELECT * FROM secondary_schools";
                                                             $query = mysqli_query($conn,$sql);
                                                             while($row = $query->fetch_assoc()){
@@ -836,6 +881,18 @@ font-size: 14px;
                                                             while($row = $query->fetch_assoc()){
                                                                 ?>
                                                                 <li><?php echo $row['name'];?></li>
+                                                            <?php } ?> -->
+                                                            <?php 
+                                                            $sql = "SELECT name AS display_column FROM secondary_schools
+        UNION
+        SELECT institution AS display_column FROM universities
+        UNION
+        SELECT name AS display_column FROM tvets";
+                                                            $query = mysqli_query($conn,$sql);
+
+        while($row = $query->fetch_assoc()){
+                                                                ?>
+                                                                <li><?php echo $row['display_column'];?></li>
                                                             <?php } ?>
                                                     </ul>
                                                     </div>
@@ -844,6 +901,17 @@ font-size: 14px;
                                                     <span class="text-danger"><?php echo $school_name_err;?></span>
                                                    
                                                 </div>
+                                                 <div class="col-md-3">
+                                                    <label class="font-weight-bold" for="address">School Postal Address:</label>
+                                                    <input type="text" name="address" id="address" class="form-control <?php echo $address_err ? 'border border-danger' : '';?>" placeholder="-school adddress E.g P.O BOX 11-000 Eldoret.-" value="<?php if (isset($_SESSION['school'])) {
+                                                        echo $school['address'];
+                                                    }else{ echo $address;}?>">
+                                                    
+                                                    <span class="text-danger"><?php echo $address_err;?></span>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
                                                 <div class="col-md-4">
                                                     <label class="font-weight-bold" for="reg_no">UPI/ Adm/ Reg Number :</label>
                                                     <input type="text" name="reg_no" id="reg_no" class="form-control <?php echo $reg_no_err ? 'border border-danger' : '';?>" placeholder="-enter admission number-" value="<?php if (isset($_SESSION['school'])) {
@@ -1316,5 +1384,7 @@ const phoneInputField = document.querySelector("#phone");
     // });
     // Add the Bootstrap form-control class after intlTelInput initialization
     input.classList.add("form-control");
+
+   
     </script>
 </html>
