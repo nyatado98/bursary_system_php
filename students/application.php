@@ -432,7 +432,9 @@ $response = $sms->to($mobile)->message("Dear '".$parent_guardian_name."', You ha
 if(isset($_SESSION['user_data'])){
     $data = $_SESSION['user_data'];
 }else{
-    $data =[];
+    $data =[
+        "gender"=>""
+    ];
 }
 if(isset($_POST['next'])){
 
@@ -1075,7 +1077,7 @@ function showS(optionValue) {
                                                             <option value="<?php echo $gender ? $gender : '';?>" selected><?php echo $gender ? $gender : '';?></option>
                                                         <?php }elseif (isset($_SESSION['user_data'])) {
                                                             ?>
-                                                            <option selected value="<?php echo $data['gender'];?>"><?php echo $data['gender'];?></option>
+                                                            <option selected value="<?php if(array_key_exists('gender',$data)) echo $data['gender'];?>"><?php if(array_key_exists('gender',$data)) echo 'male';?></option>
                                                             <?php
                                                         }else
 

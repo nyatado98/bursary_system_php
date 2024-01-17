@@ -90,11 +90,11 @@ $mobile ='254'.$qs['phone'];
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.")->send();
+$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NG-CDF Bursary 2024. We will let you know when the cheque is ready.")->send();
 
 					$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgen CDF Bursary 2024.\n We will let you know when the cheque is ready.
+			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgwen NG-CDF Bursary 2024.\n We will let you know when the cheque is ready.
 			Thank You.\n";
 		
 			$mail ->IsSmtp();
@@ -133,11 +133,11 @@ $mobile ='254'.$qs['phone'];
 $sms = new Advantasms($apiKey,$partnerId,$shortcode);
 
 //Send and receive response
-$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NGCDF Bursary 2024. We will let you know when the cheque is ready.")->send();
+$response = $sms->to($mobile)->message("Congratulations!!!!. You have been awarded Emgwen NG-CDF Bursary 2024. We will let you know when the cheque is ready.")->send();
 
 			$mailto = $qs['parent_email'];
 			$mailSub = 'NANDI COUNTY';
-			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgen CDF Bursary 2024.\n We will let you know when the cheque is ready.
+			$mailMsg = "Congratulations!!!!. You have been selected as a beneficiary of Emgwen NG-CDF Bursary 2024.\n We will let you know when the cheque is ready.
 			Thank You.\n";
 		
 			$mail ->IsSmtp();
@@ -173,6 +173,7 @@ $response = $sms->to($mobile)->message("Congratulations!!!!. You have been award
 <!DOCTYPE html>
 <html lang="en">
     <?php include 'config/head.php';?>
+ 
 
     <body>
 	
@@ -403,28 +404,46 @@ $response = $sms->to($mobile)->message("Congratulations!!!!. You have been award
                                         <div class="modal-body">
                                            <form method="post" action="">
                                                
-                                               <label class="font-weight-bold">Reference Number :</label>
+                                               <label class="font-weight-bold" style="float:left;">Reference Number :</label>
                                             <input type="text" name="ref" class="form-control" id="" readonly value="<?php echo $val['reference_number'];?>">
-                                           <label class="font-weight-bold">UPI/ADM/REG No :</label>
+                                           <label class="font-weight-bold" style="float:left;">UPI/ADM/REG No :</label>
                                             <input type="text" name="upi_reg" class="form-control" id="" required value="<?php echo $val['adm_upi_reg_no'];?>">
-                                            <label class="font-weight-bold">Fullname :</label> 
-                                            <input type="text" name="name" class="form-control" id="" required value="<?php echo $val['student_fullname'];?>">
+                                            <label class="font-weight-bold" style="float:left;">Fullname :</label> 
+                                            <input type="text" name="name" class="form-control" id="" required value="<?php echo $val['student_fullname'];?>" readonly>
 											
-                                            <label class="font-weight-bold">School type :</label> 
+                                            <label class="font-weight-bold" style="float:left;">School type :</label> 
                                             <select name="school_type" id="" class="form-control">
 												<option selected><?php echo $val['school_type'];?></option>
-                                                <option>--select role--</option>
-                                                <option>Primary School</option>
+                                                <option>--select school-level--</option>
+                                                
                                                 <option>Secondary School</option>
 												<option>University School</option>
                                              </select>
-											 <label class="font-weight-bold">School name :</label> 
+											 <label class="font-weight-bold" style="float:left;">School name :</label> 
                                             <input type="text" name="school_name" class="form-control" id="" required value="<?php echo $val['school_name'];?>">
-											<label class="font-weight-bold">Location :</label> 
-                                            <select name="location" id="" class="form-control" required>
+											
+											 <label class="font-weight-bold" style="float:left;">Ward :</label> 
+                                             <select name="ward" id="opts" class="form-control" >
+                                             	<?php if($val['ward'] != ''){
+                                             		?>
+												<option selected><?php echo $val['ward'];?></option>
+											<?php }else{ }?>
+                                                <option>--select ward--</option>
+                                                <?php 
+                                                $sql = "SELECT * FROM wards";
+                                                $re = mysqli_query($conn,$sql);
+                                                while($ro = $re->fetch_assoc()){
+                                                	?>
+                                                	<option value="<?php echo $ro['ward'];?>"><?php echo $ro['ward'];?></option>
+                                                <?php } ?>
+                                             </select>
+     
+                                             <label class="font-weight-bold" style="float:left">Location :</label> 
+                                            <select name="location" id="defaults" class="form-control" onchange="showS(this.value)">
 												<option selected><?php echo $val['location'];?></option>
                                                 <option>--select location--</option>
-                                                <option value ="Kamobo">Kamobo</option>
+                                               
+                                             <!--  <option value ="Kamobo">Kamobo</option>
                                             <option value ="Township">Township</option>
                                             <option value ="Kiminda">Kiminda</option>
 																		<option value ="Kapkangani">Kapkangani</option>
@@ -437,19 +456,10 @@ $response = $sms->to($mobile)->message("Congratulations!!!!. You have been award
                                             <option value ="Arwos">Arwos</option>
                                             <option value ="Kaplamai">Kaplamai</option>
                                             <option value ="Tulon">Tulon</option>
-                                            <option value ="Terige">Terige</option>
+                                            <option value ="Terige">Terige</option>  -->
                                              </select>
-											 <label class="font-weight-bold">Ward :</label> 
-                                             <select name="ward" id="" class="form-control" required>
-												<option selected><?php echo $val['ward'];?></option>
-                                                <option>--select ward--</option>
-                                                <option>Kapsabet</option>
-                                                <option>Kilibwoni</option>
-												<option>Kapkangani</option>
-												<option>Chepkumia</option>
-                                             </select>
-											<label class="font-weight-bold">Sub-location :</label> 
-											<select name="sub_location" id="" class="form-control" required>
+											<label class="font-weight-bold" style="float:left;">Sub-location :</label> 
+											<select name="sub_location" id="sec" class="form-control" required>
 												<option selected><?php echo $val['sub_location'];?></option>
                                                 <option>--select sub_location--</option>
                                                 <option>Kilibwoni</option>
@@ -550,7 +560,41 @@ $response = $sms->to($mobile)->message("Congratulations!!!!. You have been award
 								</div>
 							</div>
 							<!-- /Revenue Chart -->
-							
+							 <select name="ward" id="opts" class="form-control" onchange="showL(this.value)">
+                                             	<!-- <?php if($val['ward'] != ''){
+                                             		?>
+												<option selected><?php echo $val['ward'];?></option>
+											<?php }else{ }?> -->
+                                                <option>--select ward--</option>
+                                                <?php 
+                                                $sql = "SELECT * FROM wards";
+                                                $re = mysqli_query($conn,$sql);
+                                                while($ro = $re->fetch_assoc()){
+                                                	?>
+                                                	<option value="<?php echo $ro['ward'];?>"><?php echo $ro['ward'];?></option>
+                                                <?php } ?>
+                                             </select>
+     
+                                             <label class="font-weight-bold" style="float:left;">Location :</label> 
+                                            <select name="location" id="defaults" class="form-control" onchange="showS(this.value)">
+												<!-- <option selected><?php echo $val['location'];?></option> -->
+                                                <!-- <option>--select location--</option> -->
+                                               
+                                              <!--   <option value ="Kamobo">Kamobo</option>
+                                            <option value ="Township">Township</option>
+                                            <option value ="Kiminda">Kiminda</option>
+																		<option value ="Kapkangani">Kapkangani</option>
+																		   <option value ="Chepkumia">Chepkumia</option>
+																		<option value ="Kilibwoni">Kilibwoni</option>
+                                            <option value ="Lolminingai">Lolminingai</option>
+                                            <option value ="Kipsigak">Kipsigak</option>
+                                            <option value ="Kipture">Kipture</option>
+                                            <option value ="Kabirirsang">Kabirirsang</option>
+                                            <option value ="Arwos">Arwos</option>
+                                            <option value ="Kaplamai">Kaplamai</option>
+                                            <option value ="Tulon">Tulon</option>
+                                            <option value ="Terige">Terige</option>  -->
+                                             </select>
 						</div>
 					</div>
 
@@ -574,5 +618,60 @@ $response = $sms->to($mobile)->message("Congratulations!!!!. You have been award
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
     } );
+// 
+    
+// show locations
+$(document).ready(function(){
+    // Event handler for the change event on opts
+    $('#opts').change(function(){
+        // Get the selected value from opts
+        var selectedValue = $(this).val();
+
+        // Make an AJAX request to fetch data based on the selected value
+        $.ajax({
+            type: 'POST',
+            url: `location.php?location=${selectedValue}`, // Use template literal
+            data: { selectedValue: selectedValue },
+            success: function(response) {
+                // Clear previous options in defaults
+                $('#defaults').empty();
+
+                // Populate options in defaults based on the response
+                $.each(response, function(key, value) {
+                    $('#defaults').append('<option value="' + value + '">' + value + '</option>');
+                    console.log(value);
+                });
+            }
+        });
+    });
+});
+
+// show sub_locations
+function showS(optionValue) {
+ const secondSelect = document.getElementById('sec');
+   secondSelect.innerHTML = ''; // Clear the existing options
+
+   // Make an AJAX request to get data from the server
+   const xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         const optionData = JSON.parse(xhr.responseText);
+
+         if (optionData[optionValue]) {
+            optionData[optionValue].forEach(option => {
+               const optionElement = document.createElement('option');
+               optionElement.value = option;
+               optionElement.textContent = option;
+               secondSelect.appendChild(optionElement);
+               console.log(optionElement);
+
+            });
+         }
+      }
+   };
+
+   xhr.open('GET', 'sub_location.php', true);
+   xhr.send();
+}
     </script>
 </html>

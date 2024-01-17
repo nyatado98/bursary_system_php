@@ -41,6 +41,13 @@ if(isset($_POST['add'])){
 }
 
 
+// // Content type
+// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment;filename="exported_table.xlsx"');
+// header('Cache-Control: max-age=0');
+
+// // Output the table data received from the client
+// echo file_get_contents('php://input');
 
 
 ?>
@@ -168,6 +175,8 @@ if(isset($_POST['add'])){
 								<div class="card-body">
 									<div id="line_graph">
 									</div>
+                                    <form>
+                                    <!-- <button onclick="exportToExcel()">Export to Excel</button></form> -->
 									<div class="table-responsive">
                                         <table class="table table-bordered table-striped table-hover" id="sample">
                                             <thead>
@@ -205,7 +214,11 @@ if(isset($_POST['add'])){
                                                 <?php }else{ ?>
                                                     <td class="badge badge-pill badge-danger mt-2 m-1"><?php echo $data['status'];?></td>
                                                 <?php } ?>
-                                                    <td><?php echo $data['login_time'];?></td>
+                                                    <td><?php echo $data['login_time'];?>,           <?php // Create a DateTime object from the date string
+$date = new DateTime($data['login_date']);
+
+// Format the date as "D-d-M Y"
+$formattedDate = $date->format('D-d-M Y');echo $formattedDate ;?></td>
                                                     <td><?php echo $data['logout_time'];?></td>
                                                 </tr>
                                                 <?php }}?>
@@ -239,5 +252,17 @@ if(isset($_POST['add'])){
     jQuery(document).ready(function($) {
         $('#sample').DataTable();
     } );
+
+    //  function exportToExcel() {
+    //     var tableHtml = document.getElementById('sample').outerHTML;
+    //     var blob = new Blob([tableHtml], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8' });
+
+    //     var a = document.createElement('a');
+    //     a.href = window.URL.createObjectURL(blob);
+    //     a.download = 'exported_table.xlsx';
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     document.body.removeChild(a);
+    // }
     </script>
 </html>

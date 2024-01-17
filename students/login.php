@@ -108,7 +108,7 @@ if(isset($_POST['reset'])){
     <meta charset="UTF-8">
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon"href="images/nandi.png">
+    <link rel="shortcut icon"href="images/CDF LOGO.png">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="bootstrap/jquery/jquery-3.5.1.min.js"></script>

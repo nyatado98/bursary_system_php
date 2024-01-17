@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- Favicon -->
-<link rel="shortcut icon" href="./images/log_1.png">
+<link rel="shortcut icon" href="./images/CDF LOGO.png">
 
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap"> -->
 

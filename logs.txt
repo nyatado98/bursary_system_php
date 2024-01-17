@@ -321,3 +321,438 @@ Stack trace:
 [09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
 [09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
 [09-Jan-2024 10:29:44 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:24:47 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:25:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:45:09 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:49:34 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:50:48 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:56:14 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1079
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1101
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1111
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1122
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1134
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1142
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1171
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1171
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1198
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1198
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1217
+[10-Jan-2024 09:57:51 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1217
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1015
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1016
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1043
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1044
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1078
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1100
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1110
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1121
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1133
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1141
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1170
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1197
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 09:58:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1216
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1080
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1080
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:07:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "gender" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1080
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:12:21 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:12:58 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:13:50 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[10-Jan-2024 10:14:04 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[11-Jan-2024 13:06:53 Africa/Nairobi] PHP Warning:  Undefined variable $host in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:06:53 Africa/Nairobi] PHP Warning:  Undefined variable $username in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:06:53 Africa/Nairobi] PHP Warning:  Undefined variable $password in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:06:53 Africa/Nairobi] PHP Warning:  Undefined variable $database in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:06:53 Africa/Nairobi] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user ''@'localhost' (using password: NO) in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php:848
+Stack trace:
+#0 E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php(848): mysqli->__construct(NULL, NULL, Object(SensitiveParameterValue), NULL)
+#1 {main}
+  thrown in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:08:04 Africa/Nairobi] PHP Warning:  Undefined variable $host in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:08:04 Africa/Nairobi] PHP Warning:  Undefined variable $username in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:08:04 Africa/Nairobi] PHP Warning:  Undefined variable $password in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:08:04 Africa/Nairobi] PHP Warning:  Undefined variable $database in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:08:04 Africa/Nairobi] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user ''@'localhost' (using password: NO) in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php:848
+Stack trace:
+#0 E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php(848): mysqli->__construct(NULL, NULL, Object(SensitiveParameterValue), NULL)
+#1 {main}
+  thrown in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 848
+[11-Jan-2024 13:44:22 Africa/Nairobi] PHP Warning:  Undefined variable $schools in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 1336
+[11-Jan-2024 13:45:08 Africa/Nairobi] PHP Warning:  Undefined variable $schools in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 1336
+[11-Jan-2024 13:48:13 Africa/Nairobi] PHP Warning:  Undefined variable $schools in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 1333
+[11-Jan-2024 13:49:08 Africa/Nairobi] PHP Warning:  Undefined variable $schools in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 1336
+[11-Jan-2024 13:49:39 Africa/Nairobi] PHP Warning:  Undefined variable $schools in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 1325
+[15-Jan-2024 13:13:26 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:15:40 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:16:39 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:16:49 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:17:55 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:23:01 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 822
+[15-Jan-2024 13:29:08 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 834
+[15-Jan-2024 13:31:55 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:32:14 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:32:15 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:33:35 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:33:58 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:42:04 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:42:46 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:42:58 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:43:04 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:43:10 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:43:19 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:44:58 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:45:31 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:45:39 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:45:57 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:47:24 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:47:24 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:47:38 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:47:38 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:47:44 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:47:44 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:47:56 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:47:56 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:02 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:02 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:06 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:06 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:12 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:12 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:20 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:20 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:23 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:23 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:28 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:48:28 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:31 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:48:31 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:50:48 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:09 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:09 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:15 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:15 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:22 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:22 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:26 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:26 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:35 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:51:35 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:38 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:51:38 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:52:51 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:53:28 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:53:52 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:54:27 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[15-Jan-2024 13:54:28 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:54:44 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[15-Jan-2024 13:54:44 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[16-Jan-2024 17:00:13 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 10:32:34 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:37:01 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:39:05 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:39:05 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[17-Jan-2024 15:39:12 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[17-Jan-2024 15:39:12 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:39:32 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:39:32 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[17-Jan-2024 15:39:36 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1027
+[17-Jan-2024 15:39:36 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:52:04 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 15:52:04 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1029
+[17-Jan-2024 15:52:30 Africa/Nairobi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 502
+[17-Jan-2024 16:00:33 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:01:08 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:01:08 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1029
+[17-Jan-2024 16:01:30 Africa/Nairobi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 502
+[17-Jan-2024 16:06:17 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:06:40 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:06:40 Africa/Nairobi] PHP Warning:  Undefined variable $name in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 1029
+[17-Jan-2024 16:07:06 Africa/Nairobi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\uploads.php on line 602
+[17-Jan-2024 16:14:43 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:26:17 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:26:23 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1017
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1018
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1045
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "fullname" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1046
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "dob" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1102
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "parent" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1112
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "Phone" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1123
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "email" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1135
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "id_no" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1143
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "ward" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1172
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1199
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:26:29 Africa/Nairobi] PHP Warning:  Undefined array key "sub_location" in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\application.php on line 1218
+[17-Jan-2024 16:27:54 Africa/Nairobi] PHP Deprecated:  Function strftime() is deprecated in E:\xampp\htdocs\nrs_projects\New folder\emgwen\bursary_system_php\students\school.php on line 836
